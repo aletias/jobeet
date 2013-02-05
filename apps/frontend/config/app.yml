@@ -3,3 +3,5 @@
 
 # default values
 #all:
+all:
+  active_days: 30  
