@@ -1,0 +1,1314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <!--[if lt IE 9]>
+            <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <![endif]-->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="robots" content="index, follow, all">
+        <meta name="Author" content="Extreme Sensio">
+        <meta name="Language" content="en">
+        <meta name="Copyright" content="Sensio Labs">
+        <meta name="Publisher" content="Sensio Labs">
+        <meta name="Description" content="Symfony - Open-Source PHP web framework">
+        <meta name="Keywords" content="symfony2, symfony, project, framework, php, php5, open-source, components, symphony, symfony framework, symfony tutorial">
+
+        <link rel="search" type="application/opensearchdescription+xml" href="http://symfony.com/opensearch/documentation.xml" title="Symfony2 documentation">
+
+        <title>            Day 11: Testing your Forms
+        (1_4)
+ - Symfony</title>
+
+                        <link rel="stylesheet" href="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/all.css">
+                 <link href="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sln.css" rel="stylesheet" type="text/css" media="all">
+
+            <link rel="stylesheet" type="text/css" media="all" href="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/highlight.css">
+    <link rel="stylesheet" type="text/css" media="all" href="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/legacy.css">
+
+                
+                    <script id="sln-customize" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sln_customiser.js"></script><script src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script id="sln_bar" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sln.js"></script><script src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/all.js"></script>
+        
+                
+        <!--[if IE 6]>
+            <script src="/js/common/DD_belatedPNG_0.0.7a-min.js" type="text/javascript"></script>
+            <script src="/js/common/ExtendDD_belatedPNG_0.0.7a.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                DD_belatedPNG.fix('.png_fix');
+            </script>
+        <![endif]-->
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-89393-6']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+
+    <body>
+        <div id="content_wrapper" class="">
+            <div id="sln"><div class="sln-bar"><div class="sln-bar-inner"><div class="sln-network"><a href="#" class="sln-hidden-phone">SensioLabs<span>Network</span></a><a href="#" class="sln-visible-phone">SL<span>N</span></a></div> <div class="sln-ad"><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_1" class="sln-visible-phone"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">SFLive PDX</a><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_1" class="sln-visible-tablet"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">SFLive Portland</a><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_1" class="sln-visible-desktop"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">Symfony Live Portland with DrupalCon &amp; WebVisions, register now!</a></div> <div class="sln-search"><div class="sln-search-deactivated"><a href="#"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/search.png"></a></div><div class="sln-search-activated sln-hidden"><a href="#"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/search-alt.png"></a><form method="GET" action="/search"><input aria-haspopup="true" aria-autocomplete="list" role="textbox" autocomplete="off" class="ui-autocomplete-input" name="q" id="sln-autocomplete" placeholder="Search" type="text"></form></div></div> <div class="sln-user"> <a href="http://symfony.com/session/new" class="sln-connect"> Connect </a> </div>
+    </div>
+    <div class="sln-dropdown-network sln-dropdown sln-hidden"><div class="sln-container"><div class="sln-row"><div class="sln-span6"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sensiolabs.png" alt="SensioLabs"><p>Since
+ 1998, SensioLabs has been promoting the Open-Source software movement 
+by providing quality web application development, training, consulting. 
+Sensio Labs also supports several large Open-Source projects.</p><ul class="sln-websites"><li><a href="http://sensiolabs.com/en">International</a></li><li><a href="http://sensiolabs.fr/">France</a></li><li><a href="http://sensiolabs.de/">Deutschland</a></li><li><a href="http://sensiolabs.co.uk/">UK</a></li></ul></div><div class="sln-span6"><div class="sln-row"><div class="sln-span3"><h2>Products</h2><ul><li><a href="http://symfony.com/">Symfony - Web framework</a></li><li><a href="http://twig.sensiolabs.org/">Twig - Template library</a></li><li><a href="http://silex.sensiolabs.org/">Silex - PHP micro-framework</a></li><li><a href="http://www.swiftmailer.org/">Swift Mailer - Mailing library</a></li><li><a href="http://sismo.sensiolabs.org/">Sismo - Continuous Testing Server</a></li><li><a href="http://pirum.sensiolabs.org/">Pirum - PEAR channel server</a></li><li><a href="http://desktop.sensiolabs.org/">Desktop - Enhance your PHP experience</a></li></ul></div><div class="sln-span3"><h2>Services</h2><ul><li><a href="http://symfony.com/services">Symfony services</a></li><li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support - For symfony 1.x &amp; Symfony 2.x</a></li><li><a href="http://trainings.sensiolabs.com/">Trainings - Be Trained by experts</a></li><li><a href="http://guru.sensiolabs.com/">Guru - Get a guru for a day</a></li><li><a href="https://connect.sensiolabs.com/">Connect - Showcase your skills</a></li><li><a href="http://books.sensiolabs.com/">Books - Read Open-Source books</a></li><li><a href="http://live.symfony.com/">Conferences - The Symfony Live Conference</a></li><li><a href="http://www.youtube.com/sensiolabs">Videos - Watch technical talks</a></li></ul></div></div></div></div></div></div>
+    
+</div></div>
+
+            <div class="content">
+                
+
+    
+<div class="header">
+    <div class="content_header clear_fix">
+        <div class="illustration_logo_header">
+                            <a href="http://symfony.com/"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/logo_symfony_header.png" alt="Symfony" class="png_fix"></a>
+                    </div>
+        <div class="box_download clear_fix">
+            <div class="legend_download">
+                <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/a_sensiolabs_product.png" alt="a SensioLabs product" class="png_fix">
+            </div>
+            <div class="download_button_wrapper">
+                <a href="http://symfony.com/download" class="download_button">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                DOWNLOAD NOW
+            </span>
+        </span>
+    </span>
+</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main_menu clear_fix" id="main_menu_id">
+    <ul class="clear_fix">
+        <li class="first what_is_symfony"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></li>
+        <li class="get_started">
+            <a href="http://symfony.com/get_started">Get started</a>
+                    </li>
+        <li class="learn selected"><a href="http://symfony.com/doc/current/index.html">Documentation</a></li>
+        <li class="community"><a href="http://symfony.com/community">Community</a></li>
+        <li class="services"><a href="http://symfony.com/services">Services</a></li>
+        <li class="blog has_dropdown">
+            <a href="http://symfony.com/blog/">News</a>
+            <div class="box_dropdown_wrapper">
+    <div class="border_l">
+        <div class="middle_border_l">
+            <div class="border_r">
+                <div class="middle_border_r">
+                    <div class="content_wrapper">
+                        <div class="box_content">
+                                <div class="inner_drop_box_two_columns clear_fix">
+        <div class="inner_drop_box_two_columns_column_01">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/blog" title="blog feed"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/rss.gif" alt="feed"></a></div>
+                <a href="http://symfony.com/blog/">Latest News</a>
+            </h2>
+
+            <div class="box_article post">
+                    <div class="gravatar"><a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/7e428bbf-cbf1-46db-a96f-86bb68600519.jpeg" alt="Anne-Sophie Bachelard" height="57" width="57"></a></div>
+                <h3 class="title_05"><a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">Symfony Live 2013 tour: time to start the new season!</a></h3>
+                <div class="complementaries_informations">
+    by
+            <a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519">Anne-Sophie Bachelard</a>
+            – January 28, 2013
+        </div>
+            </div>
+
+                <div class="box_hr"><hr></div>
+
+
+            <div class="box_article">
+                <h2 class="title_05"><a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">What happened last week in Symfony?</a></h2>
+                <p>This week, the oficial Symfony2 repository surpassed 
+the 2,000th fork milestone. Meanwhile, the stabilization of the Symfony 
+2.2 version continues in the newly created <a href="http://github.com/symfony/symfony/tree/2.2">2.2 branch</a>. In addition, a new <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">SymfonyCon Europe</a> conference was announced for this year.</p>
+            </div>
+        </div>
+        <div class="inner_drop_box_two_columns_column_02">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/events" title="events rss"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/rss.gif" alt="RSS"></a></div>
+                <a href="http://symfony.com/events/">Upcoming Events</a>
+            </h2>
+
+            <div class="box_article">
+                <p>The Symfony Community organizes events all over the world on a regular basis. Here are the next ones.</p>
+                                                            <h2 class="title_05">
+                            <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfughh/events/97853262/">Germany, Hamburg — Treffen der Symfony User Group Hamburg</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 18:30 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugberlin/events/99498922/">Germany, Berlin — Symfony Berlin Usergroup</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 22:00
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                                </div>
+        </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="corner_l">
+            <div class="corner_r">
+                <div class="border"></div>
+            </div>
+        </div>
+    </div>
+</div>
+        </li>
+        <li class="last about"><a href="http://symfony.com/about">About</a></li>
+    </ul>
+</div>
+
+                                    <div class="main_content">
+                            <div style="-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; background-color: #ffa; padding: 15px; margin-bottom: 20px; color: #555">
+        <strong>Caution</strong>: You are browsing the legacy <a href="http://symfony.com/legacy"><img style="vertical-align: middle; padding-left: 3px" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/symfony_button.gif"></a> <a href="http://symfony.com/legacy">1.x</a> part of this website.
+    </div>
+
+    
+                                <div class="box_columns clear_fix">
+                                                                                                            <div class="column_01">
+                                                                                            <div class="submenu">
+                                                    <ul class="list_submenu">    <li class="first"><a href="http://symfony.com/legacy">Legacy homepage</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/getting-started">Getting started</a></li>
+<li class=" selected"><a href="http://symfony.com/legacy/doc/jobeet?orm=Propel">Jobeet</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/gentle-introduction">A gentle Intro to symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/more-with-symfony">More with Symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/reference">The Reference Book</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/tutorial">Tutorials</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/forms">Forms</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/cookbook/1_2">Cookbook (&lt;= 1.2)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/book/1_0">The definitive Guide (1.0)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/askeet/1_0">Askeet (1.0)</a></li>
+<li><a href="http://symfony-project.org/api/">API</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+</ul>
+                                                </div>
+                                                                        <div class="toc">
+                <h2 class="title_05">Table of Contents</h2>
+                <div class="toc-content">
+                    <ul><li><ul><li><a class="reference internal" href="#chapter_11_submitting_a_form">Submitting a Form</a></li><li><a class="reference internal" href="#chapter_11_the_form_tester">The Form Tester</a></li><li><a class="reference internal" href="#chapter_11_redirection_test">Redirection Test</a></li><li><a class="reference internal" href="#chapter_11_the_propel_tester">The Propel Tester</a></li><li><a class="reference internal" href="#chapter_11_testing_for_errors">Testing for Errors</a></li><li><a class="reference internal" href="#chapter_11_forcing_the_http_method_of_a_link">Forcing the HTTP Method of a link</a></li><li><a class="reference internal" href="#chapter_11_tests_as_a_safeguard">Tests as a SafeGuard</a></li><li><a class="reference internal" href="#chapter_11_back_to_the_future_in_a_test">Back to the Future in a Test</a></li><li><a class="reference internal" href="#chapter_11_forms_security">Forms Security</a><ul><li><a class="reference internal" href="#chapter_11_sub_form_serialization_magic">Form Serialization Magic!</a></li><li><a class="reference internal" href="#chapter_11_sub_built_in_security_features">Built-in Security Features</a></li><li><a class="reference internal" href="#chapter_11_sub_xss_and_csrf_protection">XSS and CSRF Protection</a></li></ul></li><li><a class="reference internal" href="#chapter_11_maintenance_tasks">Maintenance Tasks</a></li><li><a class="reference internal" href="#chapter_11_final_thoughts">Final Thoughts</a></li></ul></li></ul>
+                </div>
+            </div>
+            
+    <div id="license">
+    This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License license.
+</div>
+                                                                                                    
+<div class="ads">
+        <div class="box_hr"><hr></div>
+
+
+            <div class="ad" id="ad_trainings_1">
+            <h3><a href="http://trainings.sensiolabs.com/en/training/getting-started-with-symfony2">Master Symfony2 fundamentals</a></h3>
+            <div>Be trained by SensioLabs experts (2 to 6 day sessions -- French or English).</div>
+            <div><cite>trainings.sensiolabs.com</cite></div>
+        </div>
+            <div class="ad" id="ad_servergrove_1">
+            <h3><a href="http://symfony.com/servergrove">Symfony hosting done right</a></h3>
+            <div>ServerGrove, outstanding support at the right price for your Symfony hosting needs.</div>
+            <div><cite>servergrove.com</cite></div>
+        </div>
+            <div class="ad" id="ad_support_1">
+            <h3><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Discover the SensioLabs Support</a></h3>
+            <div>Access to the SensioLabs Competency Center for an exclusive and tailor-made support on Symfony</div>
+            <div><cite>sensiolabs.com</cite></div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+                    $("#ad_trainings_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'trainings_1']); });
+                    $("#ad_servergrove_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'servergrove_1']); });
+                    $("#ad_support_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'support_1']); });
+            });
+</script>
+                                                                        
+                                                                        
+    <div class="ads">
+                                                        <a href="https://connect.sensiolabs.com/"><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sensiolabs_connect.png"></a>
+                                                    </div>
+                                                                        
+                                                            </div>
+                                                                        <div class="column_02">
+                                                                                    <div class="breadcrumb">
+                                                <a href="http://symfony.com/">Home</a> »
+                                                            symfony 1.x »
+        Legacy Documentation » Jobeet
+                                            </div>
+
+                                                                                                <div class="box_title">
+                                                        <div class="box_version_wrapper">
+        <div class="version_wrapper">
+            <div class="version">
+                1.4/Propel
+                <span class="arrow">
+                    <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/down_arrow_white.png" alt="">
+                </span>
+            </div>
+            <div class="other_version">
+                                    <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_2/en/11?orm=Propel">1.2 version</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/es/11?orm=Propel">Spanish</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/fr/11?orm=Propel">French</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/it/11?orm=Propel">Italian</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ja/11?orm=Propel">Japanese</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ru/11?orm=Propel">Russian</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/en/11?orm=Doctrine">Doctrine</a>
+                                </li>
+                                                                        </ul>
+                            </div>
+        </div>
+    </div>
+                                                    <h1 class="title_01">            Day 11: Testing your Forms
+    </h1>
+                                                </div>
+                                            
+        
+                                                            
+    <div style="float: right; padding: 10px 0 20px 20px; background-color: #fff; text-align: right">
+    <a href="http://books.sensiolabs.com/book/9782918390152">
+        <img style="width: 120px" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/9782918390152-3d.jpg" alt="Jobeet">
+    </a>
+
+    <div style="text-align: center; font-size: 80%; line-height: 115%; margin-left: 50px">
+        <div>
+            Support symfony!<br>
+            <a href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">Buy</a> this book<br>
+            or <a href="http://www.symfony-project.org/donate">donate</a>.
+        </div>
+        <a class="amazon" href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">
+            <img style="width: 90px" class="png_fix" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/buy_amazon.png" alt="Buy Jobeet from amazon.com">
+        </a>
+        <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/ir.gif" alt="" style="border:none !important; margin:0px !important;" height="1" border="0" width="1">
+    </div>
+</div>
+
+        <div class="box_article doc_page">
+                    <p>In day 10, we created our first form with symfony. People are now able to post a
+new job on Jobeet but we ran out of time before we could add some tests. That's
+what we will do along these lines. Along the way, we will also learn more about
+the form framework.</p>
+
+            <div class="admonition-wrapper">
+                <div class="sidebar"></div>
+                <div class="admonition admonition-sidebar">
+                    <p class="first admonition-title">sidebar</p>
+                    <p class="title">Using the Form Framework without symfony</p>
+  
+  <p>The symfony framework components are quite decoupled. This means that most of
+  them can be used without using the whole MVC framework. That's the case for
+  the form framework, which has no dependency on symfony. You can use it in any
+  PHP application by getting the <code>lib/form/</code>, <code>lib/widgets/</code>, and
+  <code>lib/validators/</code> directories.</p>
+  
+  <p>Another reusable component is the routing framework. Copy the <code>lib/routing/</code>
+  directory in your non-symfony project, and benefit from pretty URLs for free.</p>
+  
+  <p>The components that are symfony independent form the 
+  <strong>symfony platform</strong>:</p>
+  
+  <p><img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/platform.png" alt="The symfony platform"></p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_11_submitting_a_form">Submitting a Form</a></h2>
+
+<p>Let's open the <code>jobActionsTest</code> file to add functional tests for the
+job creation and validation process.</p>
+
+<p>At the end of the file, add the following code to get the job creation page:</p>
+
+<pre class="php"><span class="co1">// test/functional/frontend/jobActionsTest.php</span>
+<span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'3 - Post a Job page'</span><span class="br0">)</span>-&gt;
+  <span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.1 - Submit a Job'</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'request'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'module'</span>, <span class="st0">'job'</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'action'</span>, <span class="st0">'new'</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>We have already used the <code>click()</code> method to simulate clicks on links. The same
+<code>click()</code> method can be used to submit a form. For a form, you can pass
+the values to submit for each field as a second argument of the method. Like a
+real browser, the browser object will merge the default values of the form with
+the submitted values.</p>
+
+<p>But to pass the field values, we need to know their names. If you open the
+source code or use the Firefox Web Developer Toolbar "Forms &gt; Display Form
+Details" feature, you will see that the name for the <code>company</code> field is
+<code>jobeet_job[company]</code>.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  When PHP encounters an input field with a name like <code>jobeet_job[company]</code>, it
+  automatically converts it to an array of name <code>jobeet_job</code>.</p>
+
+                </div>
+            </div>
+
+<p>To make things look a bit more clean, let's change the format to <code>job[%s]</code> by
+adding the following code at the end of the <code>configure()</code> method of
+<code>JobeetJobForm</code>:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span>-&gt;<span class="me1">setNameFormat</span><span class="br0">(</span><span class="st0">'job[%s]'</span><span class="br0">)</span>;</pre>
+
+<p>After this change, the <code>company</code> name should be <code>job[company]</code> in your browser.
+It is now time to actually click on the "Preview your job" button and pass valid
+values to the form:</p>
+
+<pre class="php"><span class="co1">// test/functional/frontend/jobActionsTest.php</span>
+<span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'3 - Post a Job page'</span><span class="br0">)</span>-&gt;
+  <span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.1 - Submit a Job'</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'request'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'module'</span>, <span class="st0">'job'</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'action'</span>, <span class="st0">'new'</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">click</span><span class="br0">(</span><span class="st0">'Preview your job'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'company'</span>      =&gt; <span class="st0">'Sensio Labs'</span>,
+    <span class="st0">'url'</span>          =&gt; <span class="st0">'http://www.sensio.com/'</span>,
+    <span class="st0">'logo'</span>         =&gt; sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'sf_upload_dir'</span><span class="br0">)</span>.<span class="st0">'/jobs/sensio-labs.gif'</span>,
+    <span class="st0">'position'</span>     =&gt; <span class="st0">'Developer'</span>,
+    <span class="st0">'location'</span>     =&gt; <span class="st0">'Atlanta, USA'</span>,
+    <span class="st0">'description'</span>  =&gt; <span class="st0">'You will work with symfony to develop websites for our customers.'</span>,
+    <span class="st0">'how_to_apply'</span> =&gt; <span class="st0">'Send me an email'</span>,
+    <span class="st0">'email'</span>        =&gt; <span class="st0">'for.a.job@example.com'</span>,
+    <span class="st0">'is_public'</span>    =&gt; <span class="kw2">false</span>,
+  <span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'request'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'module'</span>, <span class="st0">'job'</span><span class="br0">)</span>-&gt;
+    <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'action'</span>, <span class="st0">'create'</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>The browser also simulates file uploads if you pass the absolute
+path to the file to upload.</p>
+
+<p>After submitting the form, we checked that the executed action is <code>create</code>.</p>
+
+<h2><a name="chapter_11_the_form_tester">The Form Tester</a></h2>
+
+<p>The form we have submitted should be valid. You can test this by using the <strong>form tester</strong>:</p>
+
+<pre class="php">with<span class="br0">(</span><span class="st0">'form'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+  <span class="me1">hasErrors</span><span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span>-&gt;
+<span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>-&gt;</pre>
+
+<p>The form tester has several methods to test the current form status, like the
+errors.</p>
+
+<p>If you make a mistake in the test, and the test does not pass, you can use the
+<code>with('response')-&gt;~debug|Debug~()</code> statement we have seen during day 9. But you
+will have to dig into the generated HTML to check for error messages. That's not
+really convenient. The form tester also provides a <code>debug()</code> method that outputs
+the form status and all error messages associated with it:</p>
+
+<pre class="php">with<span class="br0">(</span><span class="st0">'form'</span><span class="br0">)</span>-&gt;<span class="me1">debug</span><span class="br0">(</span><span class="br0">)</span></pre>
+
+<h2><a name="chapter_11_redirection_test">Redirection Test</a></h2>
+
+<p>As the form is valid, the job should have been created and the user
+redirected to the <code>show</code> page:</p>
+
+<pre class="php">with<span class="br0">(</span><span class="st0">'response'</span><span class="br0">)</span>-&gt;<span class="me1">isRedirected</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+<span class="me1">followRedirect</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+&nbsp;
+<span class="me1">with</span><span class="br0">(</span><span class="st0">'request'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+  <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'module'</span>, <span class="st0">'job'</span><span class="br0">)</span>-&gt;
+  <span class="me1">isParameter</span><span class="br0">(</span><span class="st0">'action'</span>, <span class="st0">'show'</span><span class="br0">)</span>-&gt;
+<span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>-&gt;</pre>
+
+<p>The <code>isRedirected()</code> tests if the page has been redirected and the
+<code>followRedirect()</code> method follows the redirect.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The browser class does not follow redirects automatically as you might want
+  to introspect objects before the redirection.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_11_the_propel_tester">The Propel Tester</a></h2>
+
+<p>Eventually, we want to test that the job has been created in the database and
+check that the <code>is_activated</code> column is set to <code>false</code> as the user has not
+published it yet.</p>
+
+<p>This can be done quite easily by using yet another tester, the
+<strong>Propel tester</strong>. As the Propel tester is not registered by default, let's
+add it now:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;<span class="me1">setTester</span><span class="br0">(</span><span class="st0">'propel'</span>, <span class="st0">'sfTesterPropel'</span><span class="br0">)</span>;</pre>
+
+<p>The Propel tester provides the <code>check()</code> method to check that one or more
+objects in the database match the criteria passed as an argument.</p>
+
+<pre class="php">with<span class="br0">(</span><span class="st0">'propel'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+  <span class="me1">check</span><span class="br0">(</span><span class="st0">'JobeetJob'</span>, <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'location'</span>     =&gt; <span class="st0">'Atlanta, USA'</span>,
+    <span class="st0">'is_activated'</span> =&gt; <span class="kw2">false</span>,
+    <span class="st0">'is_public'</span>    =&gt; <span class="kw2">false</span>,
+  <span class="br0">)</span><span class="br0">)</span>-&gt;
+<span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span></pre>
+
+<p>The criteria can be an array of values like above, or a <code>Criteria</code> instance for
+more complex queries. You can test the existence of objects matching the
+criteria with a Boolean as the third argument (the default is <code>true</code>), or the
+number of matching objects by passing an integer.</p>
+
+<h2><a name="chapter_11_testing_for_errors">Testing for Errors</a></h2>
+
+<p>The job form creation works as expected when we submit valid values.
+Let's add a test to check the behavior when we submit non-valid data:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;
+  <span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.2 - Submit a Job with invalid values'</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+  <span class="me1">click</span><span class="br0">(</span><span class="st0">'Preview your job'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'company'</span>      =&gt; <span class="st0">'Sensio Labs'</span>,
+    <span class="st0">'position'</span>     =&gt; <span class="st0">'Developer'</span>,
+    <span class="st0">'location'</span>     =&gt; <span class="st0">'Atlanta, USA'</span>,
+    <span class="st0">'email'</span>        =&gt; <span class="st0">'not.an.email'</span>,
+  <span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'form'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">hasErrors</span><span class="br0">(</span><span class="nu0">3</span><span class="br0">)</span>-&gt;
+    <span class="me1">isError</span><span class="br0">(</span><span class="st0">'description'</span>, <span class="st0">'required'</span><span class="br0">)</span>-&gt;
+    <span class="me1">isError</span><span class="br0">(</span><span class="st0">'how_to_apply'</span>, <span class="st0">'required'</span><span class="br0">)</span>-&gt;
+    <span class="me1">isError</span><span class="br0">(</span><span class="st0">'email'</span>, <span class="st0">'invalid'</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>The <code>hasErrors()</code> method can test the number of errors if passed an integer. The
+<code>isError()</code> method tests the error code for a given field.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  In the tests we have written for the non-valid data submission, we have not
+  re-tested the entire form all over again. We have only added tests for
+  specific things.</p>
+
+                </div>
+            </div>
+
+<p>You can also test the generated HTML to check that it contains the error
+messages, but it is not necessary in our case as we have not customized the form
+layout.</p>
+
+<p>Now, we need to test the admin bar found on the job preview page. When a job has
+not been activated yet, you can edit, delete, or publish the job. To test those
+three links, we will need to first create a job. But that's a lot of copy and
+paste. As I don't like to waste e-trees, let's add a job creator method in the
+<code>JobeetTestFunctional</code> class:</p>
+
+<pre class="php"><span class="co1">// lib/test/JobeetTestFunctional.class.php</span>
+<span class="kw2">class</span> JobeetTestFunctional <span class="kw2">extends</span> sfTestFunctional
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> createJob<span class="br0">(</span><span class="re0">$values</span> = <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw1">return</span> <span class="re0">$this</span>-&gt;
+      <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+      <span class="me1">click</span><span class="br0">(</span><span class="st0">'Preview your job'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="kw3">array_merge</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+        <span class="st0">'company'</span>      =&gt; <span class="st0">'Sensio Labs'</span>,
+        <span class="st0">'url'</span>          =&gt; <span class="st0">'http://www.sensio.com/'</span>,
+        <span class="st0">'position'</span>     =&gt; <span class="st0">'Developer'</span>,
+        <span class="st0">'location'</span>     =&gt; <span class="st0">'Atlanta, USA'</span>,
+        <span class="st0">'description'</span>  =&gt; <span class="st0">'You will work with symfony to develop websites for our customers.'</span>,
+        <span class="st0">'how_to_apply'</span> =&gt; <span class="st0">'Send me an email'</span>,
+        <span class="st0">'email'</span>        =&gt; <span class="st0">'for.a.job@example.com'</span>,
+        <span class="st0">'is_public'</span>    =&gt; <span class="kw2">false</span>,
+      <span class="br0">)</span>, <span class="re0">$values</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+      <span class="me1">followRedirect</span><span class="br0">(</span><span class="br0">)</span>
+    ;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>The <code>createJob()</code> method creates a job, follows the redirect and returns the
+browser to not break the fluent interface. You can also pass an array of values
+that will be merged with some default values.</p>
+
+<h2><a name="chapter_11_forcing_the_http_method_of_a_link">Forcing the HTTP Method of a link</a></h2>
+
+<p>Testing the "Publish" link is now more simple:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.3 - On the preview page, you can publish the job'</span><span class="br0">)</span>-&gt;
+  <span class="me1">createJob</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'position'</span> =&gt; <span class="st0">'FOO1'</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+  <span class="me1">click</span><span class="br0">(</span><span class="st0">'Publish'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'put'</span>, <span class="st0">'_with_csrf'</span> =&gt; <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'propel'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">check</span><span class="br0">(</span><span class="st0">'JobeetJob'</span>, <span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'position'</span>     =&gt; <span class="st0">'FOO1'</span>,
+      <span class="st0">'is_activated'</span> =&gt; <span class="kw2">true</span>,
+    <span class="br0">)</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>If you remember from day 10, the "Publish" link has been configured to be called
+with the HTTP <code>PUT</code> method. As browsers don't understand
+<code>PUT</code> requests, the <code>link_to()</code> helper converts the link to a form with some
+JavaScript. As the test browser does not execute JavaScript, we need to force
+the method to <code>PUT</code> by passing it as a third option of the <code>click()</code> method.
+Moreover, the <code>link_to()</code> helper also embeds a CSRF token as we have enabled
+CSRF protection during the very first day; the <code>_with_csrf</code> option simulates
+this token.</p>
+
+<p>Testing the "Delete" link is quite similar:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.4 - On the preview page, you can delete the job'</span><span class="br0">)</span>-&gt;
+  <span class="me1">createJob</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'position'</span> =&gt; <span class="st0">'FOO2'</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+  <span class="me1">click</span><span class="br0">(</span><span class="st0">'Delete'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'delete'</span>, <span class="st0">'_with_csrf'</span> =&gt; <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'propel'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">check</span><span class="br0">(</span><span class="st0">'JobeetJob'</span>, <span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'position'</span> =&gt; <span class="st0">'FOO2'</span>,
+    <span class="br0">)</span>, <span class="kw2">false</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<h2><a name="chapter_11_tests_as_a_safeguard">Tests as a SafeGuard</a></h2>
+
+<p>When a job is published, you cannot edit it anymore. Even if the "Edit" link is
+not displayed anymore on the preview page, let's add some tests for this
+requirement.</p>
+
+<p>First, add another argument to the <code>createJob()</code> method to allow automatic
+publication of the job, and create a <code>getJobByPosition()</code> method that returns a
+job given its position value:</p>
+
+<pre class="php"><span class="co1">// lib/test/JobeetTestFunctional.class.php</span>
+<span class="kw2">class</span> JobeetTestFunctional <span class="kw2">extends</span> sfTestFunctional
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> createJob<span class="br0">(</span><span class="re0">$values</span> = <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span>, <span class="re0">$publish</span> = <span class="kw2">false</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;
+      <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+      <span class="me1">click</span><span class="br0">(</span><span class="st0">'Preview your job'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="kw3">array_merge</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+        <span class="st0">'company'</span>      =&gt; <span class="st0">'Sensio Labs'</span>,
+        <span class="st0">'url'</span>          =&gt; <span class="st0">'http://www.sensio.com/'</span>,
+        <span class="st0">'position'</span>     =&gt; <span class="st0">'Developer'</span>,
+        <span class="st0">'location'</span>     =&gt; <span class="st0">'Atlanta, USA'</span>,
+        <span class="st0">'description'</span>  =&gt; <span class="st0">'You will work with symfony to develop websites for our customers.'</span>,
+        <span class="st0">'how_to_apply'</span> =&gt; <span class="st0">'Send me an email'</span>,
+        <span class="st0">'email'</span>        =&gt; <span class="st0">'for.a.job@example.com'</span>,
+        <span class="st0">'is_public'</span>    =&gt; <span class="kw2">false</span>,
+      <span class="br0">)</span>, <span class="re0">$values</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+      <span class="me1">followRedirect</span><span class="br0">(</span><span class="br0">)</span>
+    ;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$publish</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="re0">$this</span>-&gt;
+        <span class="me1">click</span><span class="br0">(</span><span class="st0">'Publish'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'put'</span>, <span class="st0">'_with_csrf'</span> =&gt; <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+        <span class="me1">followRedirect</span><span class="br0">(</span><span class="br0">)</span>
+      ;
+    <span class="br0">}</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="re0">$this</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="kw2">public</span> <span class="kw2">function</span> getJobByPosition<span class="br0">(</span><span class="re0">$position</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$criteria</span> = <span class="kw2">new</span> Criteria<span class="br0">(</span><span class="br0">)</span>;
+    <span class="re0">$criteria</span>-&gt;<span class="me1">add</span><span class="br0">(</span>JobeetJobPeer::<span class="me2">POSITION</span>, <span class="re0">$position</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">return</span> JobeetJobPeer::<span class="me2">doSelectOne</span><span class="br0">(</span><span class="re0">$criteria</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>If a job is published, the edit page must return a 404 status code:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.5 - When a job is published, it cannot be edited anymore'</span><span class="br0">)</span>-&gt;
+  <span class="me1">createJob</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'position'</span> =&gt; <span class="st0">'FOO3'</span><span class="br0">)</span>, <span class="kw2">true</span><span class="br0">)</span>-&gt;
+  <span class="me1">get</span><span class="br0">(</span><span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'/job/%s/edit'</span>, <span class="re0">$browser</span>-&gt;<span class="me1">getJobByPosition</span><span class="br0">(</span><span class="st0">'FOO3'</span><span class="br0">)</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'response'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">isStatusCode</span><span class="br0">(</span><span class="nu0">404</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>But if you run the tests, you won't have the expected result as we forgot to
+implement this security measure yesterday. Writing tests is also a
+great way to discover bugs, as you need to think about all edge cases.</p>
+
+<p>Fixing the bug is quite simple as we just need to forward to a 404 page if the
+job is activated:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/actions/actions.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> executeEdit<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$job</span> = <span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">forward404If</span><span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">getIsActivated</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="re0">$job</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>The fix is trivial, but are you sure that everything else still works as
+expected? You can open your browser and start testing all possible combinations
+to access the edit page. But there is a simpler way: run your test suite; if you
+have introduced a regression, symfony will tell you right away.</p>
+
+<h2><a name="chapter_11_back_to_the_future_in_a_test">Back to the Future in a Test</a></h2>
+
+<p>When a job is expiring in less than five days, or if it is already expired, the
+user can extend the job validation for another 30 days from the current date.</p>
+
+<p>Testing this requirement in a browser is not easy as the expiration date is
+automatically set when the job is created to 30 days in the future. So, when
+getting the job page, the link to extend the job is not present. Sure, you can
+hack the expiration date in the database, or tweak the template to always
+display the link, but that's tedious and error prone. As you have already
+guessed, writing some tests will help us one more time.</p>
+
+<p>As always, we need to add a new route for the <code>extend</code> method first:</p>
+
+<pre># apps/frontend/config/routing.yml
+job:
+  class:   sfPropelRouteCollection
+  options:
+    model:          JobeetJob
+    column:         token
+    object_actions: { publish: PUT, extend: PUT }
+  requirements:
+    token: \w+</pre>
+
+<p>Then, update the "Extend" link code in the <code>_admin</code> partial:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/_admin.php --&gt;
+<span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">expiresSoon</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+ - <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Extend'</span>, <span class="st0">'job_extend'</span>, <span class="re0">$job</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'put'</span><span class="br0">)</span><span class="br0">)</span> <span class="kw2">?&gt;</span> <span class="kw1">for</span> another <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span> <span class="kw2">?&gt;</span> days
+<span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span></pre>
+
+<p>Then, create the <code>extend</code> action:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/actions/actions.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> executeExtend<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$request</span>-&gt;<span class="me1">checkCSRFProtection</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$job</span> = <span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">forward404Unless</span><span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">extend</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'Your job validity has been extended until %s.'</span>, <span class="re0">$job</span>-&gt;<span class="me1">getExpiresAt</span><span class="br0">(</span><span class="st0">'m/d/Y'</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'job_show_user'</span>, <span class="re0">$job</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>As expected by the action, the <code>extend()</code> method of <code>JobeetJob</code> returns <code>true</code>
+if the job has been extended or <code>false</code> otherwise:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJob.php</span>
+<span class="kw2">class</span> JobeetJob <span class="kw2">extends</span> BaseJobeetJob
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> extend<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw1">if</span> <span class="br0">(</span>!<span class="re0">$this</span>-&gt;<span class="me1">expiresSoon</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="kw1">return</span> <span class="kw2">false</span>;
+    <span class="br0">}</span>
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">setExpiresAt</span><span class="br0">(</span><span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span> + <span class="nu0">86400</span> * sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="re0">$this</span>-&gt;<span class="me1">save</span><span class="br0">(</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>Eventually, add a test scenario:</p>
+
+<pre class="php"><span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.6 - A job validity cannot be extended before the job expires soon'</span><span class="br0">)</span>-&gt;
+  <span class="me1">createJob</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'position'</span> =&gt; <span class="st0">'FOO4'</span><span class="br0">)</span>, <span class="kw2">true</span><span class="br0">)</span>-&gt;
+  <span class="me1">call</span><span class="br0">(</span><span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'/job/%s/extend'</span>, <span class="re0">$browser</span>-&gt;<span class="me1">getJobByPosition</span><span class="br0">(</span><span class="st0">'FOO4'</span><span class="br0">)</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>, <span class="st0">'put'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'_with_csrf'</span> =&gt; <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'response'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">isStatusCode</span><span class="br0">(</span><span class="nu0">404</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;
+&nbsp;
+<span class="re0">$browser</span>-&gt;<span class="me1">info</span><span class="br0">(</span><span class="st0">'  3.7 - A job validity can be extended when the job expires soon'</span><span class="br0">)</span>-&gt;
+  <span class="me1">createJob</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'position'</span> =&gt; <span class="st0">'FOO5'</span><span class="br0">)</span>, <span class="kw2">true</span><span class="br0">)</span>
+;
+&nbsp;
+<span class="re0">$job</span> = <span class="re0">$browser</span>-&gt;<span class="me1">getJobByPosition</span><span class="br0">(</span><span class="st0">'FOO5'</span><span class="br0">)</span>;
+<span class="re0">$job</span>-&gt;<span class="me1">setExpiresAt</span><span class="br0">(</span><span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+<span class="re0">$job</span>-&gt;<span class="me1">save</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+<span class="re0">$browser</span>-&gt;
+  <span class="me1">call</span><span class="br0">(</span><span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'/job/%s/extend'</span>, <span class="re0">$job</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>, <span class="st0">'put'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'_with_csrf'</span> =&gt; <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'response'</span><span class="br0">)</span>-&gt;<span class="me1">isRedirected</span><span class="br0">(</span><span class="br0">)</span>
+;
+&nbsp;
+<span class="re0">$job</span>-&gt;<span class="me1">reload</span><span class="br0">(</span><span class="br0">)</span>;
+<span class="re0">$browser</span>-&gt;<span class="me1">test</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">is</span><span class="br0">(</span>
+  <span class="re0">$job</span>-&gt;<span class="me1">getExpiresAt</span><span class="br0">(</span><span class="st0">'y/m/d'</span><span class="br0">)</span>,
+  <span class="kw3">date</span><span class="br0">(</span><span class="st0">'y/m/d'</span>, <span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span> + <span class="nu0">86400</span> * sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span><span class="br0">)</span>
+<span class="br0">)</span>;</pre>
+
+<p>This test scenario introduces a few new things:</p>
+
+<ul>
+<li>The <code>call()</code> method retrieves a URL with a method different from <code>GET</code> or
+<code>POST</code></li>
+<li>After the job has been updated by the action, we need to reload the local
+object with <code>$job-&gt;reload()</code></li>
+<li>At the end, we use the embedded <code>lime</code> object directly to test the new
+expiration date.</li>
+</ul>
+
+<h2><a name="chapter_11_forms_security">Forms Security</a></h2>
+
+<h3><a name="chapter_11_sub_form_serialization_magic">Form Serialization Magic!</a></h3>
+
+<p>Propel forms are very easy to use as they automate a lot of work. For
+instance, serializing a form to the database is as simple as a call to
+<code>$form-&gt;save()</code>.</p>
+
+<p>But how does it work? Basically, the <code>save()</code> method follows the following
+steps:</p>
+
+<ul>
+<li>Begin a transaction (because nested Propel forms are all saved in one fell
+swoop)</li>
+<li>Process the submitted values (by calling <code>updateCOLUMNColumn()</code> methods if
+they exist)</li>
+<li>Call Propel object <code>fromArray()</code> method to update the column values</li>
+<li>Save the object to the database</li>
+<li>Commit the transaction</li>
+</ul>
+
+<h3><a name="chapter_11_sub_built_in_security_features">Built-in Security Features</a></h3>
+
+<p>The <code>fromArray()</code> method takes an array of values and updates the corresponding
+column values. Does this represent a security issue? What if someone
+tries to submit a value for a column for which he does not have authorization?
+For instance, can I force the <code>token</code> column?</p>
+
+<p>Let's write a test to simulate a job submission with a <code>token</code> field:</p>
+
+<pre class="php"><span class="co1">// test/functional/frontend/jobActionsTest.php</span>
+<span class="re0">$browser</span>-&gt;
+  <span class="me1">get</span><span class="br0">(</span><span class="st0">'/job/new'</span><span class="br0">)</span>-&gt;
+  <span class="me1">click</span><span class="br0">(</span><span class="st0">'Preview your job'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'token'</span> =&gt; <span class="st0">'fake_token'</span>,
+  <span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>-&gt;
+&nbsp;
+  <span class="me1">with</span><span class="br0">(</span><span class="st0">'form'</span><span class="br0">)</span>-&gt;<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>-&gt;
+    <span class="me1">hasErrors</span><span class="br0">(</span><span class="nu0">7</span><span class="br0">)</span>-&gt;
+    <span class="me1">hasGlobalError</span><span class="br0">(</span><span class="st0">'extra_fields'</span><span class="br0">)</span>-&gt;
+  <span class="kw3">end</span><span class="br0">(</span><span class="br0">)</span>
+;</pre>
+
+<p>When submitting the form, you must have an <code>extra_fields</code> global error. That's
+because by default forms do not allow extra fields to be present in the
+submitted values. That's also why all form fields must have an associated
+validator.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  You can also submit additional fields from the comfort of your browser using
+  tools like the Firefox Web Developer Toolbar.</p>
+
+                </div>
+            </div>
+
+<p>You can bypass this security measure by setting the <code>allow_extra_fields</code> option
+to <code>true</code>:</p>
+
+<pre class="php"><span class="kw2">class</span> MyForm <span class="kw2">extends</span> sfForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="co1">// ...</span>
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span>-&gt;<span class="me1">setOption</span><span class="br0">(</span><span class="st0">'allow_extra_fields'</span>, <span class="kw2">true</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>The test must now pass but the <code>token</code> value has been filtered out of the
+values. So, you are still not able to bypass the security measure. But if you
+really want the value, set the <code>filter_extra_fields</code> option to <code>false</code>:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span>-&gt;<span class="me1">setOption</span><span class="br0">(</span><span class="st0">'filter_extra_fields'</span>, <span class="kw2">false</span><span class="br0">)</span>;</pre>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The tests written in this section are only for demonstration purpose. You
+  can now remove them from the Jobeet project as tests do not need to validate
+  symfony features.</p>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_11_sub_xss_and_csrf_protection">XSS and CSRF Protection</a></h3>
+
+<p>During day 1, you learned the <code>generate:app</code> task created a secured application
+by default.</p>
+
+<p>First, it enabled the protection against XSS. It means that all variables used
+in templates are escaped by default. If you try to submit a job description with
+some HTML tags inside, you will notice that when symfony renders the job page,
+the HTML tags from the description are not interpreted, but rendered as plain
+text.</p>
+
+<p>Then, it enabled the CSRF protection. When a CSRF token is set, all forms embed
+a <code>_csrf_token</code> hidden field.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  The escaping strategy and the CSRF secret can be changed at any time by
+  editing the <code>apps/frontend/config/settings.yml</code> configuration
+  file. As for the <code>databases.yml</code> file, the settings are configurable by
+  environment:</p>
+
+<pre>all:
+  .settings:
+    # Form security secret (CSRF protection)
+    csrf_secret: Unique$ecret
+&nbsp;
+    # Output escaping settings
+    escaping_strategy: true
+    escaping_method:   ESC_SPECIALCHARS</pre>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_11_maintenance_tasks">Maintenance Tasks</a></h2>
+
+<p>Even if symfony is a web framework, it comes with a command line
+tool. You have already used it to create the default directory structure of the
+project and the application, but also to generate various files for the model.
+Adding a new task is quite easy as the tools used by the symfony command
+line are packaged in a framework.</p>
+
+<p>When a user creates a job, he must activate it to put it online. But if not, the
+database will grow with stale jobs. Let's create a task that remove stale jobs
+from the database. This task will have to be run regularly in a cron job.</p>
+
+<pre class="php"><span class="co1">// lib/task/JobeetCleanupTask.class.php</span>
+<span class="kw2">class</span> JobeetCleanupTask <span class="kw2">extends</span> sfBaseTask
+<span class="br0">{</span>
+  protected <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">addOptions</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="kw2">new</span> sfCommandOption<span class="br0">(</span><span class="st0">'env'</span>, <span class="kw2">null</span>, sfCommandOption::<span class="me2">PARAMETER_REQUIRED</span>, <span class="st0">'The environement'</span>, <span class="st0">'prod'</span><span class="br0">)</span>,
+      <span class="kw2">new</span> sfCommandOption<span class="br0">(</span><span class="st0">'days'</span>, <span class="kw2">null</span>, sfCommandOption::<span class="me2">PARAMETER_REQUIRED</span>, <span class="st0">''</span>, <span class="nu0">90</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">namespace</span> = <span class="st0">'jobeet'</span>;
+    <span class="re0">$this</span>-&gt;<span class="me1">name</span> = <span class="st0">'cleanup'</span>;
+    <span class="re0">$this</span>-&gt;<span class="me1">briefDescription</span> = <span class="st0">'Cleanup Jobeet database'</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">detailedDescription</span> = &lt;&lt;&lt;EOF
+<span class="re1">The <span class="br0">[</span>jobeet:cleanup|INFO<span class="br0">]</span> task cleans up the Jobeet database:
+&nbsp;
+  <span class="br0">[</span>./symfony jobeet:cleanup --env=prod --days=<span class="nu0">90</span>|INFO<span class="br0">]</span></span>
+EOF;
+  <span class="br0">}</span>
+&nbsp;
+  protected <span class="kw2">function</span> execute<span class="br0">(</span><span class="re0">$arguments</span> = <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span>, <span class="re0">$options</span> = <span class="kw3">array</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$databaseManager</span> = <span class="kw2">new</span> sfDatabaseManager<span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">configuration</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$nb</span> = JobeetJobPeer::<span class="me2">cleanup</span><span class="br0">(</span><span class="re0">$options</span><span class="br0">[</span><span class="st0">'days'</span><span class="br0">]</span><span class="br0">)</span>;
+    <span class="re0">$this</span>-&gt;<span class="me1">logSection</span><span class="br0">(</span><span class="st0">'propel'</span>, <span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'Removed %d stale jobs'</span>, <span class="re0">$nb</span><span class="br0">)</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>The task configuration is done in the <code>configure()</code> method. Each task must have
+a unique name (<code>namespace</code>:<code>name</code>), and can have arguments and options.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  Browse the built-in symfony tasks (<code>lib/task/</code>) for more examples of usage.</p>
+
+                </div>
+            </div>
+
+<p>The <code>jobeet:cleanup</code> task defines two options: <code>--env</code> and <code>--days</code> with some
+sensible defaults.</p>
+
+<p>Running the task is similar to run any other symfony built-in task:</p>
+
+<pre class="command-line"><code>$ php symfony jobeet:cleanup --days=10 --env=dev
+</code></pre>
+
+<p>As always, the database cleanup code has been factored out in the
+<code>JobeetJobPeer</code> class:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJobPeer.php</span>
+<span class="kw3">static</span> <span class="kw2">public</span> <span class="kw2">function</span> cleanup<span class="br0">(</span><span class="re0">$days</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$criteria</span> = <span class="kw2">new</span> Criteria<span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$criteria</span>-&gt;<span class="me1">add</span><span class="br0">(</span>self::<span class="me2">IS_ACTIVATED</span>, <span class="kw2">false</span><span class="br0">)</span>;
+  <span class="re0">$criteria</span>-&gt;<span class="me1">add</span><span class="br0">(</span>self::<span class="me2">CREATED_AT</span>, <span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span> - <span class="nu0">86400</span> * <span class="re0">$days</span>, Criteria::<span class="me2">LESS_THAN</span><span class="br0">)</span>;
+&nbsp;
+  <span class="kw1">return</span> self::<span class="me2">doDelete</span><span class="br0">(</span><span class="re0">$criteria</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>The <code>doDelete()</code> method removes database records matching the given <code>Criteria</code>
+object. It can also takes an array of primary keys.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The symfony tasks behave nicely with their environment as they return a
+  value according to the success of the task. You can force a return value
+  by returning an integer explicitly at the end of the task.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_11_final_thoughts">Final Thoughts</a></h2>
+
+<p>Testing is at the heart of the symfony philosophy and tools. Today, we have
+learned again how to leverage symfony tools to make the development process
+easier, faster, and more important, safer.</p>
+
+<p>The symfony form framework provides much more than just widgets and validators:
+it gives you a simple way to test your forms and ensure that your forms are
+secure by default.</p>
+
+<p>Our tour of great symfony features do not end here. Tomorrow, we will create the
+backend application for Jobeet. Creating a backend interface is a must for most
+web projects, and Jobeet is no different. But how will we be able to develop
+such an interface in just one hour? Simple, we will use the symfony admin
+generator framework.</p>
+
+            </div>
+
+            <div class="navigation">
+                            <a accesskey="P" title="Day 10: The Forms" href="http://symfony.com/legacy/doc/jobeet/1_4/en/10?orm=Propel">
+                    «&nbsp;Day 10: The Forms
+                </a>
+                        <span class="separator">|</span>                            <a accesskey="N" title="Day 12: The Admin Generator" href="http://symfony.com/legacy/doc/jobeet/1_4/en/12?orm=Propel">
+                    Day 12: The Admin Generator&nbsp;»
+                </a>
+                    </div>
+
+            <div class="box_hr"><hr></div>
+
+    
+                                                                            </div>
+                                                            </div>
+                        
+
+                        
+                                                    <div class="box_relative_content">
+    <div class="relative_content_box_columns clear_fix">
+        <div class="column_01">
+            <h2 class="title_05">NEWS FROM THE BLOG</h2>
+
+<ul class="event_list">
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">
+                    A week of symfony #318 (28 January -&gt;3 February 2013)<br>
+                    <span class="place_date">February 03, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">
+                    Symfony Live 2013 tour: time to start the new season!<br>
+                    <span class="place_date">January 28, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-317-21-27-january-2013">
+                    A week of symfony #317 (21-&gt;27 January 2013)<br>
+                    <span class="place_date">January 27, 2013</span>
+                </a>
+            </h3>
+        </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://symfony.com/blog/" class="png_fix">Visit Symfony's blog</a>
+</div>
+        </div>
+
+        <div class="column_02">
+                        <h2 class="title_05">IN THE NEWS</h2>
+
+
+<div class="upcoming_event clear_fix">
+    <div>
+        <a href="http://portland2013.live.symfony.com/" target="_blank">
+            <img style="width: 100px" src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/sfl_portland.png" class="png_fix" alt="The Symfony Live Conference Portland 2013">
+        </a>
+    </div>
+
+    <div style="margin-top: 13px">
+        <h3 style="font-size: 13px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif">Announcing the next Symfony Live Conference 2013 in Portland</h3>
+        <div style="margin-top: 5px">
+            <a href="http://portland2013.live.symfony.com/registration/" class="non_extensible_button button_01">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                REGISTER TODAY
+            </span>
+        </span>
+    </span>
+</a>
+        </div>
+    </div>
+</div>
+
+                    </div>
+
+        <div class="column_03">
+            <h2 class="title_05">UPCOMING TRAINING SESSIONS</h2>
+
+<ul class="event_list">
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">London - 2013-02-06</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/advanced-symfony2">
+            Going Further with Symfony2
+            <br>
+            <span class="place_date">Miami - 2013-02-07</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">Miami - 2013-02-08</span>
+        </a>
+    </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://trainings.sensiolabs.com/" class="png_fix">View all sessions</a>
+</div>
+        </div>
+    </div>
+</div>
+                        
+                    </div>
+                            </div>
+
+            
+<div class="footer">
+    <div class="content">
+        <h2 class="title_02">
+            <img src="Day%2011:%20Testing%20your%20Forms%20%281_4%29%20-%20Symfony_files/logo_sf.png" alt="sf - Symfony" class="illustration_logo_footer png_fix"> is a trademark of Fabien Potencier. All rights reserved.
+        </h2>
+
+        <div class="box_menu_footer clear_fix">
+            <div class="menu_footer first">
+                <h3 class="title_03"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/symfony-at-a-glance">Symfony at a Glance</a></li>
+<li><a href="http://symfony.com/symfony-in-five-minutes">Symfony in 5 Minutes</a></li>
+<li><a href="http://symfony.com/elevator-pitches">Elevator Pitches</a></li>
+<li><a href="http://symfony.com/blog/category/case-studies">Case Studies</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html">Versioning Policy</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html#long-term-support-releases">Long Term Support</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/code/security.html">Security Policy</a></li>
+<li class="last"><a href="http://symfony.com/doc/current/contributing/code/license.html">License</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/get_started">Get Started</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/download">Download Symfony</a></li>
+<li><a href="http://symfony.com/distributions">Symfony Distributions</a></li>
+<li><a href="http://symfony.com/components">Symfony Components</a></li>
+<li><a href="http://symfony.com/doc/current/quick_tour/the_big_picture.html">Quick Tour</a></li>
+<li class="last"><a href="http://symfony.com/legacy">symfony1 Legacy</a></li>
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/doc/current/index.html">Learn Symfony</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/doc/current/book/index.html">The Book</a></li>
+<li><a href="http://symfony.com/doc/current/cookbook/index.html">The Cookbook</a></li>
+<li><a href="http://symfony.com/doc/current/components/index.html">The Components</a></li>
+<li><a href="http://symfony.com/doc/current/reference/index.html">Reference</a></li>
+<li><a href="http://symfony.com/doc/current/glossary.html">Glossary</a></li>
+<li><a href="http://symfony.com/doc/current/genindex.html">Index</a></li>
+<li><a href="http://symfony.com/doc/current/bundles/index.html">Bundles</a></li>
+<li><a href="http://symfony.com/doc/master/cmf/index.html">Symfony CMF</a></li>
+<li><a href="http://symfony.com/doc/master/contributing/code/security.html#security-advisories">Security Advisories</a></li>
+<li><a href="http://symfony.com/legacy/doc">Docs for symfony 1.x</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">Contributing</a></li>
+<li><a href="http://symfony.com/talks">Talks</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/marketplace">Marketplace</a></h3>
+                <ul class="list_menu_footer">
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/community">Community</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="https://connect.sensiolabs.com/">SensioLabs Connect</a></li>
+<li><a href="http://symfony.com/irc">IRC channel</a></li>
+<li><a href="http://symfony.com/mailing-lists">Mailing lists</a></li>
+
+<li><a href="http://forum.symfony-project.org/">Forum</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">How to be involved</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/services">Services</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/services/list">Our services</a></li>
+<li><a href="http://symfony.com/services/guide#before">Starting a new project</a></li>
+<li><a href="http://symfony.com/services/guide#during">Struggling with your project</a></li>
+<li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support</a></li>
+<li><a href="http://symfony.com/services/request">Contact us</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/blog/">Blog</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/events/"><em>Community Events</em></a></li>
+
+    <li><a href="http://symfony.com/blog/category/a-week-of-symfony">A week of symfony</a></li>
+    <li><a href="http://symfony.com/blog/category/call-the-expert">Call the expert</a></li>
+    <li><a href="http://symfony.com/blog/category/case-studies">Case studies</a></li>
+    <li><a href="http://symfony.com/blog/category/community">Community</a></li>
+    <li><a href="http://symfony.com/blog/category/documentation">Documentation</a></li>
+    <li><a href="http://symfony.com/blog/category/living-on-the-edge">Living on the edge</a></li>
+    <li><a href="http://symfony.com/blog/category/plugins">Plugins</a></li>
+    <li><a href="http://symfony.com/blog/category/releases">Releases</a></li>
+    <li><a href="http://symfony.com/blog/category/security-advisories">Security Advisories</a></li>
+    <li><a href="http://symfony.com/blog/category/tutorials">Tutorials</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/about">About</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://www.sensiolabs.com/">Sensio Labs</a></li>
+<li><a href="http://symfony.com/contributors">Contributors</a></li>
+<li><a href="http://symfony.com/trademark">Trademark &amp; Logo Policy</a></li>
+<li><a href="http://symfony.com/logo">Logo</a></li>
+<li><a href="http://sensiolabs.com/recrutement/rejoignez_nous.html">Jobs</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <script type="text/javascript">
+            (function(w, d, s) {
+                function go() {
+                    var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+                        if (d.getElementById(id)) {return;}
+                        js = d.createElement(s); js.src = url; js.id = id;
+                        fjs.parentNode.insertBefore(js, fjs);
+                    };
+                    load('https://connect.sensiolabs.com/sln.js?customize_url=http://symfony.com/sln_customiser.js', 'sln_bar');
+                }
+                if (w.addEventListener) { w.addEventListener("load", go, false); }
+                else if (w.attachEvent) { w.attachEvent("onload",go); }
+            } (window, document, 'script'));
+        </script>
+                    
+
+<ul style="z-index: 9001; top: 0px; left: 0px; display: none;" aria-activedescendant="ui-active-menuitem" role="listbox" class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"></ul></body></html>
