@@ -29,7 +29,7 @@ class jobActions extends sfActions
    {
      //$this->form = new JobeetJobForm($this->getRoute()->getObject());
      $job = $this->getRoute()->getObject();
-    // $this->forward404If($job->getIsActivated());
+     $this->forward404If($job->getIsActivated());
  
      $this->form = new JobeetJobForm($job);
    }
