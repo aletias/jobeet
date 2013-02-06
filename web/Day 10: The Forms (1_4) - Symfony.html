@@ -1,0 +1,1580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <!--[if lt IE 9]>
+            <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <![endif]-->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="robots" content="index, follow, all">
+        <meta name="Author" content="Extreme Sensio">
+        <meta name="Language" content="en">
+        <meta name="Copyright" content="Sensio Labs">
+        <meta name="Publisher" content="Sensio Labs">
+        <meta name="Description" content="Symfony - Open-Source PHP web framework">
+        <meta name="Keywords" content="symfony2, symfony, project, framework, php, php5, open-source, components, symphony, symfony framework, symfony tutorial">
+
+        <link rel="search" type="application/opensearchdescription+xml" href="http://symfony.com/opensearch/documentation.xml" title="Symfony2 documentation">
+
+        <title>            Day 10: The Forms
+        (1_4)
+ - Symfony</title>
+
+                        <link rel="stylesheet" href="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/all.css">
+                 <link href="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sln.css" rel="stylesheet" type="text/css" media="all">
+
+            <link rel="stylesheet" type="text/css" media="all" href="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/highlight.css">
+    <link rel="stylesheet" type="text/css" media="all" href="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/legacy.css">
+
+                
+                    <script id="sln-customize" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sln_customiser.js"></script><script src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script id="sln_bar" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sln.js"></script><script src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/all.js"></script>
+        
+                
+        <!--[if IE 6]>
+            <script src="/js/common/DD_belatedPNG_0.0.7a-min.js" type="text/javascript"></script>
+            <script src="/js/common/ExtendDD_belatedPNG_0.0.7a.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                DD_belatedPNG.fix('.png_fix');
+            </script>
+        <![endif]-->
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-89393-6']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+
+    <body>
+        <div id="content_wrapper" class="">
+            <div id="sln"><div class="sln-bar"><div class="sln-bar-inner"><div class="sln-network"><a href="#" class="sln-hidden-phone">SensioLabs<span>Network</span></a><a href="#" class="sln-visible-phone">SL<span>N</span></a></div> <div class="sln-ad"><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_2" class="sln-visible-phone"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">SFLive PDX</a><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_2" class="sln-visible-tablet"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">SFLive Portland</a><a href="http://portland2013.live.symfony.com/" data-ga="sflive2013_pdx_2" class="sln-visible-desktop"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sf-live.png">Register now for Symfony Live Portland 2013, early bird ends on March 15!</a></div> <div class="sln-search"><div class="sln-search-deactivated"><a href="#"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/search.png"></a></div><div class="sln-search-activated sln-hidden"><a href="#"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/search-alt.png"></a><form method="GET" action="/search"><input aria-haspopup="true" aria-autocomplete="list" role="textbox" autocomplete="off" class="ui-autocomplete-input" name="q" id="sln-autocomplete" placeholder="Search" type="text"></form></div></div> <div class="sln-user"> <a href="http://symfony.com/session/new" class="sln-connect"> Connect </a> </div>
+    </div>
+    <div class="sln-dropdown-network sln-dropdown sln-hidden"><div class="sln-container"><div class="sln-row"><div class="sln-span6"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sensiolabs.png" alt="SensioLabs"><p>Since
+ 1998, SensioLabs has been promoting the Open-Source software movement 
+by providing quality web application development, training, consulting. 
+Sensio Labs also supports several large Open-Source projects.</p><ul class="sln-websites"><li><a href="http://sensiolabs.com/en">International</a></li><li><a href="http://sensiolabs.fr/">France</a></li><li><a href="http://sensiolabs.de/">Deutschland</a></li><li><a href="http://sensiolabs.co.uk/">UK</a></li></ul></div><div class="sln-span6"><div class="sln-row"><div class="sln-span3"><h2>Products</h2><ul><li><a href="http://symfony.com/">Symfony - Web framework</a></li><li><a href="http://twig.sensiolabs.org/">Twig - Template library</a></li><li><a href="http://silex.sensiolabs.org/">Silex - PHP micro-framework</a></li><li><a href="http://www.swiftmailer.org/">Swift Mailer - Mailing library</a></li><li><a href="http://sismo.sensiolabs.org/">Sismo - Continuous Testing Server</a></li><li><a href="http://pirum.sensiolabs.org/">Pirum - PEAR channel server</a></li><li><a href="http://desktop.sensiolabs.org/">Desktop - Enhance your PHP experience</a></li></ul></div><div class="sln-span3"><h2>Services</h2><ul><li><a href="http://symfony.com/services">Symfony services</a></li><li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support - For symfony 1.x &amp; Symfony 2.x</a></li><li><a href="http://trainings.sensiolabs.com/">Trainings - Be Trained by experts</a></li><li><a href="http://guru.sensiolabs.com/">Guru - Get a guru for a day</a></li><li><a href="https://connect.sensiolabs.com/">Connect - Showcase your skills</a></li><li><a href="http://books.sensiolabs.com/">Books - Read Open-Source books</a></li><li><a href="http://live.symfony.com/">Conferences - The Symfony Live Conference</a></li><li><a href="http://www.youtube.com/sensiolabs">Videos - Watch technical talks</a></li></ul></div></div></div></div></div></div>
+    
+</div></div>
+
+            <div class="content">
+                
+
+    
+<div class="header">
+    <div class="content_header clear_fix">
+        <div class="illustration_logo_header">
+                            <a href="http://symfony.com/"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/logo_symfony_header.png" alt="Symfony" class="png_fix"></a>
+                    </div>
+        <div class="box_download clear_fix">
+            <div class="legend_download">
+                <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/a_sensiolabs_product.png" alt="a SensioLabs product" class="png_fix">
+            </div>
+            <div class="download_button_wrapper">
+                <a href="http://symfony.com/download" class="download_button">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                DOWNLOAD NOW
+            </span>
+        </span>
+    </span>
+</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main_menu clear_fix" id="main_menu_id">
+    <ul class="clear_fix">
+        <li class="first what_is_symfony"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></li>
+        <li class="get_started">
+            <a href="http://symfony.com/get_started">Get started</a>
+                    </li>
+        <li class="learn selected"><a href="http://symfony.com/doc/current/index.html">Documentation</a></li>
+        <li class="community"><a href="http://symfony.com/community">Community</a></li>
+        <li class="services"><a href="http://symfony.com/services">Services</a></li>
+        <li class="blog has_dropdown">
+            <a href="http://symfony.com/blog/">News</a>
+            <div class="box_dropdown_wrapper">
+    <div class="border_l">
+        <div class="middle_border_l">
+            <div class="border_r">
+                <div class="middle_border_r">
+                    <div class="content_wrapper">
+                        <div class="box_content">
+                                <div class="inner_drop_box_two_columns clear_fix">
+        <div class="inner_drop_box_two_columns_column_01">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/blog" title="blog feed"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/rss.gif" alt="feed"></a></div>
+                <a href="http://symfony.com/blog/">Latest News</a>
+            </h2>
+
+            <div class="box_article post">
+                    <div class="gravatar"><a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/7e428bbf-cbf1-46db-a96f-86bb68600519.jpeg" alt="Anne-Sophie Bachelard" height="57" width="57"></a></div>
+                <h3 class="title_05"><a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">Symfony Live 2013 tour: time to start the new season!</a></h3>
+                <div class="complementaries_informations">
+    by
+            <a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519">Anne-Sophie Bachelard</a>
+            – January 28, 2013
+        </div>
+            </div>
+
+                <div class="box_hr"><hr></div>
+
+
+            <div class="box_article">
+                <h2 class="title_05"><a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">What happened last week in Symfony?</a></h2>
+                <p>This week, the oficial Symfony2 repository surpassed 
+the 2,000th fork milestone. Meanwhile, the stabilization of the Symfony 
+2.2 version continues in the newly created <a href="http://github.com/symfony/symfony/tree/2.2">2.2 branch</a>. In addition, a new <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">SymfonyCon Europe</a> conference was announced for this year.</p>
+            </div>
+        </div>
+        <div class="inner_drop_box_two_columns_column_02">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/events" title="events rss"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/rss.gif" alt="RSS"></a></div>
+                <a href="http://symfony.com/events/">Upcoming Events</a>
+            </h2>
+
+            <div class="box_article">
+                <p>The Symfony Community organizes events all over the world on a regular basis. Here are the next ones.</p>
+                                                            <h2 class="title_05">
+                            <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfughh/events/97853262/">Germany, Hamburg — Treffen der Symfony User Group Hamburg</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 18:30 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugberlin/events/99498922/">Germany, Berlin — Symfony Berlin Usergroup</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 22:00
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                                </div>
+        </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="corner_l">
+            <div class="corner_r">
+                <div class="border"></div>
+            </div>
+        </div>
+    </div>
+</div>
+        </li>
+        <li class="last about"><a href="http://symfony.com/about">About</a></li>
+    </ul>
+</div>
+
+                                    <div class="main_content">
+                            <div style="-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; background-color: #ffa; padding: 15px; margin-bottom: 20px; color: #555">
+        <strong>Caution</strong>: You are browsing the legacy <a href="http://symfony.com/legacy"><img style="vertical-align: middle; padding-left: 3px" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/symfony_button.gif"></a> <a href="http://symfony.com/legacy">1.x</a> part of this website.
+    </div>
+
+    
+                                <div class="box_columns clear_fix">
+                                                                                                            <div class="column_01">
+                                                                                            <div class="submenu">
+                                                    <ul class="list_submenu">    <li class="first"><a href="http://symfony.com/legacy">Legacy homepage</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/getting-started">Getting started</a></li>
+<li class=" selected"><a href="http://symfony.com/legacy/doc/jobeet?orm=Propel">Jobeet</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/gentle-introduction">A gentle Intro to symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/more-with-symfony">More with Symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/reference">The Reference Book</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/tutorial">Tutorials</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/forms">Forms</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/cookbook/1_2">Cookbook (&lt;= 1.2)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/book/1_0">The definitive Guide (1.0)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/askeet/1_0">Askeet (1.0)</a></li>
+<li><a href="http://symfony-project.org/api/">API</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+</ul>
+                                                </div>
+                                                                        <div class="toc">
+                <h2 class="title_05">Table of Contents</h2>
+                <div class="toc-content">
+                    <ul><li><ul><li><a class="reference internal" href="#chapter_10_the_form_framework">The Form Framework</a></li><li><a class="reference internal" href="#chapter_10_forms">Forms</a></li><li><a class="reference internal" href="#chapter_10_propel_forms">Propel Forms</a><ul><li><a class="reference internal" href="#chapter_10_sub_customizing_the_job_form">Customizing the Job Form</a></li><li><a class="reference internal" href="#chapter_10_sub_the_form_template">The Form Template</a></li><li><a class="reference internal" href="#chapter_10_sub_the_form_action">The Form Action</a></li><li><a class="reference internal" href="#chapter_10_sub_protecting_the_job_form_with_a_token">Protecting the Job Form with a Token</a></li></ul></li><li><a class="reference internal" href="#chapter_10_the_preview_page">The Preview Page</a></li><li><a class="reference internal" href="#chapter_10_job_activation_and_publication">Job Activation and Publication</a></li><li><a class="reference internal" href="#chapter_10_final_thoughts">Final Thoughts</a></li></ul></li></ul>
+                </div>
+            </div>
+            
+    <div id="license">
+    This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License license.
+</div>
+                                                                                                    
+<div class="ads">
+        <div class="box_hr"><hr></div>
+
+
+            <div class="ad" id="ad_trainings_1">
+            <h3><a href="http://trainings.sensiolabs.com/en/training/getting-started-with-symfony2">Master Symfony2 fundamentals</a></h3>
+            <div>Be trained by SensioLabs experts (2 to 6 day sessions -- French or English).</div>
+            <div><cite>trainings.sensiolabs.com</cite></div>
+        </div>
+            <div class="ad" id="ad_servergrove_1">
+            <h3><a href="http://symfony.com/servergrove">Symfony hosting done right</a></h3>
+            <div>ServerGrove, outstanding support at the right price for your Symfony hosting needs.</div>
+            <div><cite>servergrove.com</cite></div>
+        </div>
+            <div class="ad" id="ad_support_1">
+            <h3><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Discover the SensioLabs Support</a></h3>
+            <div>Access to the SensioLabs Competency Center for an exclusive and tailor-made support on Symfony</div>
+            <div><cite>sensiolabs.com</cite></div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+                    $("#ad_trainings_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'trainings_1']); });
+                    $("#ad_servergrove_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'servergrove_1']); });
+                    $("#ad_support_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'support_1']); });
+            });
+</script>
+                                                                        
+                                                                        
+    <div class="ads">
+                                                        <a href="https://connect.sensiolabs.com/"><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sensiolabs_connect.png"></a>
+                                                    </div>
+                                                                        
+                                                            </div>
+                                                                        <div class="column_02">
+                                                                                    <div class="breadcrumb">
+                                                <a href="http://symfony.com/">Home</a> »
+                                                            symfony 1.x »
+        Legacy Documentation » Jobeet
+                                            </div>
+
+                                                                                                <div class="box_title">
+                                                        <div class="box_version_wrapper">
+        <div class="version_wrapper">
+            <div class="version">
+                1.4/Propel
+                <span class="arrow">
+                    <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/down_arrow_white.png" alt="">
+                </span>
+            </div>
+            <div class="other_version">
+                                    <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_2/en/10?orm=Propel">1.2 version</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/es/10?orm=Propel">Spanish</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/fr/10?orm=Propel">French</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/it/10?orm=Propel">Italian</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ja/10?orm=Propel">Japanese</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ru/10?orm=Propel">Russian</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/en/10?orm=Doctrine">Doctrine</a>
+                                </li>
+                                                                        </ul>
+                            </div>
+        </div>
+    </div>
+                                                    <h1 class="title_01">            Day 10: The Forms
+    </h1>
+                                                </div>
+                                            
+        
+                                                            
+    <div style="float: right; padding: 10px 0 20px 20px; background-color: #fff; text-align: right">
+    <a href="http://books.sensiolabs.com/book/9782918390152">
+        <img style="width: 120px" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/9782918390152-3d.jpg" alt="Jobeet">
+    </a>
+
+    <div style="text-align: center; font-size: 80%; line-height: 115%; margin-left: 50px">
+        <div>
+            Support symfony!<br>
+            <a href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">Buy</a> this book<br>
+            or <a href="http://www.symfony-project.org/donate">donate</a>.
+        </div>
+        <a class="amazon" href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">
+            <img style="width: 90px" class="png_fix" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/buy_amazon.png" alt="Buy Jobeet from amazon.com">
+        </a>
+        <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/ir.gif" alt="" style="border:none !important; margin:0px !important;" height="1" border="0" width="1">
+    </div>
+</div>
+
+        <div class="box_article doc_page">
+                    <p>Previous day of this Jobeet tutorial got off to a flying start with the
+introduction of the symfony test framework. We will continue today with the form
+framework.</p>
+
+<h2><a name="chapter_10_the_form_framework">The Form Framework</a></h2>
+
+<p>Any website has forms; from the simple contact form to the complex ones
+with lots of fields. Writing forms is also one of the most complex and tedious
+task for a web developer: you need to write the HTML form, implement validation
+rules for each field, process the values to store them in a database, display
+error messages, repopulate fields in case of errors, and much more...</p>
+
+<p>Of course, instead of reinventing the wheel over and over again, symfony
+provides a framework to ease form management. The form framework is made of
+three parts:</p>
+
+<ul>
+<li><p><strong>validation</strong>: The validation sub-framework provides classes 
+                to validate inputs (integer, string, email address, ...)</p></li>
+<li><p><strong>widgets</strong>:    The widget sub-framework provides classes to 
+                output HTML fields (input, textarea, select, ...)</p></li>
+<li><p><strong>forms</strong>:      The form classes represent forms made of widgets and
+                validators and provide methods to help manage the form.
+                Each form field has its own validator and widget.</p></li>
+</ul>
+
+<h2><a name="chapter_10_forms">Forms</a></h2>
+
+<p>A symfony form is a class made of fields. Each field has a name, a
+validator, and a widget. A simple <code>ContactForm</code> can be
+defined with the following class:</p>
+
+<pre class="php"><span class="kw2">class</span> ContactForm <span class="kw2">extends</span> sfForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">setWidgets</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'email'</span>   =&gt; <span class="kw2">new</span> sfWidgetFormInputText<span class="br0">(</span><span class="br0">)</span>,
+      <span class="st0">'message'</span> =&gt; <span class="kw2">new</span> sfWidgetFormTextarea<span class="br0">(</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">setValidators</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'email'</span>   =&gt; <span class="kw2">new</span> sfValidatorEmail<span class="br0">(</span><span class="br0">)</span>,
+      <span class="st0">'message'</span> =&gt; <span class="kw2">new</span> sfValidatorString<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'max_length'</span> =&gt; <span class="nu0">255</span><span class="br0">)</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>Form fields are configured in the <code>configure()</code> method, by using the
+<code>setValidators()</code> and <code>setWidgets()</code> methods.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  The form framework comes bundled with a lot of
+  <a href="http://www.symfony-project.org/api/1_4/widget">widgets</a> and
+  <a href="http://www.symfony-project.org/api/1_4/validator">validators</a>. The API
+  describes them quite extensively with all the options, errors, and default
+  error messages.</p>
+
+                </div>
+            </div>
+
+<p>The widget and validator class names are quite explicit: the <code>email</code> field will
+be rendered as an HTML <code>&lt;input&gt;</code> tag (<code>sfWidgetFormInputText</code>) and validated as
+an email address (<code>sfValidatorEmail</code>). The <code>message</code> field will be rendered as a
+<code>&lt;textarea&gt;</code> tag (<code>sfWidgetFormTextarea</code>), and must be a string of no more than
+255 characters (<code>sfValidatorString</code>).</p>
+
+<p>By default all fields are required, as the default value
+for the <code>required</code> option is <code>true</code>. So, the validation definition for <code>email</code>
+is equivalent to <code>new sfValidatorEmail(array('required' =&gt; true))</code>.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  You can merge a form in another one by using the <code>mergeForm()</code> method, or
+  embed one by using the <code>embedForm()</code> method:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">mergeForm</span><span class="br0">(</span><span class="kw2">new</span> AnotherForm<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+<span class="re0">$this</span>-&gt;<span class="me1">embedForm</span><span class="br0">(</span><span class="st0">'name'</span>, <span class="kw2">new</span> AnotherForm<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;</pre>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_10_propel_forms">Propel Forms</a></h2>
+
+<p>Most of the time, a form has to be serialized to the database. As symfony
+already knows everything about your database model, it can automatically
+generate forms based on this information. In fact, when you launched the
+<code>propel:build --all</code> task during day 3, symfony automatically called the
+<code>propel:build --forms</code> task:</p>
+
+<pre class="command-line"><code>$ php symfony propel:build --forms
+</code></pre>
+
+<p>The <code>propel:build --forms</code> task generates form classes in the <code>lib/form/</code>
+directory. The organization of these generated files is similar to that of
+<code>lib/model/</code>. Each model class has a related form class (for instance
+<code>JobeetJob</code> has <code>JobeetJobForm</code>), which is empty by default as it inherits from
+a base class:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  By browsing the generated files under the <code>lib/form/base/</code> sub-directory, you
+  will see a lot of great usage examples of symfony built-in widgets and
+  validators.</p>
+
+                </div>
+            </div>
+
+
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  You can disable form generation on certain models by passing parameters to
+  the <code>symfony</code> Propel behavior:</p>
+
+<pre>classes:
+  SomeModel:
+    propel_behaviors:
+      symfony:
+        form: false
+        filter: false</pre>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_10_sub_customizing_the_job_form">Customizing the Job Form</a></h3>
+
+<p>The job form is a perfect example to learn form customization. Let's see how to customize it, step by step.</p>
+
+<p>First, change the "Post a Job" link in the layout to be able to check changes
+directly in your browser:</p>
+
+<pre class="php">&lt;!-- apps/frontend/templates/layout.php --&gt;
+&lt;a href=<span class="st0">"&lt;?php echo url_for('job_new') ?&gt;"</span>&gt;Post a Job&lt;/a&gt;</pre>
+
+<p>By default, a Propel form displays fields for all the table columns. But for
+the job form, some of them must not be editable by the end user. Removing fields
+from a form is as simple as unsetting them:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span>
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'created_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'updated_at'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'expires_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'is_activated'</span><span class="br0">]</span>
+    <span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>Unsetting a field means that both the field widget and validator are removed.</p>
+
+<p>Instead of unsetting the fields you don't want to display, you can also
+explicitly list the fields you want by using the <code>useFields()</code> method:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">useFields</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span><span class="st0">'category_id'</span>, <span class="st0">'type'</span>, <span class="st0">'company'</span>, <span class="st0">'logo'</span>, <span class="st0">'url'</span>, <span class="st0">'position'</span>, <span class="st0">'location'</span>, <span class="st0">'description'</span>, <span class="st0">'how_to_apply'</span>, <span class="st0">'token'</span>, <span class="st0">'is_public'</span>, <span class="st0">'email'</span><span class="br0">)</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>The <code>useFields()</code> method does two things automatically for you: it adds the
+hidden fields and the array of fields is used to change the fields order.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  Explicitly listing the form fields you want to display means that when adding
+  new fields to a base form, they won't automagically appear in your form
+  (think of a model form where you add a new column to the related table).</p>
+
+                </div>
+            </div>
+
+<p>The form configuration must sometimes be more precise than what can be
+introspected from the database schema. For example, the <code>email</code> column is a
+<code>varchar</code> in the schema, but we need this column to be validated as an email.
+Let's change the default <code>sfValidatorString</code> to a <code>sfValidatorEmail</code>:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="co1">// ...</span>
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorEmail<span class="br0">(</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>Replacing the default validator is not always the best solution, as the default
+validation rules introspected from the database schema are lost (<code>new
+sfValidatorString(array('max_length' =&gt; 255))</code>). It is almost always better to
+add the new validator to the existing ones by using the special <code>sfValidatorAnd</code>
+validator:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="co1">// ...</span>
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorAnd<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span>,
+    <span class="kw2">new</span> sfValidatorEmail<span class="br0">(</span><span class="br0">)</span>,
+  <span class="br0">)</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>The <code>sfValidatorAnd</code> validator takes an array of validators that must pass for
+the value to be valid. The trick here is to reference the current validator
+(<code>$this-&gt;validatorSchema['email']</code>), and to add the new one.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  You can also use the <code>sfValidatorOr</code> validator to force a value to
+  pass at least one validator. And of course, you can mix and match
+  <code>sfValidatorAnd</code> and <code>sfValidatorOr</code> validators to create complex
+  boolean based validators.</p>
+
+                </div>
+            </div>
+
+<p>Even if the <code>type</code> column is also a <code>varchar</code> in the schema, we want its value
+to be restricted to a list of choices: full time, part time, or freelance.</p>
+
+<p>First, let's define the possible values in <code>JobeetJobPeer</code>:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJobPeer.php</span>
+<span class="kw2">class</span> JobeetJobPeer <span class="kw2">extends</span> BaseJobeetJobPeer
+<span class="br0">{</span>
+  <span class="kw3">static</span> <span class="kw2">public</span> <span class="re0">$types</span> = <span class="kw3">array</span><span class="br0">(</span>
+    <span class="st0">'full-time'</span> =&gt; <span class="st0">'Full time'</span>,
+    <span class="st0">'part-time'</span> =&gt; <span class="st0">'Part time'</span>,
+    <span class="st0">'freelance'</span> =&gt; <span class="st0">'Freelance'</span>,
+  <span class="br0">)</span>;
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>Then, use <code>sfWidgetFormChoice</code> for the <code>type</code> widget:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span><span class="br0">[</span><span class="st0">'type'</span><span class="br0">]</span> = <span class="kw2">new</span> sfWidgetFormChoice<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'choices'</span>  =&gt; JobeetJobPeer::<span class="re0">$types</span>,
+  <span class="st0">'expanded'</span> =&gt; <span class="kw2">true</span>,
+<span class="br0">)</span><span class="br0">)</span>;</pre>
+
+<p><code>sfWidgetFormChoice</code> represents a choice widget which can be rendered by a
+different widget according to some configuration options (<code>expanded</code> and
+<code>multiple</code>):</p>
+
+<ul>
+<li>Dropdown list (<code>&lt;select&gt;</code>): <code>array('multiple' =&gt; false, 'expanded' =&gt; false)</code></li>
+<li>Dropdown box (<code>&lt;select multiple="multiple"&gt;</code>): <code>array('multiple' =&gt; true, 'expanded' =&gt; false)</code></li>
+<li>List of radio buttons: <code>array('multiple' =&gt; false, 'expanded' =&gt; true)</code></li>
+<li>List of checkboxes: <code>array('multiple' =&gt; true, 'expanded' =&gt; true)</code></li>
+</ul>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  If you want one of the radio button to be selected by default (<code>full-time</code>
+  for instance), you can change the default value in the database schema.</p>
+
+                </div>
+            </div>
+
+<p>Even if you think nobody can submit a non-valid value, a hacker can easily
+bypass the widget choices by using tools like <a href="http://curl.haxx.se/">curl</a> or
+the <a href="http://chrispederick.com/work/web-developer/">Firefox Web Developer Toolbar</a>. Let's change the
+validator to restrict the possible choices:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'type'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorChoice<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'choices'</span> =&gt; <span class="kw3">array_keys</span><span class="br0">(</span>JobeetJobPeer::<span class="re0">$types</span><span class="br0">)</span>,
+<span class="br0">)</span><span class="br0">)</span>;</pre>
+
+<p>As the <code>logo</code> column will store the filename of the logo associated with the
+job, we need to change the widget to a file input tag:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span><span class="br0">[</span><span class="st0">'logo'</span><span class="br0">]</span> = <span class="kw2">new</span> sfWidgetFormInputFile<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'label'</span> =&gt; <span class="st0">'Company logo'</span>,
+<span class="br0">)</span><span class="br0">)</span>;</pre>
+
+<p>For each field, symfony automatically generates a label (which
+will be used in the rendered <code>&lt;label&gt;</code> tag). This can be changed with the
+<code>label</code> option.</p>
+
+<p>You can also change labels in a batch with the <code>setLabels()</code> method of the
+widget array:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span>-&gt;<span class="me1">setLabels</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'category_id'</span>    =&gt; <span class="st0">'Category'</span>,
+  <span class="st0">'is_public'</span>      =&gt; <span class="st0">'Public?'</span>,
+  <span class="st0">'how_to_apply'</span>   =&gt; <span class="st0">'How to apply?'</span>,
+<span class="br0">)</span><span class="br0">)</span>;</pre>
+
+<p>We also need to change the default validator:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'logo'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorFile<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+  <span class="st0">'required'</span>   =&gt; <span class="kw2">false</span>,
+  <span class="st0">'path'</span>       =&gt; sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'sf_upload_dir'</span><span class="br0">)</span>.<span class="st0">'/jobs'</span>,
+  <span class="st0">'mime_types'</span> =&gt; <span class="st0">'web_images'</span>,
+<span class="br0">)</span><span class="br0">)</span>;</pre>
+
+<p><code>sfValidatorFile</code> is quite interesting as it does a number of things:</p>
+
+<ul>
+<li>Validates that the uploaded file is an image in a web format (<code>mime_types</code>)</li>
+<li>Renames the file to something unique</li>
+<li>Stores the file in the given <code>path</code></li>
+<li>Updates the <code>logo</code> column with the generated name</li>
+</ul>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  You need to create the logo directory (<code>web/uploads/jobs/</code>) and check that it
+  is writable by the web server.</p>
+
+                </div>
+            </div>
+
+<p>As the validator only saves the filename in the database, change the path
+used in the <code>showSuccess</code> template:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/templates/showSuccess.php</span>
+&lt;img src=<span class="st0">"/uploads/jobs/&lt;?php echo $job-&gt;getLogo() ?&gt;"</span> alt=<span class="st0">"&lt;?php echo $job-&gt;getCompany() ?&gt; logo"</span> /&gt;</pre>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  If a <code>generateLogoFilename()</code> method exists in the model, it will be called
+  by the validator and the result will override the default generated <code>logo</code>
+  filename. The method takes the <code>sfValidatedFile</code> object as an argument.</p>
+
+                </div>
+            </div>
+
+<p>Just as you can override the generated label of any field, you can also define a
+help message. Let's add one for the <code>is_public</code> column to better
+explain its significance:</p>
+
+<pre class="php"><span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span>-&gt;<span class="me1">setHelp</span><span class="br0">(</span><span class="st0">'is_public'</span>, <span class="st0">'Whether the job can also be published on affiliate websites or not.'</span><span class="br0">)</span>;</pre>
+
+<p>The final <code>JobeetJobForm</code> class reads as follows:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span>
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'created_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'updated_at'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'expires_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'is_activated'</span><span class="br0">]</span>
+    <span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorAnd<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span>,
+      <span class="kw2">new</span> sfValidatorEmail<span class="br0">(</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span><span class="br0">[</span><span class="st0">'type'</span><span class="br0">]</span> = <span class="kw2">new</span> sfWidgetFormChoice<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'choices'</span> =&gt; JobeetJobPeer::<span class="re0">$types</span>,
+      <span class="st0">'expanded'</span> =&gt; <span class="kw2">true</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'type'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorChoice<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'choices'</span> =&gt; <span class="kw3">array_keys</span><span class="br0">(</span>JobeetJobPeer::<span class="re0">$types</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span><span class="br0">[</span><span class="st0">'logo'</span><span class="br0">]</span> = <span class="kw2">new</span> sfWidgetFormInputFile<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'label'</span> =&gt; <span class="st0">'Company logo'</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span>-&gt;<span class="me1">setLabels</span><span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'category_id'</span>    =&gt; <span class="st0">'Category'</span>,
+      <span class="st0">'is_public'</span>      =&gt; <span class="st0">'Public?'</span>,
+      <span class="st0">'how_to_apply'</span>   =&gt; <span class="st0">'How to apply?'</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'logo'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorFile<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'required'</span>   =&gt; <span class="kw2">false</span>,
+      <span class="st0">'path'</span>       =&gt; sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'sf_upload_dir'</span><span class="br0">)</span>.<span class="st0">'/jobs'</span>,
+      <span class="st0">'mime_types'</span> =&gt; <span class="st0">'web_images'</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span>-&gt;<span class="me1">setHelp</span><span class="br0">(</span><span class="st0">'is_public'</span>, <span class="st0">'Whether the job can also be published on affiliate websites or not.'</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<h3><a name="chapter_10_sub_the_form_template">The Form Template</a></h3>
+
+<p>Now that the form class has been customized, we need to display it. The
+template for the form is the same whether you want to create a new
+job or edit an existing one. In fact, both <code>newSuccess.php</code> and
+<code>editSuccess.php</code> templates are quite similar:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/newSuccess.php --&gt;
+<span class="kw2">&lt;?php</span> use_stylesheet<span class="br0">(</span><span class="st0">'job.css'</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+&nbsp;
+&lt;h1&gt;Post a Job&lt;/h1&gt;
+&nbsp;
+<span class="kw2">&lt;?php</span> include_partial<span class="br0">(</span><span class="st0">'form'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'form'</span> =&gt; <span class="re0">$form</span><span class="br0">)</span><span class="br0">)</span> <span class="kw2">?&gt;</span></pre>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  If you have not added the <code>job</code> stylesheet yet, it is time to do so in both
+  templates (<code>&lt;?php use_stylesheet('job.css') ?&gt;</code>).</p>
+
+                </div>
+            </div>
+
+<p>The form itself is rendered in the <code>_form</code> partial. Replace
+the content of the generated <code>_form</code> partial with the following code:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/_form.php --&gt;
+<span class="kw2">&lt;?php</span> use_stylesheets_for_form<span class="br0">(</span><span class="re0">$form</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+<span class="kw2">&lt;?php</span> use_javascripts_for_form<span class="br0">(</span><span class="re0">$form</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+&nbsp;
+<span class="kw2">&lt;?php</span> <span class="kw3">echo</span> form_tag_for<span class="br0">(</span><span class="re0">$form</span>, <span class="st0">'@job'</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+  &lt;table id=<span class="st0">"job_form"</span>&gt;
+    &lt;tfoot&gt;
+      &lt;tr&gt;
+        &lt;td colspan=<span class="st0">"2"</span>&gt;
+          &lt;input type=<span class="st0">"submit"</span> value=<span class="st0">"Preview your job"</span> /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tfoot&gt;
+    &lt;tbody&gt;
+      <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> <span class="re0">$form</span> <span class="kw2">?&gt;</span>
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;</pre>
+
+<p>The <code>use_javascripts_for_form()</code> and <code>use_stylesheets_for_form()</code> helpers
+include JavaScript and stylesheet dependencies needed for the form widgets.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  Even if the job form does not need any JavaScript or stylesheet file, it is a
+  good habit to keep these helper calls "just in case". It can save your day
+  later if you decide to change a widget that needs some JavaScript or a
+  specific stylesheet.</p>
+
+                </div>
+            </div>
+
+<p>The <code>form_tag_for()</code> helper generates a <code>&lt;form&gt;</code> tag for the
+given form and route and changes the HTTP methods to <code>POST</code> or <code>PUT</code> depending on whether the object is
+new or not. It also takes care of the <code>multipart</code> attribute
+if the form has any file input tags.</p>
+
+<p>Eventually, the <code>&lt;?php echo $form ?&gt;</code> renders the form widgets.</p>
+
+            <div class="admonition-wrapper">
+                <div class="sidebar"></div>
+                <div class="admonition admonition-sidebar">
+                    <p class="first admonition-title">sidebar</p>
+                    <p class="title">Customizing the Look and Feel of a Form</p>
+  
+  <p>By default, the <code>&lt;?php echo $form ?&gt;</code> renders the form widgets as table rows.</p>
+  
+  <p>Most of the time, you will need to customize the layout of your
+  forms. The form object provides many useful methods for this 
+  customization:</p>
+  
+  <table class="doc_table" cellspacing="0">
+  <thead>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>render()</code></td>
+    <td>Renders the form (equivalent to the output of</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code>echo $form</code>)</td>
+  </tr>
+  <tr>
+    <td><code>renderHiddenFields()</code></td>
+    <td>Renders the hidden fields</td>
+  </tr>
+  <tr>
+    <td><code>hasErrors()</code></td>
+    <td>Returns <code>true</code> if the form has some errors</td>
+  </tr>
+  <tr>
+    <td><code>hasGlobalErrors()</code></td>
+    <td>Returns <code>true</code> if the form has global errors</td>
+  </tr>
+  <tr>
+    <td><code>getGlobalErrors()</code></td>
+    <td>Returns an array of global errors</td>
+  </tr>
+  <tr>
+    <td><code>renderGlobalErrors()</code></td>
+    <td>Renders the global errors</td>
+  </tr>
+  </tbody>
+  </table>
+  
+  <p>The form also behaves like an array of fields. You can access the
+  <code>company</code> field with <code>$form['company']</code>. The returned object provides methods
+  to render each element of the field:</p>
+  
+  <table class="doc_table" cellspacing="0">
+  <thead>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>renderRow()</code></td>
+    <td>Renders the field row</td>
+  </tr>
+  <tr>
+    <td><code>render()</code></td>
+    <td>Renders the field widget</td>
+  </tr>
+  <tr>
+    <td><code>renderLabel()</code></td>
+    <td>Renders the field label</td>
+  </tr>
+  <tr>
+    <td><code>renderError()</code></td>
+    <td>Renders the field error messages if any</td>
+  </tr>
+  <tr>
+    <td><code>renderHelp()</code></td>
+    <td>Renders the field help message</td>
+  </tr>
+  </tbody>
+  </table>
+  
+  <p>The <code>echo $form</code> statement is equivalent to:</p>
+
+<pre class="php"><span class="kw2">&lt;?php</span> <span class="kw1">foreach</span> <span class="br0">(</span><span class="re0">$form</span> <span class="kw1">as</span> <span class="re0">$widget</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+  <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> <span class="re0">$widget</span>-&gt;<span class="me1">renderRow</span><span class="br0">(</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+<span class="kw2">&lt;?php</span> <span class="kw1">endforeach</span> <span class="kw2">?&gt;</span></pre>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_10_sub_the_form_action">The Form Action</a></h3>
+
+<p>We now have a form class and a template that renders it. Now, it's time to
+actually make it work with some actions.</p>
+
+<p>The job form is managed by five methods in the <code>job</code> module:</p>
+
+<ul>
+<li><strong>new</strong>:         Displays a blank form to create a new job</li>
+<li><strong>edit</strong>:        Displays a form to edit an existing job</li>
+<li><strong>create</strong>:      Creates a new job with the user submitted values</li>
+<li><strong>update</strong>:      Updates an existing job with the user submitted values</li>
+<li><strong>processForm</strong>: Called by <code>create</code> and <code>update</code>, it processes the form
+                 (validation, form repopulation, and serialization to
+                 the database)</li>
+</ul>
+
+<p>All forms have the following life-cycle:</p>
+
+<p><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/form_flow.png" alt="Form flow"></p>
+
+<p>As we have created a Propel route collection 5 days sooner for the <code>job</code>
+module, we can simplify the code for the form management methods:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/actions/actions.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> executeNew<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="br0">)</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> executeCreate<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">processForm</span><span class="br0">(</span><span class="re0">$request</span>, <span class="re0">$this</span>-&gt;<span class="me1">form</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">setTemplate</span><span class="br0">(</span><span class="st0">'new'</span><span class="br0">)</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> executeEdit<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> executeUpdate<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">processForm</span><span class="br0">(</span><span class="re0">$request</span>, <span class="re0">$this</span>-&gt;<span class="me1">form</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">setTemplate</span><span class="br0">(</span><span class="st0">'edit'</span><span class="br0">)</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> executeDelete<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$request</span>-&gt;<span class="me1">checkCSRFProtection</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$job</span> = <span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$job</span>-&gt;<span class="me1">delete</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'job/index'</span><span class="br0">)</span>;
+<span class="br0">}</span>
+&nbsp;
+protected <span class="kw2">function</span> processForm<span class="br0">(</span>sfWebRequest <span class="re0">$request</span>, sfForm <span class="re0">$form</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$form</span>-&gt;<span class="me1">bind</span><span class="br0">(</span>
+    <span class="re0">$request</span>-&gt;<span class="me1">getParameter</span><span class="br0">(</span><span class="re0">$form</span>-&gt;<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>,
+    <span class="re0">$request</span>-&gt;<span class="me1">getFiles</span><span class="br0">(</span><span class="re0">$form</span>-&gt;<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+  <span class="br0">)</span>;
+&nbsp;
+  <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$form</span>-&gt;<span class="me1">isValid</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$job</span> = <span class="re0">$form</span>-&gt;<span class="me1">save</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'job_show'</span>, <span class="re0">$job</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>When you browse to the <code>/job/new</code> page, a new form instance is created
+and passed to the template (<code>new</code> action).</p>
+
+<p>When the user submits the form (<code>create</code> action), the form is bound (<code>bind()</code>
+method) with the user submitted values and the validation is triggered.</p>
+
+<p>Once the form is bound, it is possible to check its validity using the
+<code>isValid()</code> method: If the form is valid (returns <code>true</code>), the job is saved to
+the database (<code>$form-&gt;save()</code>), and the user is redirected to the
+job preview page; if not, the <code>newSuccess.php</code> template is displayed again with
+the user submitted values and the associated error messages.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  The <code>setTemplate()</code> method changes the template used for a given 
+  action. If the submitted form is not valid, the <code>create</code> and <code>update</code> methods 
+  use the same template as the <code>new</code> and <code>edit</code> action respectively to re-display 
+  the form with error messages.</p>
+
+                </div>
+            </div>
+
+<p>The modification of an existing job is quite similar. The only difference
+between the <code>new</code> and the <code>edit</code> action is that the job object to be modified is
+passed as the first argument of the form constructor. This object will be used
+for default widget values in the template (default values are an object for
+Propel forms, but a plain array for simple forms).</p>
+
+<p>You can also define default values for the creation form. One way is to declare
+the values in the database schema. Another one is to pass a pre-modified <code>Job</code>
+object to the form constructor.</p>
+
+<p>Change the <code>executeNew()</code> method to define <code>full-time</code> as the default value for
+the <code>type</code> column:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/actions/actions.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> executeNew<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$job</span> = <span class="kw2">new</span> JobeetJob<span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$job</span>-&gt;<span class="me1">setType</span><span class="br0">(</span><span class="st0">'full-time'</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">form</span> = <span class="kw2">new</span> JobeetJobForm<span class="br0">(</span><span class="re0">$job</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  When the form is bound, the default values are replaced with the user
+  submitted ones. The user submitted values will be used for form repopulation
+  when the form is redisplayed in case of validation errors.</p>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_10_sub_protecting_the_job_form_with_a_token">Protecting the Job Form with a Token</a></h3>
+
+<p>Everything must work fine by now. As of now, the user must enter the token for
+the job. But the job token must be generated automatically when a new job is
+created, as we don't want to rely on the user to provide a unique token.</p>
+
+<p>Update the <code>save()</code> method of <code>JobeetJob</code> to add the logic that generates the
+token before a new job is saved:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJob.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> save<span class="br0">(</span>PropelPDO <span class="re0">$con</span> = <span class="kw2">null</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="co1">// ...</span>
+&nbsp;
+  <span class="kw1">if</span> <span class="br0">(</span>!<span class="re0">$this</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">setToken</span><span class="br0">(</span><span class="kw3">sha1</span><span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">getEmail</span><span class="br0">(</span><span class="br0">)</span>.<span class="kw3">rand</span><span class="br0">(</span><span class="nu0">11111</span>, <span class="nu0">99999</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="kw1">return</span> parent::<span class="me2">save</span><span class="br0">(</span><span class="re0">$con</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>You can now remove the <code>token</code> field from the form:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span>
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'created_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'updated_at'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'expires_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'is_activated'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'token'</span><span class="br0">]</span>
+    <span class="br0">)</span>;
+&nbsp;
+    <span class="co1">// ...</span>
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>If you remember the user stories from day 2, a job can be edited only if the
+user knows the associated token. Right now, it is pretty easy to edit or delete
+any job, just by guessing the URL. That's because the edit URL is like
+<code>/job/ID/edit</code>, where <code>ID</code> is the primary key of the job.</p>
+
+<p>By default, a <code>sfPropelRouteCollection</code> route generates URLs with the primary
+key, but it can be changed to any unique column by passing the <code>column</code> option:</p>
+
+<pre># apps/frontend/config/~routing|Routing~.yml
+job:
+  class:        sfPropelRouteCollection
+  options:      { model: JobeetJob, column: token }
+  requirements: { token: \w+ }</pre>
+
+<p>Notice that we have also changed the <code>token</code> parameter requirement to match any
+string as the symfony default requirements is <code>\d+</code> for the unique key.</p>
+
+<p>Now, all routes related to the jobs, except the <code>job_show_user</code> one, embed the
+token. For instance, the route to edit a job is now of the following pattern:</p>
+
+<pre class="url"><code>http://www.jobeet.com.localhost/job/TOKEN/edit
+</code></pre>
+
+<p>You will also need to change the "Edit" link in the <code>showSuccess</code> template:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/showSuccess.php --&gt;
+&lt;a href=<span class="st0">"&lt;?php echo url_for('job_edit', $job) ?&gt;"</span>&gt;Edit&lt;/a&gt;</pre>
+
+<h2><a name="chapter_10_the_preview_page">The Preview Page</a></h2>
+
+<p>The preview page is the same as the job page display. Thanks to the
+routing, if the user comes with the right token, it will be accessible
+in the <code>token</code> request parameter.</p>
+
+<p>If the user comes in with the tokenized URL, we will add an admin bar at the
+top. At the beginning of the <code>showSuccess</code> template, add a partial to host the
+admin bar and remove the <code>edit</code> link at the bottom:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/showSuccess.php --&gt;
+<span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$sf_request</span>-&gt;<span class="me1">getParameter</span><span class="br0">(</span><span class="st0">'token'</span><span class="br0">)</span> == <span class="re0">$job</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+  <span class="kw2">&lt;?php</span> include_partial<span class="br0">(</span><span class="st0">'job/admin'</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'job'</span> =&gt; <span class="re0">$job</span><span class="br0">)</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+<span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span></pre>
+
+<p>Then, create the <code>_admin</code> partial:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/_admin.php --&gt;
+&lt;div id=<span class="st0">"job_actions"</span>&gt;
+  &lt;h3&gt;Admin&lt;/h3&gt;
+  &lt;ul&gt;
+    <span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span>!<span class="re0">$job</span>-&gt;<span class="me1">getIsActivated</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+      &lt;li&gt;&lt;?php <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Edit'</span>, <span class="st0">'job_edit'</span>, <span class="re0">$job</span><span class="br0">)</span> ?&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;?php <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Publish'</span>, <span class="st0">'job_edit'</span>, <span class="re0">$job</span><span class="br0">)</span> ?&gt;&lt;/li&gt;
+    <span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span>
+    &lt;li&gt;&lt;?php <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Delete'</span>, <span class="st0">'job_delete'</span>, <span class="re0">$job</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'delete'</span>, <span class="st0">'confirm'</span> =&gt; <span class="st0">'Are you sure?'</span><span class="br0">)</span><span class="br0">)</span> ?&gt;&lt;/li&gt;
+    <span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">getIsActivated</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+      &lt;li&lt;?php <span class="re0">$job</span>-&gt;<span class="me1">expiresSoon</span><span class="br0">(</span><span class="br0">)</span> and <span class="kw3">print</span> <span class="st0">' class="expires_soon"'</span> ?&gt;&gt;
+        <span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+          Expired
+        <span class="kw2">&lt;?php</span> <span class="kw1">else</span>: <span class="kw2">?&gt;</span>
+          Expires in &lt;strong&gt;&lt;?php <span class="kw3">echo</span> <span class="re0">$job</span>-&gt;<span class="me1">getDaysBeforeExpires</span><span class="br0">(</span><span class="br0">)</span> ?&gt;&lt;/strong&gt; days
+        <span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span>
+&nbsp;
+        <span class="kw2">&lt;?php</span> <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$job</span>-&gt;<span class="me1">expiresSoon</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>: <span class="kw2">?&gt;</span>
+         - &lt;a href=<span class="st0">""</span>&gt;Extend&lt;/a&gt; <span class="kw1">for</span> another <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span> <span class="kw2">?&gt;</span> days
+        <span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span>
+      &lt;/li&gt;
+    <span class="kw2">&lt;?php</span> <span class="kw1">else</span>: <span class="kw2">?&gt;</span>
+      &lt;li&gt;
+        <span class="br0">[</span>Bookmark this <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'URL'</span>, <span class="st0">'job_show'</span>, <span class="re0">$job</span>, <span class="kw2">true</span><span class="br0">)</span> <span class="kw2">?&gt;</span> to manage this job in the future.<span class="br0">]</span>
+      &lt;/li&gt;
+    <span class="kw2">&lt;?php</span> <span class="kw1">endif</span> <span class="kw2">?&gt;</span>
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+
+<p>There is a lot of code, but most of the code is simple to understand.</p>
+
+<p>To make the template more readable, we have added a bunch of shortcut methods in
+the <code>JobeetJob</code> class:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJob.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> getTypeName<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="re0">$this</span>-&gt;<span class="me1">getType</span><span class="br0">(</span><span class="br0">)</span> ? JobeetJobPeer::<span class="re0">$types</span><span class="br0">[</span><span class="re0">$this</span>-&gt;<span class="me1">getType</span><span class="br0">(</span><span class="br0">)</span><span class="br0">]</span> : <span class="st0">''</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> isExpired<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="re0">$this</span>-&gt;<span class="me1">getDaysBeforeExpires</span><span class="br0">(</span><span class="br0">)</span> &lt; <span class="nu0">0</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> expiresSoon<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="re0">$this</span>-&gt;<span class="me1">getDaysBeforeExpires</span><span class="br0">(</span><span class="br0">)</span> &lt; <span class="nu0">5</span>;
+<span class="br0">}</span>
+&nbsp;
+<span class="kw2">public</span> <span class="kw2">function</span> getDaysBeforeExpires<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="kw3">ceil</span><span class="br0">(</span><span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">getExpiresAt</span><span class="br0">(</span><span class="st0">'U'</span><span class="br0">)</span> - <span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> / <span class="nu0">86400</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>The admin bar displays the different actions depending on the job status:</p>
+
+<p><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/not_activated.png" alt="Not activated job"></p>
+
+<p><img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/activated.png" alt="Activated job"></p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  You will be able to see the "activated" bar after the next section.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_10_job_activation_and_publication">Job Activation and Publication</a></h2>
+
+<p>In the previous section, there is a link to publish the job. The link needs to
+be changed to point to a new <code>publish</code> action. Instead of creating a new
+route, we can just configure the existing <code>job</code> route:</p>
+
+<pre># apps/frontend/config/routing.yml
+job:
+  class:   sfPropelRouteCollection
+  options:
+    model:          JobeetJob
+    column:         token
+    object_actions: { publish: put }
+  requirements:
+    token: \w+</pre>
+
+<p>The <code>object_actions</code> takes an array of additional actions for the given object.
+We can now change the link of the "Publish" link:</p>
+
+<pre class="php">&lt;!-- apps/frontend/modules/job/templates/_admin.php --&gt;
+&lt;li&gt;
+  <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Publish'</span>, <span class="st0">'job_publish'</span>, <span class="re0">$job</span>, <span class="kw3">array</span><span class="br0">(</span><span class="st0">'method'</span> =&gt; <span class="st0">'put'</span><span class="br0">)</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+&lt;/li&gt;</pre>
+
+<p>The last step is to create the <code>publish</code> action:</p>
+
+<pre class="php"><span class="co1">// apps/frontend/modules/job/actions/actions.class.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> executePublish<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$request</span>-&gt;<span class="me1">checkCSRFProtection</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$job</span> = <span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>;
+  <span class="re0">$job</span>-&gt;<span class="me1">publish</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'Your job is now online for %s days.'</span>, sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+  <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'job_show_user'</span>, <span class="re0">$job</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>The astute reader will have noticed that the "Publish" link is submitted with
+the HTTP put method. To simulate the put method, the link is automatically
+converted to a form when you click on it.</p>
+
+<p>And because we have enabled the CSRF protection, the <code>link_to()</code> helper embeds
+a CSRF token in the link and the <code>checkCSRFProtection()</code> method of the request
+object checks the validity of it on submission.</p>
+
+<p>The <code>executePublish()</code> method uses a new <code>publish()</code> method that can be defined
+as follows:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJob.php</span>
+<span class="kw2">public</span> <span class="kw2">function</span> publish<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="re0">$this</span>-&gt;<span class="me1">setIsActivated</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>;
+  <span class="re0">$this</span>-&gt;<span class="me1">save</span><span class="br0">(</span><span class="br0">)</span>;
+<span class="br0">}</span></pre>
+
+<p>You can now test the new publish feature in your browser.</p>
+
+<p>But we still have something to fix. The non-activated jobs must not be
+accessible, which means that they must not show up on the Jobeet homepage, and
+must not be accessible by their URL. As we have created an
+<code>addActiveJobsCriteria()</code> method to restrict a <code>Criteria</code> to active jobs, we can
+just edit it and add the new requirements at the end:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJobPeer.php</span>
+<span class="kw3">static</span> <span class="kw2">public</span> <span class="kw2">function</span> addActiveJobsCriteria<span class="br0">(</span>Criteria <span class="re0">$criteria</span> = <span class="kw2">null</span><span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="co1">// ...</span>
+&nbsp;
+  <span class="re0">$criteria</span>-&gt;<span class="me1">add</span><span class="br0">(</span>self::<span class="me2">IS_ACTIVATED</span>, <span class="kw2">true</span><span class="br0">)</span>;
+&nbsp;
+  <span class="kw1">return</span> <span class="re0">$criteria</span>;
+<span class="br0">}</span></pre>
+
+<p>That's all. You can test it now in your browser. All non-activated jobs have
+disappeared from the homepage; even if you know their URLs, they are not
+accessible anymore. They are, however, accessible if one knows the job's token
+URL. In that case, the job preview will show up with the admin bar.</p>
+
+<p>That's one of the great advantages of the MVC pattern and the refactorization we
+have done along the way. Only a single change in one method was needed to add
+the new requirement.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  When we created the <code>getWithJobs()</code> method, we forgot to use the
+  <code>addActiveJobsCriteria()</code> method. So, we need to edit it and add the new
+  requirement:</p>
+
+<pre class="php"><span class="kw2">class</span> JobeetCategoryPeer <span class="kw2">extends</span> BaseJobeetCategoryPeer
+<span class="br0">{</span>
+  <span class="kw3">static</span> <span class="kw2">public</span> <span class="kw2">function</span> getWithJobs<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="co1">// ...</span>
+&nbsp;
+    <span class="re0">$criteria</span>-&gt;<span class="me1">add</span><span class="br0">(</span>JobeetJobPeer::<span class="me2">IS_ACTIVATED</span>, <span class="kw2">true</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">return</span> self::<span class="me2">doSelect</span><span class="br0">(</span><span class="re0">$criteria</span><span class="br0">)</span>;
+  <span class="br0">}</span></pre>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_10_final_thoughts">Final Thoughts</a></h2>
+
+<p>Today was packed with a lot of new information, but hopefully you now have a
+better understanding of symfony's form framework.</p>
+
+<p>We know that some of you noticed that we forgot something here... We have not
+implemented any test for the new features. Because writing tests is an important
+part of developing an application, this is the first thing we will do tomorrow.</p>
+
+            </div>
+
+            <div class="navigation">
+                            <a accesskey="P" title="Day 9: The Functional Tests" href="http://symfony.com/legacy/doc/jobeet/1_4/en/09?orm=Propel">
+                    «&nbsp;Day 9: The Functional Tests
+                </a>
+                        <span class="separator">|</span>                            <a accesskey="N" title="Day 11: Testing your Forms" href="http://symfony.com/legacy/doc/jobeet/1_4/en/11?orm=Propel">
+                    Day 11: Testing your Forms&nbsp;»
+                </a>
+                    </div>
+
+            <div class="box_hr"><hr></div>
+
+    
+                                                                            </div>
+                                                            </div>
+                        
+
+                        
+                                                    <div class="box_relative_content">
+    <div class="relative_content_box_columns clear_fix">
+        <div class="column_01">
+            <h2 class="title_05">NEWS FROM THE BLOG</h2>
+
+<ul class="event_list">
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">
+                    A week of symfony #318 (28 January -&gt;3 February 2013)<br>
+                    <span class="place_date">February 03, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">
+                    Symfony Live 2013 tour: time to start the new season!<br>
+                    <span class="place_date">January 28, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-317-21-27-january-2013">
+                    A week of symfony #317 (21-&gt;27 January 2013)<br>
+                    <span class="place_date">January 27, 2013</span>
+                </a>
+            </h3>
+        </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://symfony.com/blog/" class="png_fix">Visit Symfony's blog</a>
+</div>
+        </div>
+
+        <div class="column_02">
+                        <h2 class="title_05">IN THE NEWS</h2>
+
+
+<div class="upcoming_event clear_fix">
+    <div>
+        <a href="http://portland2013.live.symfony.com/" target="_blank">
+            <img style="width: 100px" src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/sfl_portland.png" class="png_fix" alt="The Symfony Live Conference Portland 2013">
+        </a>
+    </div>
+
+    <div style="margin-top: 13px">
+        <h3 style="font-size: 13px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif">Announcing the next Symfony Live Conference 2013 in Portland</h3>
+        <div style="margin-top: 5px">
+            <a href="http://portland2013.live.symfony.com/registration/" class="non_extensible_button button_01">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                REGISTER TODAY
+            </span>
+        </span>
+    </span>
+</a>
+        </div>
+    </div>
+</div>
+
+                    </div>
+
+        <div class="column_03">
+            <h2 class="title_05">UPCOMING TRAINING SESSIONS</h2>
+
+<ul class="event_list">
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">London - 2013-02-06</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/advanced-symfony2">
+            Going Further with Symfony2
+            <br>
+            <span class="place_date">Miami - 2013-02-07</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">Miami - 2013-02-08</span>
+        </a>
+    </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://trainings.sensiolabs.com/" class="png_fix">View all sessions</a>
+</div>
+        </div>
+    </div>
+</div>
+                        
+                    </div>
+                            </div>
+
+            
+<div class="footer">
+    <div class="content">
+        <h2 class="title_02">
+            <img src="Day%2010:%20The%20Forms%20%281_4%29%20-%20Symfony_files/logo_sf.png" alt="sf - Symfony" class="illustration_logo_footer png_fix"> is a trademark of Fabien Potencier. All rights reserved.
+        </h2>
+
+        <div class="box_menu_footer clear_fix">
+            <div class="menu_footer first">
+                <h3 class="title_03"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/symfony-at-a-glance">Symfony at a Glance</a></li>
+<li><a href="http://symfony.com/symfony-in-five-minutes">Symfony in 5 Minutes</a></li>
+<li><a href="http://symfony.com/elevator-pitches">Elevator Pitches</a></li>
+<li><a href="http://symfony.com/blog/category/case-studies">Case Studies</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html">Versioning Policy</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html#long-term-support-releases">Long Term Support</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/code/security.html">Security Policy</a></li>
+<li class="last"><a href="http://symfony.com/doc/current/contributing/code/license.html">License</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/get_started">Get Started</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/download">Download Symfony</a></li>
+<li><a href="http://symfony.com/distributions">Symfony Distributions</a></li>
+<li><a href="http://symfony.com/components">Symfony Components</a></li>
+<li><a href="http://symfony.com/doc/current/quick_tour/the_big_picture.html">Quick Tour</a></li>
+<li class="last"><a href="http://symfony.com/legacy">symfony1 Legacy</a></li>
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/doc/current/index.html">Learn Symfony</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/doc/current/book/index.html">The Book</a></li>
+<li><a href="http://symfony.com/doc/current/cookbook/index.html">The Cookbook</a></li>
+<li><a href="http://symfony.com/doc/current/components/index.html">The Components</a></li>
+<li><a href="http://symfony.com/doc/current/reference/index.html">Reference</a></li>
+<li><a href="http://symfony.com/doc/current/glossary.html">Glossary</a></li>
+<li><a href="http://symfony.com/doc/current/genindex.html">Index</a></li>
+<li><a href="http://symfony.com/doc/current/bundles/index.html">Bundles</a></li>
+<li><a href="http://symfony.com/doc/master/cmf/index.html">Symfony CMF</a></li>
+<li><a href="http://symfony.com/doc/master/contributing/code/security.html#security-advisories">Security Advisories</a></li>
+<li><a href="http://symfony.com/legacy/doc">Docs for symfony 1.x</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">Contributing</a></li>
+<li><a href="http://symfony.com/talks">Talks</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/marketplace">Marketplace</a></h3>
+                <ul class="list_menu_footer">
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/community">Community</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="https://connect.sensiolabs.com/">SensioLabs Connect</a></li>
+<li><a href="http://symfony.com/irc">IRC channel</a></li>
+<li><a href="http://symfony.com/mailing-lists">Mailing lists</a></li>
+
+<li><a href="http://forum.symfony-project.org/">Forum</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">How to be involved</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/services">Services</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/services/list">Our services</a></li>
+<li><a href="http://symfony.com/services/guide#before">Starting a new project</a></li>
+<li><a href="http://symfony.com/services/guide#during">Struggling with your project</a></li>
+<li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support</a></li>
+<li><a href="http://symfony.com/services/request">Contact us</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/blog/">Blog</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/events/"><em>Community Events</em></a></li>
+
+    <li><a href="http://symfony.com/blog/category/a-week-of-symfony">A week of symfony</a></li>
+    <li><a href="http://symfony.com/blog/category/call-the-expert">Call the expert</a></li>
+    <li><a href="http://symfony.com/blog/category/case-studies">Case studies</a></li>
+    <li><a href="http://symfony.com/blog/category/community">Community</a></li>
+    <li><a href="http://symfony.com/blog/category/documentation">Documentation</a></li>
+    <li><a href="http://symfony.com/blog/category/living-on-the-edge">Living on the edge</a></li>
+    <li><a href="http://symfony.com/blog/category/plugins">Plugins</a></li>
+    <li><a href="http://symfony.com/blog/category/releases">Releases</a></li>
+    <li><a href="http://symfony.com/blog/category/security-advisories">Security Advisories</a></li>
+    <li><a href="http://symfony.com/blog/category/tutorials">Tutorials</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/about">About</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://www.sensiolabs.com/">Sensio Labs</a></li>
+<li><a href="http://symfony.com/contributors">Contributors</a></li>
+<li><a href="http://symfony.com/trademark">Trademark &amp; Logo Policy</a></li>
+<li><a href="http://symfony.com/logo">Logo</a></li>
+<li><a href="http://sensiolabs.com/recrutement/rejoignez_nous.html">Jobs</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <script type="text/javascript">
+            (function(w, d, s) {
+                function go() {
+                    var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+                        if (d.getElementById(id)) {return;}
+                        js = d.createElement(s); js.src = url; js.id = id;
+                        fjs.parentNode.insertBefore(js, fjs);
+                    };
+                    load('https://connect.sensiolabs.com/sln.js?customize_url=http://symfony.com/sln_customiser.js', 'sln_bar');
+                }
+                if (w.addEventListener) { w.addEventListener("load", go, false); }
+                else if (w.attachEvent) { w.attachEvent("onload",go); }
+            } (window, document, 'script'));
+        </script>
+                    
+
+<ul style="z-index: 9001; top: 0px; left: 0px; display: none;" aria-activedescendant="ui-active-menuitem" role="listbox" class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"></ul></body></html>

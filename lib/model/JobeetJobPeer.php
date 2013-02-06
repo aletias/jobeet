@@ -41,4 +41,9 @@ class JobeetJobPeer extends BaseJobeetJobPeer {
    {
       return self::doSelectOne(self::addActiveJobsCriteria($criteria));
    }
+   static public $types = array(
+        'full-time' => 'Full time',
+        'part-time' => 'Part time',
+        'freelance' => 'Freelance',
+        );
 } // JobeetJobPeer
