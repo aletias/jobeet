@@ -17,7 +17,14 @@
  * @package    lib.model
  */
 class JobeetJobPeer extends BaseJobeetJobPeer {
-   
+      
+   static public function getLatestPost()
+   {
+    $criteria = new Criteria();
+    self::addActiveJobsCriteria($criteria);
+ 
+    return JobeetJobPeer::doSelectOne($criteria);
+   }
    static public function getActiveJobs(Criteria $criteria = null)
    {
       return self::doSelect(self::addActiveJobsCriteria($criteria)); 
@@ -56,4 +63,14 @@ class JobeetJobPeer extends BaseJobeetJobPeer {
     'part-time' => 'Part time',
     'freelance' => 'Freelance',
   );
+  static public function getForToken(array $parameters)
+  {
+    $affiliate = JobeetAffiliatePeer::getByToken($parameters['token']);
+    if (!$affiliate || !$affiliate->getIsActive())
+    {
+      throw new sfError404Exception(sprintf('Affiliate with token "%s" does not exist or is not activated.', $parameters['token']));
+    }
+ 
+    return $affiliate->getActiveJobs();
+  }
 } // JobeetJobPeer

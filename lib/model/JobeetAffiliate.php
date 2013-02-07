@@ -22,6 +22,21 @@ class JobeetAffiliate extends BaseJobeetAffiliate {
 	 * Initializes internal state of JobeetAffiliate object.
 	 * @see        parent::__construct()
 	 */
+  public function getActiveJobs()
+  {
+     $cas = $this->getJobeetCategoryAffiliates();
+     $categories = array();
+     foreach ($cas as $ca)
+     {
+       $categories[] = $ca->getCategoryId();
+     }
+    
+     $criteria = new Criteria();
+     $criteria->add(JobeetJobPeer::CATEGORY_ID, $categories, Criteria::IN);
+     JobeetJobPeer::addActiveJobsCriteria($criteria);
+    
+     return JobeetJobPeer::doSelect($criteria);
+   } 
 	public function __toString()
   	{
     		return $this->getUrl();
@@ -32,5 +47,14 @@ class JobeetAffiliate extends BaseJobeetAffiliate {
 		// is where any default values for this object are set.
 		parent::__construct();
 	}
+   public function save(PropelPDO $con = null)
+   {
+       if (!$this->getToken())
+       {
+         $this->setToken(sha1($this->getEmail().rand(11111, 99999)));
+       }
+    
+       return parent::save($con);
+   }
 
 } // JobeetAffiliate

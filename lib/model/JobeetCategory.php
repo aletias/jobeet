@@ -58,4 +58,8 @@ class JobeetCategory extends BaseJobeetCategory {
       
       return JobeetJobPeer::doCount($criteria);
    }
+   public function getLatestPost()
+   {
+    return $this->getActiveJobs(1)->getFirst();
+   }
 } // JobeetCategory

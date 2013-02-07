@@ -63,7 +63,7 @@ class jobActions extends sfActions
       $this->redirect('job_show_user', $job);
    }
    
-   /*public function executeExtend(sfWebRequest $request)
+   public function executeExtend(sfWebRequest $request)
    {
      $request->checkCSRFProtection();
     
@@ -72,8 +72,8 @@ class jobActions extends sfActions
     
      $this->getUser()->setFlash('notice', sprintf('Your job validity has been extended until %s.', $job->getExpiresAt('m/d/Y')));
     
-     $this->redirect('job_show_user', $job);
-   }*/
+     $this->redirect($this->generateUrl('job_show_user', $job));
+   }
     
    protected function processForm(sfWebRequest $request, sfForm $form)
    {
@@ -98,8 +98,16 @@ class jobActions extends sfActions
    
      public function executeShow(sfWebRequest $request)
      {
-       $this->job = JobeetJobPeer::retrieveByPk($request->getParameter('id'));
-       $this->forward404Unless($this->job);
+       //$this->job = JobeetJobPeer::retrieveByPk($request->getParameter('id'));
+      // $this->forward404Unless($this->job);
+       $this->job = $this->getRoute()->getObject();
+       
+      //$jobs = $this->getUser()->getAttribute('job_history', array());
+       //print_r($jobs);
+       //array_unshift($jobs, $this->job->getId());
+       
+      //$this->getUser()->setAttribute('job_history, $jobs');
+      $this->getUser()->addJobToHistory($this->job);
      }
 
   
