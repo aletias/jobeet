@@ -22,6 +22,19 @@ class JobeetAffiliate extends BaseJobeetAffiliate {
 	 * Initializes internal state of JobeetAffiliate object.
 	 * @see        parent::__construct()
 	 */
+  public function activate()
+  {
+    $this->setIsActive(true);
+ 
+    return $this->save();
+  }
+ 
+  public function deactivate()
+  {
+    $this->setIsActive(false);
+ 
+    return $this->save();
+  }	 
   public function getActiveJobs()
   {
      $cas = $this->getJobeetCategoryAffiliates();

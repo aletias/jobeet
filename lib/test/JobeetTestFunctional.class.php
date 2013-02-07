@@ -1,6 +1,14 @@
 <?php
 class JobeetTestFunctional extends sfTestFunctional
 {
+  public function getProgrammingCategory()
+  {
+    $criteria = new Criteria();
+    $criteria->add(JobeetCategoryPeer::SLUG, 'programming');
+ 
+    return JobeetCategoryPeer::doSelectOne($criteria);
+  }   
+     
   public function loadData()
   {
     $loader = new sfPropelData();

@@ -22,6 +22,21 @@ class JobeetJob extends BaseJobeetJob {
 	 * Initializes internal state of JobeetJob object.
 	 * @see        parent::__construct()
 	 */
+	public function asArray($host)
+   {
+    return array(
+      'category'     => $this->getJobeetCategory()->getName(),
+      'type'         => $this->getType(),
+      'company'      => $this->getCompany(),
+      'logo'         => $this->getLogo() ? 'http://'.$host.'/uploads/jobs/'.$this->getLogo() : null,
+      'url'          => $this->getUrl(),
+      'position'     => $this->getPosition(),
+      'location'     => $this->getLocation(),
+      'description'  => $this->getDescription(),
+      'how_to_apply' => $this->getHowToApply(),
+      'expires_at'   => $this->getCreatedAt('c'),
+    );
+   } 
 	public function save(PropelPDO $con = null)
    {
      if ($this->isNew() && !$this->getExpiresAt())

@@ -26,4 +26,11 @@ class JobeetCategoryPeer extends BaseJobeetCategoryPeer {
 
    return self::doSelect($criteria);
  }
+ static public function getForSlug($slug)
+ {
+     $criteria = new Criteria();
+     $criteria->add(self::SLUG, $slug);
+    
+     return self::doSelectOne($criteria);
+ }
 } // JobeetCategoryPeer
