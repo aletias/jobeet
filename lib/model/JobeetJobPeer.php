@@ -51,4 +51,9 @@ class JobeetJobPeer extends BaseJobeetJobPeer {
     
      return self::doDelete($criteria);
    }
+   static public $types = array(
+    'full-time' => 'Full time',
+    'part-time' => 'Part time',
+    'freelance' => 'Freelance',
+  );
 } // JobeetJobPeer

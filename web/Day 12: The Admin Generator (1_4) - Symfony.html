@@ -1,0 +1,1899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+        <!--[if lt IE 9]>
+            <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <![endif]-->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="robots" content="index, follow, all">
+        <meta name="Author" content="Extreme Sensio">
+        <meta name="Language" content="en">
+        <meta name="Copyright" content="Sensio Labs">
+        <meta name="Publisher" content="Sensio Labs">
+        <meta name="Description" content="Symfony - Open-Source PHP web framework">
+        <meta name="Keywords" content="symfony2, symfony, project, framework, php, php5, open-source, components, symphony, symfony framework, symfony tutorial">
+
+        <link rel="search" type="application/opensearchdescription+xml" href="http://symfony.com/opensearch/documentation.xml" title="Symfony2 documentation">
+
+        <title>            Day 12: The Admin Generator
+        (1_4)
+ - Symfony</title>
+
+                        <link rel="stylesheet" href="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/all.css">
+                 <link href="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sln.css" rel="stylesheet" type="text/css" media="all">
+
+            <link rel="stylesheet" type="text/css" media="all" href="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/highlight.css">
+    <link rel="stylesheet" type="text/css" media="all" href="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/legacy.css">
+
+                
+                    <script id="sln-customize" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sln_customiser.js"></script><script src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script id="sln_bar" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sln.js"></script><script src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/all.js"></script>
+        
+                
+        <!--[if IE 6]>
+            <script src="/js/common/DD_belatedPNG_0.0.7a-min.js" type="text/javascript"></script>
+            <script src="/js/common/ExtendDD_belatedPNG_0.0.7a.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                DD_belatedPNG.fix('.png_fix');
+            </script>
+        <![endif]-->
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-89393-6']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+
+    <body>
+        <div id="content_wrapper" class="">
+            <div id="sln"><div class="sln-bar"><div class="sln-bar-inner"><div class="sln-network"><a href="#" class="sln-hidden-phone">SensioLabs<span>Network</span></a><a href="#" class="sln-visible-phone">SL<span>N</span></a></div> <div class="sln-ad"><a href="http://sensiolabs.com/en/support/sensiolabs_support.html" data-ga="support_1" class="sln-visible-phone"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sensio-support.png">Support</a><a href="http://sensiolabs.com/en/support/sensiolabs_support.html" data-ga="support_1" class="sln-visible-tablet"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sensio-support.png">Professional Support for Symfony</a><a href="http://sensiolabs.com/en/support/sensiolabs_support.html" data-ga="support_1" class="sln-visible-desktop"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sensio-support.png">Get professional support for symfony 1.x and Symfony 2.x</a></div> <div class="sln-search"><div class="sln-search-deactivated"><a href="#"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/search.png"></a></div><div class="sln-search-activated sln-hidden"><a href="#"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/search-alt.png"></a><form method="GET" action="/search"><input aria-haspopup="true" aria-autocomplete="list" role="textbox" autocomplete="off" class="ui-autocomplete-input" name="q" id="sln-autocomplete" placeholder="Search" type="text"></form></div></div> <div class="sln-user"> <a href="http://symfony.com/session/new" class="sln-connect"> Connect </a> </div>
+    </div>
+    <div class="sln-dropdown-network sln-dropdown sln-hidden"><div class="sln-container"><div class="sln-row"><div class="sln-span6"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sensiolabs.png" alt="SensioLabs"><p>Since
+ 1998, SensioLabs has been promoting the Open-Source software movement 
+by providing quality web application development, training, consulting. 
+Sensio Labs also supports several large Open-Source projects.</p><ul class="sln-websites"><li><a href="http://sensiolabs.com/en">International</a></li><li><a href="http://sensiolabs.fr/">France</a></li><li><a href="http://sensiolabs.de/">Deutschland</a></li><li><a href="http://sensiolabs.co.uk/">UK</a></li></ul></div><div class="sln-span6"><div class="sln-row"><div class="sln-span3"><h2>Products</h2><ul><li><a href="http://symfony.com/">Symfony - Web framework</a></li><li><a href="http://twig.sensiolabs.org/">Twig - Template library</a></li><li><a href="http://silex.sensiolabs.org/">Silex - PHP micro-framework</a></li><li><a href="http://www.swiftmailer.org/">Swift Mailer - Mailing library</a></li><li><a href="http://sismo.sensiolabs.org/">Sismo - Continuous Testing Server</a></li><li><a href="http://pirum.sensiolabs.org/">Pirum - PEAR channel server</a></li><li><a href="http://desktop.sensiolabs.org/">Desktop - Enhance your PHP experience</a></li></ul></div><div class="sln-span3"><h2>Services</h2><ul><li><a href="http://symfony.com/services">Symfony services</a></li><li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support - For symfony 1.x &amp; Symfony 2.x</a></li><li><a href="http://trainings.sensiolabs.com/">Trainings - Be Trained by experts</a></li><li><a href="http://guru.sensiolabs.com/">Guru - Get a guru for a day</a></li><li><a href="https://connect.sensiolabs.com/">Connect - Showcase your skills</a></li><li><a href="http://books.sensiolabs.com/">Books - Read Open-Source books</a></li><li><a href="http://live.symfony.com/">Conferences - The Symfony Live Conference</a></li><li><a href="http://www.youtube.com/sensiolabs">Videos - Watch technical talks</a></li></ul></div></div></div></div></div></div>
+    
+</div></div>
+
+            <div class="content">
+                
+
+    
+<div class="header">
+    <div class="content_header clear_fix">
+        <div class="illustration_logo_header">
+                            <a href="http://symfony.com/"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/logo_symfony_header.png" alt="Symfony" class="png_fix"></a>
+                    </div>
+        <div class="box_download clear_fix">
+            <div class="legend_download">
+                <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/a_sensiolabs_product.png" alt="a SensioLabs product" class="png_fix">
+            </div>
+            <div class="download_button_wrapper">
+                <a href="http://symfony.com/download" class="download_button">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                DOWNLOAD NOW
+            </span>
+        </span>
+    </span>
+</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main_menu clear_fix" id="main_menu_id">
+    <ul class="clear_fix">
+        <li class="first what_is_symfony"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></li>
+        <li class="get_started">
+            <a href="http://symfony.com/get_started">Get started</a>
+                    </li>
+        <li class="learn selected"><a href="http://symfony.com/doc/current/index.html">Documentation</a></li>
+        <li class="community"><a href="http://symfony.com/community">Community</a></li>
+        <li class="services"><a href="http://symfony.com/services">Services</a></li>
+        <li class="blog has_dropdown">
+            <a href="http://symfony.com/blog/">News</a>
+            <div class="box_dropdown_wrapper">
+    <div class="border_l">
+        <div class="middle_border_l">
+            <div class="border_r">
+                <div class="middle_border_r">
+                    <div class="content_wrapper">
+                        <div class="box_content">
+                                <div class="inner_drop_box_two_columns clear_fix">
+        <div class="inner_drop_box_two_columns_column_01">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/blog" title="blog feed"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/rss.gif" alt="feed"></a></div>
+                <a href="http://symfony.com/blog/">Latest News</a>
+            </h2>
+
+            <div class="box_article post">
+                    <div class="gravatar"><a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/7e428bbf-cbf1-46db-a96f-86bb68600519.jpeg" alt="Anne-Sophie Bachelard" height="57" width="57"></a></div>
+                <h3 class="title_05"><a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">Symfony Live 2013 tour: time to start the new season!</a></h3>
+                <div class="complementaries_informations">
+    by
+            <a href="https://connect.sensiolabs.com/api/alternates/7e428bbf-cbf1-46db-a96f-86bb68600519">Anne-Sophie Bachelard</a>
+            – January 28, 2013
+        </div>
+            </div>
+
+                <div class="box_hr"><hr></div>
+
+
+            <div class="box_article">
+                <h2 class="title_05"><a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">What happened last week in Symfony?</a></h2>
+                <p>This week, the oficial Symfony2 repository surpassed 
+the 2,000th fork milestone. Meanwhile, the stabilization of the Symfony 
+2.2 version continues in the newly created <a href="http://github.com/symfony/symfony/tree/2.2">2.2 branch</a>. In addition, a new <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">SymfonyCon Europe</a> conference was announced for this year.</p>
+            </div>
+        </div>
+        <div class="inner_drop_box_two_columns_column_02">
+            <h2 class="dropdown_title">
+                <div class="button"><a href="http://twitter.com/symfony" title="twitter account"><img style="width: 35px; margin-top: -10px" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/twitter.png" alt="Twitter"></a></div>
+                <div class="button"><a href="http://feeds.feedburner.com/symfony/events" title="events rss"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/rss.gif" alt="RSS"></a></div>
+                <a href="http://symfony.com/events/">Upcoming Events</a>
+            </h2>
+
+            <div class="box_article">
+                <p>The Symfony Community organizes events all over the world on a regular basis. Here are the next ones.</p>
+                                                            <h2 class="title_05">
+                            <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfughh/events/97853262/">Germany, Hamburg — Treffen der Symfony User Group Hamburg</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 18:30 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugberlin/events/99498922/">Germany, Berlin — Symfony Berlin Usergroup</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 22:00
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                            <h2 class="title_05">
+                            <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/de.png">
+                                                            <a href="http://www.meetup.com/sfugmd/events/101931692/">Germany, Gera — Symfony User Group Mitteldeutschland Treffen</a>
+                                                    </h2>
+                        <div class="event_detail">
+                                                            on February 06, 2013, from 19:00 to 20:30
+                                                    </div>
+                                                </div>
+        </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="corner_l">
+            <div class="corner_r">
+                <div class="border"></div>
+            </div>
+        </div>
+    </div>
+</div>
+        </li>
+        <li class="last about"><a href="http://symfony.com/about">About</a></li>
+    </ul>
+</div>
+
+                                    <div class="main_content">
+                            <div style="-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; background-color: #ffa; padding: 15px; margin-bottom: 20px; color: #555">
+        <strong>Caution</strong>: You are browsing the legacy <a href="http://symfony.com/legacy"><img style="vertical-align: middle; padding-left: 3px" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/symfony_button.gif"></a> <a href="http://symfony.com/legacy">1.x</a> part of this website.
+    </div>
+
+    
+                                <div class="box_columns clear_fix">
+                                                                                                            <div class="column_01">
+                                                                                            <div class="submenu">
+                                                    <ul class="list_submenu">    <li class="first"><a href="http://symfony.com/legacy">Legacy homepage</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/getting-started">Getting started</a></li>
+<li class=" selected"><a href="http://symfony.com/legacy/doc/jobeet?orm=Propel">Jobeet</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/gentle-introduction">A gentle Intro to symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/more-with-symfony">More with Symfony</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/reference">The Reference Book</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/tutorial">Tutorials</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/forms">Forms</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/cookbook/1_2">Cookbook (&lt;= 1.2)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/book/1_0">The definitive Guide (1.0)</a></li>
+<li class=""><a href="http://symfony.com/legacy/doc/askeet/1_0">Askeet (1.0)</a></li>
+<li><a href="http://symfony-project.org/api/">API</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+</ul>
+                                                </div>
+                                                                        <div class="toc">
+                <h2 class="title_05">Table of Contents</h2>
+                <div class="toc-content">
+                    <ul><li><ul><li><a class="reference internal" href="#chapter_12_backend_creation">Backend Creation</a></li><li><a class="reference internal" href="#chapter_12_backend_modules">Backend Modules</a></li><li><a class="reference internal" href="#chapter_12_backend_look_and_feel">Backend Look and Feel</a></li><li><a class="reference internal" href="#chapter_12_the_symfony_cache">The symfony Cache</a></li><li><a class="reference internal" href="#chapter_12_backend_configuration">Backend Configuration</a></li><li><a class="reference internal" href="#chapter_12_title_configuration">Title Configuration</a></li><li><a class="reference internal" href="#chapter_12_fields_configuration">Fields Configuration</a></li><li><a class="reference internal" href="#chapter_12_list_view_configuration">List View Configuration</a><ul><li><a class="reference internal" href="#chapter_12_sub_display"><code>display</code></a></li><li><a class="reference internal" href="#chapter_12_sub_layout"><code>layout</code></a></li><li><a class="reference internal" href="#chapter_12_sub_virtual_columns">"Virtual" columns</a></li><li><a class="reference internal" href="#chapter_12_sub_sort"><code>sort</code></a></li><li><a class="reference internal" href="#chapter_12_sub_max_per_page"><code>max_per_page</code></a></li><li><a class="reference internal" href="#chapter_12_sub_batch_actions"><code>batch_actions</code></a></li><li><a class="reference internal" href="#chapter_12_sub_object_actions"><code>object_actions</code></a></li><li><a class="reference internal" href="#chapter_12_sub_actions"><code>actions</code></a></li><li><a class="reference internal" href="#chapter_12_sub_peer_method"><code>peer_method</code></a></li></ul></li><li><a class="reference internal" href="#chapter_12_form_views_configuration">Form Views Configuration</a><ul><li><a class="reference internal" href="#chapter_12_sub_display"><code>display</code></a></li><li><a class="reference internal" href="#chapter_12_sub_virtual_columns">"Virtual" columns</a></li><li><a class="reference internal" href="#chapter_12_sub_class"><code>class</code></a></li></ul></li><li><a class="reference internal" href="#chapter_12_filters_configuration">Filters Configuration</a></li><li><a class="reference internal" href="#chapter_12_actions_customization">Actions Customization</a></li><li><a class="reference internal" href="#chapter_12_templates_customization">Templates Customization</a></li><li><a class="reference internal" href="#chapter_12_final_configuration">Final Configuration</a></li><li><a class="reference internal" href="#chapter_12_final_thoughts">Final Thoughts</a></li></ul></li></ul>
+                </div>
+            </div>
+            
+    <div id="license">
+    This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License license.
+</div>
+                                                                                                    
+<div class="ads">
+        <div class="box_hr"><hr></div>
+
+
+            <div class="ad" id="ad_trainings_1">
+            <h3><a href="http://trainings.sensiolabs.com/en/training/getting-started-with-symfony2">Master Symfony2 fundamentals</a></h3>
+            <div>Be trained by SensioLabs experts (2 to 6 day sessions -- French or English).</div>
+            <div><cite>trainings.sensiolabs.com</cite></div>
+        </div>
+            <div class="ad" id="ad_servergrove_1">
+            <h3><a href="http://symfony.com/servergrove">Symfony hosting done right</a></h3>
+            <div>ServerGrove, outstanding support at the right price for your Symfony hosting needs.</div>
+            <div><cite>servergrove.com</cite></div>
+        </div>
+            <div class="ad" id="ad_support_1">
+            <h3><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Discover the SensioLabs Support</a></h3>
+            <div>Access to the SensioLabs Competency Center for an exclusive and tailor-made support on Symfony</div>
+            <div><cite>sensiolabs.com</cite></div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+                    $("#ad_trainings_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'trainings_1']); });
+                    $("#ad_servergrove_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'servergrove_1']); });
+                    $("#ad_support_1").click(function () { _gaq.push(['_trackEvent', 'Ads', 'Ads', 'support_1']); });
+            });
+</script>
+                                                                        
+                                                                        
+    <div class="ads">
+                                                        <a href="https://connect.sensiolabs.com/"><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sensiolabs_connect.png"></a>
+                                                    </div>
+                                                                        
+                                                            </div>
+                                                                        <div class="column_02">
+                                                                                    <div class="breadcrumb">
+                                                <a href="http://symfony.com/">Home</a> »
+                                                            symfony 1.x »
+        Legacy Documentation » Jobeet
+                                            </div>
+
+                                                                                                <div class="box_title">
+                                                        <div class="box_version_wrapper">
+        <div class="version_wrapper">
+            <div class="version">
+                1.4/Propel
+                <span class="arrow">
+                    <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/down_arrow_white.png" alt="">
+                </span>
+            </div>
+            <div class="other_version">
+                                    <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_2/en/12?orm=Propel">1.2 version</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/es/12?orm=Propel">Spanish</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/fr/12?orm=Propel">French</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/it/12?orm=Propel">Italian</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ja/12?orm=Propel">Japanese</a>
+                                </li>
+                                                                                                                <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/ru/12?orm=Propel">Russian</a>
+                                </li>
+                                                                        </ul>
+                                                                            <hr>
+                                        <ul>
+                                                                                    <li>
+                                    <a href="http://symfony.com/legacy/doc/jobeet/1_4/en/12?orm=Doctrine">Doctrine</a>
+                                </li>
+                                                                        </ul>
+                            </div>
+        </div>
+    </div>
+                                                    <h1 class="title_01">            Day 12: The Admin Generator
+    </h1>
+                                                </div>
+                                            
+        
+                                                            
+    <div style="float: right; padding: 10px 0 20px 20px; background-color: #fff; text-align: right">
+    <a href="http://books.sensiolabs.com/book/9782918390152">
+        <img style="width: 120px" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/9782918390152-3d.jpg" alt="Jobeet">
+    </a>
+
+    <div style="text-align: center; font-size: 80%; line-height: 115%; margin-left: 50px">
+        <div>
+            Support symfony!<br>
+            <a href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">Buy</a> this book<br>
+            or <a href="http://www.symfony-project.org/donate">donate</a>.
+        </div>
+        <a class="amazon" href="http://www.amazon.com/gp/product/2918390151?ie=UTF8&amp;tag=symfonyprojec-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=2918390151">
+            <img style="width: 90px" class="png_fix" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/buy_amazon.png" alt="Buy Jobeet from amazon.com">
+        </a>
+        <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/ir.gif" alt="" style="border:none !important; margin:0px !important;" height="1" border="0" width="1">
+    </div>
+</div>
+
+        <div class="box_article doc_page">
+                    <p>With the addition we made in day 11 on Jobeet, the frontend application is now
+fully useable by job seekers and job posters. It's time to talk a bit about the
+backend application. Today, thanks to the admin generator
+functionality of symfony, we will develop a complete backend interface for
+Jobeet in just one hour.</p>
+
+<h2><a name="chapter_12_backend_creation">Backend Creation</a></h2>
+
+<p>The very first step is to create the backend application. If your
+memory serves you well, you should remember how to do it with the <code>generate:app</code>
+task:</p>
+
+<pre class="command-line"><code>$ php symfony generate:app backend
+</code></pre>
+
+<p>The backend application is now available at
+<code>http://jobeet.localhost/backend.php/</code> for the <code>prod</code> environment, and at
+<code>http://jobeet.localhost/backend_dev.php/</code> for the <code>dev</code> environment.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  When you created the frontend application, the production front controller was
+  named <code>index.php</code>. As you can only have one <code>index.php</code> file per directory,
+  symfony creates an <code>index.php</code> file for the very first production front
+  controller and names the others after the application name.</p>
+
+                </div>
+            </div>
+
+<p>If you try to reload the data fixtures with the <code>propel:data-load</code> task, it
+won't work as expected. That's because the <code>JobeetJob::save()</code> method needs
+access to the <code>app.yml</code> configuration file from the <code>frontend</code> application. As
+we have now two applications, symfony uses the first it finds, which is now the
+<code>backend</code> one.</p>
+
+<p>But as seen during day 8, the settings can be configured at different
+levels. By moving the content of the <code>apps/frontend/config/app.yml</code> file to
+<code>config/app.yml</code>, the settings will be shared among all applications and the
+problem will be fixed. Do the change now as we will use the model classes quite
+extensively in the admin generator, and so we will need the variables defined in
+<code>app.yml</code> in the backend application.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  The <code>propel:data-load</code> task also takes a <code>--application</code> option. So, if you
+  need some specific settings from one application or another, 
+  this is the way to go:</p>
+
+<pre class="command-line"><code>$ php symfony propel:data-load --application=frontend
+</code></pre>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_12_backend_modules">Backend Modules</a></h2>
+
+<p>For the frontend application, the <code>propel:generate-module</code> task has been used to
+bootstrap a basic CRUD module based on a model class. For the backend, the
+<code>propel:generate-admin</code> task will be used as it generates a full working backend
+interface for a model class:</p>
+
+<pre class="command-line"><code>$ php symfony propel:generate-admin backend JobeetJob --module=job
+$ php symfony propel:generate-admin backend JobeetCategory --module=category
+</code></pre>
+
+<p>These two commands create a <code>job</code> and a <code>category</code> module for the
+<code>JobeetJob</code> and the <code>JobeetCategory</code> model classes respectively.</p>
+
+<p>The optional <code>--module</code> option overrides the <code>module</code> name generated by default
+by the task (which would have been otherwise <code>jobeet_job</code> for the <code>JobeetJob</code>
+class).</p>
+
+<p>Behind the scenes, the task has also created a custom route for each module:</p>
+
+<pre># apps/backend/config/routing.yml
+jobeet_job:
+  class: sfPropelRouteCollection
+  options:
+    model:                JobeetJob
+    module:               job
+    prefix_path:          job
+    column:               id
+    with_wildcard_routes: true</pre>
+
+<p>It should come as no surprise that the route class used by the admin
+generator|Admin Generator is <code>sfPropelRouteCollection</code>, as the main goal of an
+admin interface is the management of the life-cycle of model objects.</p>
+
+<p>The route definition also defines some options we have not seen before:</p>
+
+<ul>
+<li><code>prefix_path</code>: Defines the prefix path for the generated route (for
+               instance, the edit page will be something like
+               <code>/job/1/edit</code>).</li>
+<li><code>column</code>: Defines the table column to use in the URL for links that
+          references an object.</li>
+<li><code>with_wildcard_routes</code>: As the admin interface will have more than the
+                        classic CRUD operations, this option allows to
+                        define more object and collection actions without
+                        editing the route.</li>
+</ul>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  As always, it is a good idea to read the help before using a new task.</p>
+
+<pre class="command-line"><code>$ php symfony help propel:generate-admin
+</code></pre>
+  
+  <p>It will give you all the task's arguments and options as well as some classic
+  usage examples.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_12_backend_look_and_feel">Backend Look and Feel</a></h2>
+
+<p>Right off the bat, you can use the generated modules:</p>
+
+<pre class="url"><code>http://jobeet.localhost/backend_dev.php/job
+http://jobeet.localhost/backend_dev.php/category
+</code></pre>
+
+<p>The admin modules have many more features than the simple modules we have
+generated in previous days. Without writing a single line of PHP, each
+module provides these great features:</p>
+
+<ul>
+<li>The list of objects is <strong>paginated</strong></li>
+<li>The list is <strong>sortable</strong></li>
+<li>The list can be <strong>filtered</strong></li>
+<li>Objects can be <strong>created</strong>, <strong>edited</strong>, and <strong>deleted</strong></li>
+<li>Selected objects can be deleted in a <strong>batch</strong></li>
+<li>The form <strong>validation</strong> is enabled</li>
+<li><strong>Flash messages</strong> give immediate feedback to the user</li>
+<li>... and much much more</li>
+</ul>
+
+<p>The admin generator provides all the features you need to create a backend
+interface in a simple to configure package.</p>
+
+<p>If you have a look at our two generated modules, you will notice there is no
+activated webdesign whereas the symfony built-in admin generator feature has a
+basic graphic interface by default. For now, assets from the <code>sfPropelPlugin</code>
+are not located under the <code>web/</code> folder. We need to publish them under the
+<code>web/</code> folder thanks to the <code>plugin:publish-assets</code> task:</p>
+
+<pre class="command-line"><code>$ php symfony plugin:publish-assets
+</code></pre>
+
+<p>To make the user experience a bit better, we need to customize the default
+backend. We will also add a simple menu to make it easy to navigate between the
+different modules.</p>
+
+<p>Replace the default <code>layout</code> file content with the code below:</p>
+
+<pre class="php"><span class="co1">// apps/backend/templates/layout.php</span>
+&lt;!DOCTYPE html <span class="kw2">PUBLIC</span> <span class="st0">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span>
+  <span class="st0">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span>&gt;
+&lt;html xmlns=<span class="st0">"http://www.w3.org/1999/xhtml"</span> xml:lang=<span class="st0">"en"</span> lang=<span class="st0">"en"</span>&gt;
+  &lt;head&gt;
+    &lt;title&gt;Jobeet Admin Interface&lt;/title&gt;
+    &lt;link rel=<span class="st0">"shortcut icon"</span> href=<span class="st0">"/favicon.ico"</span> /&gt;
+    <span class="kw2">&lt;?php</span> use_stylesheet<span class="br0">(</span><span class="st0">'admin.css'</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+    <span class="kw2">&lt;?php</span> include_javascripts<span class="br0">(</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+    <span class="kw2">&lt;?php</span> include_stylesheets<span class="br0">(</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=<span class="st0">"container"</span>&gt;
+      &lt;div id=<span class="st0">"header"</span>&gt;
+        &lt;h1&gt;
+          &lt;a href=<span class="st0">"&lt;?php echo url_for('homepage') ?&gt;"</span>&gt;
+            &lt;img src=<span class="st0">"/legacy/images/logo.jpg"</span> alt=<span class="st0">"Jobeet Job Board"</span> /&gt;
+          &lt;/a&gt;
+        &lt;/h1&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div id=<span class="st0">"menu"</span>&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Jobs'</span>, <span class="st0">'jobeet_job'</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+          &lt;/li&gt;
+          &lt;li&gt;
+            <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> link_to<span class="br0">(</span><span class="st0">'Categories'</span>, <span class="st0">'jobeet_category'</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div id=<span class="st0">"content"</span>&gt;
+        <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> <span class="re0">$sf_content</span> <span class="kw2">?&gt;</span>
+      &lt;/div&gt;
+&nbsp;
+      &lt;div id=<span class="st0">"footer"</span>&gt;
+        &lt;img src=<span class="st0">"/legacy/images/jobeet-mini.png"</span> /&gt;
+        powered by &lt;a href=<span class="st0">"/"</span>&gt;
+        &lt;img src=<span class="st0">"/legacy/images/symfony.gif"</span> alt=<span class="st0">"symfony framework"</span> /&gt;&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>This layout uses an <code>admin.css</code> stylesheet. This file must already be present in
+<code>web/css/</code> as it was installed with the other stylesheets during day 4.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/look_and_feel.png" alt="The admin generator look and feel"></p>
+
+<p>Eventually, change the default symfony homepage in <code>routing.yml</code>:</p>
+
+<pre># apps/backend/config/routing.yml
+homepage:
+  url:   /
+  param: { module: job, action: index }</pre>
+
+<h2><a name="chapter_12_the_symfony_cache">The symfony Cache</a></h2>
+
+<p>If you are curious enough, you have probably already opened the files generated
+by the task under the <code>apps/backend/modules/</code> directory. If not, please open
+them now. Surprise! The <code>templates</code> directories are empty, and the
+<code>actions.class.php</code> files are quite empty as well:</p>
+
+<pre class="php"><span class="co1">// apps/backend/modules/job/actions/actions.class.php</span>
+<span class="kw1">require_once</span> <span class="kw3">dirname</span><span class="br0">(</span><span class="kw2">__FILE__</span><span class="br0">)</span>.<span class="st0">'/../lib/jobGeneratorConfiguration.class.php'</span>;
+<span class="kw1">require_once</span> <span class="kw3">dirname</span><span class="br0">(</span><span class="kw2">__FILE__</span><span class="br0">)</span>.<span class="st0">'/../lib/jobGeneratorHelper.class.php'</span>;
+&nbsp;
+<span class="kw2">class</span> jobActions <span class="kw2">extends</span> autoJobActions
+<span class="br0">{</span>
+<span class="br0">}</span></pre>
+
+<p>How can it possibly work? If you have a closer look, you will notice that the
+<code>jobActions</code> class extends <code>autoJobActions</code>. The <code>autoJobActions</code> class is
+automatically generated by symfony if it does not exist. It is to be found in
+the <code>cache/backend/dev/modules/autoJob/</code> directory, which contains the "real"
+module:</p>
+
+<pre class="php"><span class="co1">// cache/backend/dev/modules/autoJob/actions/actions.class.php</span>
+<span class="kw2">class</span> autoJobActions <span class="kw2">extends</span> sfActions
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> preExecute<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">configuration</span> = <span class="kw2">new</span> jobGeneratorConfiguration<span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">(</span>!<span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">hasCredential</span><span class="br0">(</span>
+      <span class="re0">$this</span>-&gt;<span class="me1">configuration</span>-&gt;<span class="me1">getCredentials</span><span class="br0">(</span><span class="re0">$this</span>-&gt;<span class="me1">getActionName</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+    <span class="br0">)</span><span class="br0">)</span>
+    <span class="br0">{</span>
+&nbsp;
+<span class="co1">// ...</span></pre>
+
+<p>The way the admin generator works should remind you of some known behavior. In
+fact, it is quite similar to what we have already learned about the model and
+form classes. Based on the model schema definition, symfony generates the model
+and form classes. For the admin generator, the generated module can be
+configured by editing the <code>config/generator.yml</code> file found in the module:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           JobeetJob
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          jobeet_job
+    with_propel_route:     true
+&nbsp;
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~</pre>
+
+<p>Each time you update the <code>generator.yml</code> file, symfony regenerates the cache. As
+we will see later, customizing the admin generated modules is easy, fast, and
+fun.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The automatic re-generation of cache files only occurs in the 
+  development environment. In the production one, you will need to clear the 
+  cache manually with the <code>cache:clear</code> task.</p>
+
+                </div>
+            </div>
+
+<p>--</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The <code>with_show</code> parameter has no effect. This parameter is only meaningful
+  when generating "standard" modules with the <code>propel:generate-module</code> task.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_12_backend_configuration">Backend Configuration</a></h2>
+
+<p>An admin module can be customized by editing the <code>config</code> key of the
+<code>generator.yml</code> file. The configuration is organized in seven sections:</p>
+
+<ul>
+<li><code>actions</code>: Default configuration for the actions found on the list and on
+           the forms</li>
+<li><code>fields</code>:  Default configuration for the fields</li>
+<li><code>list</code>:    Configuration for the list</li>
+<li><code>filter</code>:  Configuration for filters</li>
+<li><code>form</code>:    Configuration for new and edit forms</li>
+<li><code>edit</code>:    Specific configuration for the edit page</li>
+<li><code>new</code>:     Specific configuration for the new page</li>
+</ul>
+
+<p>Let's start the customization.</p>
+
+<h2><a name="chapter_12_title_configuration">Title Configuration</a></h2>
+
+<p>The <code>list</code>, <code>edit</code>, and <code>new</code> section titles of <code>category</code> module can be
+customized by defining a <code>title</code> option:</p>
+
+<pre># apps/backend/modules/category/config/generator.yml
+config:
+  actions: ~
+  fields:  ~
+  list:
+    title: Category Management
+  filter:  ~
+  form:    ~
+  edit:
+    title: Editing Category "%%name%%"
+  new:
+    title: New Category</pre>
+
+<p>The <code>title</code> for the <code>edit</code> section contains dynamic values: all strings enclosed
+between <code>%%</code> are replaced by their corresponding object column values.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/title.png" alt="Titles"></p>
+
+<p>The configuration for the <code>job</code> module is quite similar:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  actions: ~
+  fields:  ~
+  list:
+    title: Job Management
+  filter:  ~
+  form:    ~
+  edit:
+    title: Editing Job "%%company%% is looking for a %%position%%"
+  new:
+    title: Job Creation</pre>
+
+<h2><a name="chapter_12_fields_configuration">Fields Configuration</a></h2>
+
+<p>The different views (<code>list</code>, <code>new</code>, and <code>edit</code>) are composed of fields.
+A field can be a column of the model class, or a virtual column as we will see
+later on.</p>
+
+<p>The default fields configuration can be customized with the <code>fields</code> section:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  fields:
+    is_activated: { label: Activated?, help: Whether the user has activated the job, or not }
+    is_public:    { label: Public?, help: Whether the job can also be published on affiliate websites, or not }</pre>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/fields.png" alt="Fields Configuration"></p>
+
+<p>The <code>fields</code> section overrides the fields configuration for all views, which
+means the <code>label</code> for the <code>is_activated</code> field will be changed for the <code>list</code>,
+<code>edit</code>, and <code>new</code> views.</p>
+
+<p>The admin generator configuration is based on a configuration cascade principle.
+For instance, if you want to change a label for the <code>list</code> view
+only, define a <code>fields</code> option under the <code>list</code> section:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    fields:
+      is_public:    { label: "Public? (label for the list)" }</pre>
+
+<p>Any configuration that is set under the main <code>fields</code> section can be overridden
+by view-specific configuration. The overriding rules are the following:</p>
+
+<ul>
+<li><code>new</code> and <code>edit</code> inherit from <code>form</code> which inherits from <code>fields</code></li>
+<li><code>list</code> inherits from <code>fields</code></li>
+<li><code>filter</code> inherits from <code>fields</code></li>
+</ul>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  For form sections (<code>form</code>, <code>edit</code>, and <code>new</code>), the <code>label</code> and <code>help</code> options
+  override the ones defined in the form classes.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_12_list_view_configuration">List View Configuration</a></h2>
+
+<h3><a name="chapter_12_sub_display"><code>display</code></a></h3>
+
+<p>By default, the columns of the list view are all the columns of the model, in
+the order of the schema file. The <code>display</code> option overrides the default by
+defining the ordered columns to be displayed:</p>
+
+<pre># apps/backend/modules/category/config/generator.yml
+config:
+  list:
+    title:   Category Management
+    display: [=name, slug]</pre>
+
+<p>The <code>=</code> sign before the <code>name</code> column is a convention to convert the string to a
+link.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/list_columns.png" alt="Table list"></p>
+
+<p>Let's do the same for the <code>job</code> module to make it more readable:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    title:   Job Management
+    display: [company, position, location, url, is_activated, email]</pre>
+
+<h3><a name="chapter_12_sub_layout"><code>layout</code></a></h3>
+
+<p>The list can be displayed with different layouts. By default, the
+layout is <code>tabular</code>, which means that each column value is in
+its own table column. But for the <code>job</code> module, it would be better to use the
+<code>stacked</code> layout, which is the other built-in layout:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    title:   Job Management
+    layout:  stacked
+    display: [company, position, location, url, is_activated, email]
+    params:  |
+      %%is_activated%% &lt;small&gt;%%category_id%%&lt;/small&gt; - %%company%%
+       (&lt;em&gt;%%email%%&lt;/em&gt;) is looking for a %%=position%% (%%location%%)</pre>
+
+<p>In a <code>stacked</code> layout, each object is represented by a single string, which is
+defined by the <code>params</code> option.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The <code>display</code> option is still needed as it defines the columns that will be
+  sortable by the user.</p>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_12_sub_virtual_columns">"Virtual" columns</a></h3>
+
+<p>With this configuration, the <code>%%category_id%%</code> segment will be replaced by the
+category primary key. But it would be more meaningful to display the name of the
+category.</p>
+
+<p>Whenever you use the <code>%%</code> notation, the variable does not need to correspond to
+an actual column in the database schema. The admin generator only need to find a
+related getter in the model class.</p>
+
+<p>To display the category name, we can define a <code>getCategoryName()</code> method in the
+<code>JobeetJob</code> model class and replace <code>%%category_id%%</code> by <code>%%category_name%%</code>.</p>
+
+<p>But the <code>JobeetJob</code> class already has a <code>getJobeetCategory()</code> method that
+returns the related category object. And if you use <code>%%jobeet_category%%</code>, it
+works as the <code>JobeetCategory</code> class has a magic <code>__toString()</code> method that
+converts the object to a string.</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+%%is_activated%% &lt;small&gt;%%jobeet_category%%&lt;/small&gt; - %%company%%
+ (&lt;em&gt;%%email%%&lt;/em&gt;) is looking for a %%=position%% (%%location%%)</pre>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/stacked_layout.png" alt="Stacked layout"></p>
+
+<h3><a name="chapter_12_sub_sort"><code>sort</code></a></h3>
+
+<p>As an administrator, you will be probably more interested in seeing the latest
+posted jobs. You can configure the default sort column by adding a <code>sort</code>
+option:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    sort: [expires_at, desc]</pre>
+
+<h3><a name="chapter_12_sub_max_per_page"><code>max_per_page</code></a></h3>
+
+<p>By default, the list is paginated and each page contains 20 items.
+This can be changed with the <code>max_per_page</code> option:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    max_per_page: 10</pre>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/max_per_page.png" alt="Max per page"></p>
+
+<h3><a name="chapter_12_sub_batch_actions"><code>batch_actions</code></a></h3>
+
+<p>On a list, an action can be run on several objects. These batch actions are not
+needed for the <code>category</code> module, so, let's remove them:</p>
+
+<pre># apps/backend/modules/category/config/generator.yml
+config:
+  list:
+    batch_actions: {}</pre>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/no_batch_actions.png" alt="Remove the batch actions"></p>
+
+<p>The <code>batch_actions</code> option defines the list of batch actions. The empty array
+allows the removal of the feature.</p>
+
+<p>By default, each module has a <code>delete</code> batch action defined by the framework,
+but for the <code>job</code> module, let's pretend we need a way to extend the validity of
+some selected jobs for another 30 days:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    batch_actions:
+      _delete:    ~
+      extend:     ~</pre>
+
+<p>All actions beginning with a <code>_</code> are built-in actions provided by the framework.
+If you refresh your browser and select the extend batch actions, symfony will
+throw an exception telling you to create an <code>executeBatchExtend()</code> method:</p>
+
+<pre class="php"><span class="co1">// apps/backend/modules/job/actions/actions.class.php</span>
+<span class="kw2">class</span> jobActions <span class="kw2">extends</span> autoJobActions
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> executeBatchExtend<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$ids</span> = <span class="re0">$request</span>-&gt;<span class="me1">getParameter</span><span class="br0">(</span><span class="st0">'ids'</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$jobs</span> = JobeetJobPeer::<span class="me2">retrieveByPks</span><span class="br0">(</span><span class="re0">$ids</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">foreach</span> <span class="br0">(</span><span class="re0">$jobs</span> <span class="kw1">as</span> <span class="re0">$job</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="re0">$job</span>-&gt;<span class="me1">extend</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>;
+    <span class="br0">}</span>
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="st0">'The selected jobs have been extended successfully.'</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'jobeet_job'</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>The selected primary keys are stored in the <code>ids</code> request
+parameter. For each selected job, the <code>JobeetJob::extend()</code> method is called
+with an extra argument to bypass the expiration check.</p>
+
+<p>Update the <code>extend()</code> method to take this new argument into account:</p>
+
+<pre class="php"><span class="co1">// lib/model/JobeetJob.php</span>
+<span class="kw2">class</span> JobeetJob <span class="kw2">extends</span> BaseJobeetJob
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> extend<span class="br0">(</span><span class="re0">$force</span> = <span class="kw2">false</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw1">if</span> <span class="br0">(</span>!<span class="re0">$force</span> &amp;&amp; !<span class="re0">$this</span>-&gt;<span class="me1">expiresSoon</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="kw1">return</span> <span class="kw2">false</span>;
+    <span class="br0">}</span>
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">setExpiresAt</span><span class="br0">(</span><span class="kw3">time</span><span class="br0">(</span><span class="br0">)</span> + <span class="nu0">86400</span> * sfConfig::<span class="me2">get</span><span class="br0">(</span><span class="st0">'app_active_days'</span><span class="br0">)</span><span class="br0">)</span>;
+    <span class="re0">$this</span>-&gt;<span class="me1">save</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="kw2">true</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>After all jobs have been extended, the user is redirected to the <code>job</code> module
+homepage.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/custom_batch_actions.png" alt="Custom batch actions"></p>
+
+<h3><a name="chapter_12_sub_object_actions"><code>object_actions</code></a></h3>
+
+<p>In the list, there is an additional column for actions you can run on a single
+object. For the <code>category</code> module, let's remove them as we have a link on the
+category name to edit it, and we don't really need to be able to delete one
+directly from the list:</p>
+
+<pre># apps/backend/modules/category/config/generator.yml
+config:
+  list:
+    object_actions: {}</pre>
+
+<p>For the <code>job</code> module, let's keep the existing actions and add a new <code>extend</code>
+action similar to the one we have added as a batch action:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    object_actions:
+      extend:     ~
+      _edit:      ~
+      _delete:    ~</pre>
+
+<p>As for batch actions, the <code>_delete</code> and <code>_edit</code> actions are the ones defined by
+the framework. We need to define the <code>listExtend()</code> action to make the <code>extend</code>
+link work:</p>
+
+<pre class="php"><span class="co1">// apps/backend/modules/job/actions/actions.class.php</span>
+<span class="kw2">class</span> jobActions <span class="kw2">extends</span> autoJobActions
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> executeListExtend<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$job</span> = <span class="re0">$this</span>-&gt;<span class="me1">getRoute</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>;
+    <span class="re0">$job</span>-&gt;<span class="me1">extend</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="st0">'The selected jobs have been extended successfully.'</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'jobeet_job'</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/custom_object_actions.png" alt="Custom object action"></p>
+
+<h3><a name="chapter_12_sub_actions"><code>actions</code></a></h3>
+
+<p>We have already seen how to link an action to a list of objects or a single
+object. The <code>actions</code> option defines actions that take no object at all, like
+the creation of a new object. Let's remove the default <code>new</code> action and add a
+new action that deletes all jobs that have not been activated by the poster for
+more than 60 days:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    actions:
+      deleteNeverActivated: { label: Delete never activated jobs }</pre>
+
+<p>Until now, all actions we have defined had <code>~</code>, which means that symfony
+automatically configures the action. Each action can be customized by defining
+an array of parameters. The <code>label</code> option overrides the default label
+generated by symfony.</p>
+
+<p>By default, the action executed when you click on the link is the name of the
+action prefixed with <code>list</code>.</p>
+
+<p>Create the <code>listDeleteNeverActivated</code> action in the <code>job</code> module:</p>
+
+<pre class="php"><span class="co1">// apps/backend/modules/job/actions/actions.class.php</span>
+<span class="kw2">class</span> jobActions <span class="kw2">extends</span> autoJobActions
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> executeListDeleteNeverActivated<span class="br0">(</span>sfWebRequest <span class="re0">$request</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$nb</span> = JobeetJobPeer::<span class="me2">cleanup</span><span class="br0">(</span><span class="nu0">60</span><span class="br0">)</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">(</span><span class="re0">$nb</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="kw3">sprintf</span><span class="br0">(</span><span class="st0">'%d never activated jobs have been deleted successfully.'</span>, <span class="re0">$nb</span><span class="br0">)</span><span class="br0">)</span>;
+    <span class="br0">}</span>
+    <span class="kw1">else</span>
+    <span class="br0">{</span>
+      <span class="re0">$this</span>-&gt;<span class="me1">getUser</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">setFlash</span><span class="br0">(</span><span class="st0">'notice'</span>, <span class="st0">'No job to delete.'</span><span class="br0">)</span>;
+    <span class="br0">}</span>
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">redirect</span><span class="br0">(</span><span class="st0">'jobeet_job'</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>We have reused the <code>JobeetJobPeer::cleanup()</code> method defined yesterday. That's
+another great example of the reusability provided by the MVC pattern.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  You can also change the action to execute by passing an <code>action</code> parameter:</p>
+
+<pre>deleteNeverActivated: { label: Delete never activated jobs, action: foo }</pre>
+
+                </div>
+            </div>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/actions.png" alt="Actions"></p>
+
+<h3><a name="chapter_12_sub_peer_method"><code>peer_method</code></a></h3>
+
+<p>The number of database requests needed to display the job list page is 14, as
+shown by the web debug toolbar.</p>
+
+<p>If you click on that number, you will see that most requests are to retrieve the
+category name for each job:</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/web_debug_before.png" alt="Number of requests before"></p>
+
+<p>To reduce the number of queries, we can change the default method used to get
+the jobs by using the <code>peer_method</code> option:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  list:
+    peer_method: doSelectJoinJobeetCategory</pre>
+
+<p>The <code>doSelectJoinJobeetCategory()</code> method adds a join between the <code>job</code> and the
+<code>category</code> tables and automatically creates the category object related to each
+job.</p>
+
+<p>The number of requests is now down to four:</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/web_debug_after.png" alt="Number of requests after"></p>
+
+<h2><a name="chapter_12_form_views_configuration">Form Views Configuration</a></h2>
+
+<p>The form views configuration is done in three sections: <code>form</code>, <code>edit</code>, and
+<code>new</code>. They all have the same configuration capabilities and the <code>form</code> section
+only exists as a fallback for the <code>edit</code> and <code>new</code> sections.</p>
+
+<h3><a name="chapter_12_sub_display"><code>display</code></a></h3>
+
+<p>As for the list, you can change the order of the displayed fields with the
+<code>display</code> option. But as the displayed form is defined by a class, don't try to
+remove a field as it could lead to unexpected validation errors.</p>
+
+<p>The <code>display</code> option for form views can also be used to arrange fields into
+groups:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  form:
+    display:
+      Content: [category_id, type, company, logo, url, position, location, description, how_to_apply, is_public, email]
+      Admin:   [_generated_token, is_activated, expires_at]</pre>
+
+<p>The above configuration defines two groups (<code>Content</code> and <code>Admin</code>), each
+containing a subset of the form fields.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/fields_grouping.png" alt="Fields grouping"></p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  The columns in the <code>Admin</code> group do not show up in the browser yet because
+  they have been unset in the job form definition. They will appear in a few
+  sections when we define a custom job form class for the admin application.</p>
+
+                </div>
+            </div>
+
+<p>The admin generator has built-in support for many to many relationship. On the
+category form, you have an input for the name, one for the slug, and a drop-down
+box for the related affiliates. As it does not make sense to edit this relation
+on this page, let's remove it:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetCategoryForm.class.php</span>
+<span class="kw2">class</span> JobeetCategoryForm <span class="kw2">extends</span> BaseJobeetCategoryForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span><span class="re0">$this</span><span class="br0">[</span><span class="st0">'jobeet_category_affiliate_list'</span><span class="br0">]</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<h3><a name="chapter_12_sub_virtual_columns">"Virtual" columns</a></h3>
+
+<p>In the <code>display</code> options for the job form, the <code>_generated_token</code> field starts
+with an underscore (<code>_</code>). This means that the rendering for this field will be
+handled by a custom partial named <code>_generated_token.php</code>.</p>
+
+<p>Create this partial with the following content:</p>
+
+<pre class="php"><span class="co1">// apps/backend/modules/job/templates/_generated_token.php</span>
+&lt;div <span class="kw2">class</span>=<span class="st0">"sf_admin_form_row"</span>&gt;
+  &lt;label&gt;Token&lt;/label&gt;
+  <span class="kw2">&lt;?php</span> <span class="kw3">echo</span> <span class="re0">$form</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getToken</span><span class="br0">(</span><span class="br0">)</span> <span class="kw2">?&gt;</span>
+&lt;/div&gt;</pre>
+
+<p>In the partial, you have access to the current form (<code>$form</code>) and the related
+object is accessible via the <code>getObject()</code> method.</p>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  You can also delegate the rendering to a component by prefixing the field
+  name by a tilde (<code>~</code>).</p>
+
+                </div>
+            </div>
+
+<h3><a name="chapter_12_sub_class"><code>class</code></a></h3>
+
+<p>As the form will be used by administrators, we have displayed more information
+than for the user job form. But for now, some of them do not appear on the form
+as they have been removed in the <code>JobeetJobForm</code> class.</p>
+
+<p>To have different forms for the frontend and the backend, we need to create two
+form classes. Let's create a <code>BackendJobeetJobForm</code> class that extends the
+<code>JobeetJobForm</code> class. As we won't have the same hidden fields, we also need to
+refactor the <code>JobeetJobForm</code> class a bit to move the <code>unset()</code> statement in a
+method that will be overridden in <code>BackendJobeetJobForm</code>:</p>
+
+<pre class="php"><span class="co1">// lib/form/JobeetJobForm.class.php</span>
+<span class="kw2">class</span> JobeetJobForm <span class="kw2">extends</span> BaseJobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="re0">$this</span>-&gt;<span class="me1">removeFields</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorAnd<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'email'</span><span class="br0">]</span>,
+      <span class="kw2">new</span> sfValidatorEmail<span class="br0">(</span><span class="br0">)</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="co1">// ...</span>
+  <span class="br0">}</span>
+&nbsp;
+  protected <span class="kw2">function</span> removeFields<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span>
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'created_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'updated_at'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'expires_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'is_activated'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'token'</span><span class="br0">]</span>
+    <span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span>
+&nbsp;
+<span class="co1">// lib/form/BackendJobeetJobForm.class.php</span>
+<span class="kw2">class</span> BackendJobeetJobForm <span class="kw2">extends</span> JobeetJobForm
+<span class="br0">{</span>
+  protected <span class="kw2">function</span> removeFields<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw3">unset</span><span class="br0">(</span>
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'created_at'</span><span class="br0">]</span>, <span class="re0">$this</span><span class="br0">[</span><span class="st0">'updated_at'</span><span class="br0">]</span>,
+      <span class="re0">$this</span><span class="br0">[</span><span class="st0">'token'</span><span class="br0">]</span>
+    <span class="br0">)</span>;
+  <span class="br0">}</span>
+<span class="br0">}</span></pre>
+
+<p>The default form class used by the admin generator can be
+overridden by setting the <code>class</code> option:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+config:
+  form:
+    class: BackendJobeetJobForm</pre>
+
+            <div class="admonition-wrapper">
+                <div class="note"></div>
+                <div class="admonition admonition-note">
+                    <p class="first admonition-title">note</p>
+                    <p>
+  As we have added a new class, don't forget to clear the cache.</p>
+
+                </div>
+            </div>
+
+<p>The <code>edit</code> form still has a small annoyance. The current uploaded
+logo does not show up anywhere and you cannot remove the current one. The
+<code>sfWidgetFormInputFileEditable</code> widget adds editing capabilities to a simple
+input file widget:</p>
+
+<pre class="php"><span class="co1">// lib/form/BackendJobeetJobForm.class.php</span>
+<span class="kw2">class</span> BackendJobeetJobForm <span class="kw2">extends</span> JobeetJobForm
+<span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw2">function</span> configure<span class="br0">(</span><span class="br0">)</span>
+  <span class="br0">{</span>
+    parent::<span class="me2">configure</span><span class="br0">(</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">widgetSchema</span><span class="br0">[</span><span class="st0">'logo'</span><span class="br0">]</span> = <span class="kw2">new</span> sfWidgetFormInputFileEditable<span class="br0">(</span><span class="kw3">array</span><span class="br0">(</span>
+      <span class="st0">'label'</span>     =&gt; <span class="st0">'Company logo'</span>,
+      <span class="st0">'file_src'</span>  =&gt; <span class="st0">'/uploads/jobs/'</span>.<span class="re0">$this</span>-&gt;<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span>-&gt;<span class="me1">getLogo</span><span class="br0">(</span><span class="br0">)</span>,
+      <span class="st0">'is_image'</span>  =&gt; <span class="kw2">true</span>,
+      <span class="st0">'edit_mode'</span> =&gt; !<span class="re0">$this</span>-&gt;<span class="me1">isNew</span><span class="br0">(</span><span class="br0">)</span>,
+      <span class="st0">'template'</span>  =&gt; <span class="st0">'&lt;div&gt;%file%&lt;br /&gt;%input%&lt;br /&gt;%delete% %delete_label%&lt;/div&gt;'</span>,
+    <span class="br0">)</span><span class="br0">)</span>;
+&nbsp;
+    <span class="re0">$this</span>-&gt;<span class="me1">validatorSchema</span><span class="br0">[</span><span class="st0">'logo_delete'</span><span class="br0">]</span> = <span class="kw2">new</span> sfValidatorPass<span class="br0">(</span><span class="br0">)</span>;
+  <span class="br0">}</span>
+&nbsp;
+  <span class="co1">// ...</span>
+<span class="br0">}</span></pre>
+
+<p>The <code>sfWidgetFormInputFileEditable</code> widget takes several options to tweak its
+features and rendering:</p>
+
+<ul>
+<li><code>file_src</code>:    The web path to the current uploaded file</li>
+<li><code>is_image</code>:    If <code>true</code>, the file will be rendered as an image</li>
+<li><code>edit_mode</code>:   Whether the form is in edit mode or not</li>
+<li><code>with_delete</code>: Whether to display the delete checkbox</li>
+<li><code>template</code>:    The template to use to render the widget</li>
+</ul>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/file_upload.png" alt="File upload"></p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  The look of the admin generator can be tweaked very easily as the generated
+  templates define a lot of <code>class</code> and <code>id</code> attributes. For instance, the logo field can
+  be customized by using the <code>sf_admin_form_field_logo</code> class. Each field also
+  has a class depending on the field type like <code>sf_admin_text</code> or
+  <code>sf_admin_boolean</code>.</p>
+
+                </div>
+            </div>
+
+<p>The <code>edit_mode</code> option uses the <code>sfPropel::isNew()</code> method.</p>
+
+<p>It returns <code>true</code> if the model object of the form is new, and <code>false</code> otherwise.
+This is of great help when you need to have different widgets or validators
+depending on the status of the embedded object.</p>
+
+<h2><a name="chapter_12_filters_configuration">Filters Configuration</a></h2>
+
+<p>Configuring filters is quite the same as configuring the form views. As a matter
+of fact, filters are just forms. And as for the forms, the classes have been
+generated by the <code>propel:build --all</code> task. You can also re-generate them with
+the <code>propel:build --filters</code> task.</p>
+
+<p>The form filter classes are located under the
+<code>lib/filter/</code> directory and each model class has an associated filter form class
+(<code>JobeetJobFormFilter</code> for <code>JobeetJobForm</code>).</p>
+
+<p>Let's remove them completely for the <code>category</code> module:</p>
+
+<pre># apps/backend/modules/category/config/generator.yml
+config:
+  filter:
+    class: false</pre>
+
+<p>For the <code>job</code> module, let's remove some of them:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+filter:
+  display: [category_id, company, position, description, is_activated, is_public, email, expires_at]</pre>
+
+<p>As filters are always optional, there is no need to override the filter form
+class to configure the fields to be displayed.</p>
+
+<p><img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/filters.png" alt="Filters"></p>
+
+<h2><a name="chapter_12_actions_customization">Actions Customization</a></h2>
+
+<p>When configuration is not sufficient, you can add new methods to the action
+class as we have seen with the <code>extend</code> feature, but you can also override the
+generated action methods:</p>
+
+<table class="doc_table" cellspacing="0">
+<thead>
+<tr>
+  <th>Method</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>executeIndex()</code></td>
+  <td><code>list</code> view action</td>
+</tr>
+<tr>
+  <td><code>executeFilter()</code></td>
+  <td>Updates the filters</td>
+</tr>
+<tr>
+  <td><code>executeNew()</code></td>
+  <td><code>new</code> view action</td>
+</tr>
+<tr>
+  <td><code>executeCreate()</code></td>
+  <td>Creates a new Job</td>
+</tr>
+<tr>
+  <td><code>executeEdit()</code></td>
+  <td><code>edit</code> view action</td>
+</tr>
+<tr>
+  <td><code>executeUpdate()</code></td>
+  <td>Updates a Job</td>
+</tr>
+<tr>
+  <td><code>executeDelete()</code></td>
+  <td>Deletes a Job</td>
+</tr>
+<tr>
+  <td><code>executeBatch()</code></td>
+  <td>Executes a batch action</td>
+</tr>
+<tr>
+  <td><code>executeBatchDelete()</code></td>
+  <td>Executes the <code>_delete</code> batch action</td>
+</tr>
+<tr>
+  <td><code>processForm()</code></td>
+  <td>Processes the Job form</td>
+</tr>
+<tr>
+  <td><code>getFilters()</code></td>
+  <td>Returns the current filters</td>
+</tr>
+<tr>
+  <td><code>setFilters()</code></td>
+  <td>Sets the filters</td>
+</tr>
+<tr>
+  <td><code>getPager()</code></td>
+  <td>Returns the list pager</td>
+</tr>
+<tr>
+  <td><code>getPage()</code></td>
+  <td>Gets the pager page</td>
+</tr>
+<tr>
+  <td><code>setPage()</code></td>
+  <td>Sets the pager page</td>
+</tr>
+<tr>
+  <td><code>buildCriteria()</code></td>
+  <td>Builds the <code>Criteria</code> for the list</td>
+</tr>
+<tr>
+  <td><code>addSortCriteria()</code></td>
+  <td>Adds the sort <code>Criteria</code> for the list</td>
+</tr>
+<tr>
+  <td><code>getSort()</code></td>
+  <td>Returns the current sort column</td>
+</tr>
+<tr>
+  <td><code>setSort()</code></td>
+  <td>Sets the current sort column</td>
+</tr>
+</tbody>
+</table>
+
+<p>As each generated method does only one thing, it is easy to change a behavior
+without having to copy and paste too much code.</p>
+
+<h2><a name="chapter_12_templates_customization">Templates Customization</a></h2>
+
+<p>We have seen how to customize the generated templates thanks to the
+<code>class</code> and <code>id</code> attributes added by the admin generator in the HTML code.</p>
+
+<p>As for the classes, you can also override the original templates. As templates
+are plain PHP files and not PHP classes, a template can be overridden by
+creating a template of the same name in the module (for instance in the
+<code>apps/backend/modules/job/templates/</code> directory for the <code>job</code> admin module):</p>
+
+<table class="doc_table" cellspacing="0">
+<thead>
+<tr>
+  <th>Template</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>_assets.php</code></td>
+  <td>Renders the CSS and JS to use for templates</td>
+</tr>
+<tr>
+  <td><code>_filters.php</code></td>
+  <td>Renders the filters box</td>
+</tr>
+<tr>
+  <td><code>_filters_field.php</code></td>
+  <td>Renders a single filter field</td>
+</tr>
+<tr>
+  <td><code>_flashes.php</code></td>
+  <td>Renders the flash messages</td>
+</tr>
+<tr>
+  <td><code>_form.php</code></td>
+  <td>Displays the form</td>
+</tr>
+<tr>
+  <td><code>_form_actions.php</code></td>
+  <td>Displays the form actions</td>
+</tr>
+<tr>
+  <td><code>_form_field.php</code></td>
+  <td>Displays a single form field</td>
+</tr>
+<tr>
+  <td><code>_form_fieldset.php</code></td>
+  <td>Displays a form fieldset</td>
+</tr>
+<tr>
+  <td><code>_form_footer.php</code></td>
+  <td>Displays the form footer</td>
+</tr>
+<tr>
+  <td><code>_form_header.php</code></td>
+  <td>Displays the form header</td>
+</tr>
+<tr>
+  <td><code>_list.php</code></td>
+  <td>Displays the list</td>
+</tr>
+<tr>
+  <td><code>_list_actions.php</code></td>
+  <td>Displays the list actions</td>
+</tr>
+<tr>
+  <td><code>_list_batch_actions.php</code></td>
+  <td>Displays the list batch actions</td>
+</tr>
+<tr>
+  <td><code>_list_field_boolean.php</code></td>
+  <td>Displays a single boolean field in the list</td>
+</tr>
+<tr>
+  <td><code>_list_footer.php</code></td>
+  <td>Displays the list footer</td>
+</tr>
+<tr>
+  <td><code>_list_header.php</code></td>
+  <td>Displays the list header</td>
+</tr>
+<tr>
+  <td><code>_list_td_actions.php</code></td>
+  <td>Displays the object actions for a row</td>
+</tr>
+<tr>
+  <td><code>_list_td_batch_actions.php</code></td>
+  <td>Displays the checkbox for a row</td>
+</tr>
+<tr>
+  <td><code>_list_td_stacked.php</code></td>
+  <td>Displays the stacked layout for a row</td>
+</tr>
+<tr>
+  <td><code>_list_td_tabular.php</code></td>
+  <td>Displays a single field for the list</td>
+</tr>
+<tr>
+  <td><code>_list_th_stacked.php</code></td>
+  <td>Displays a single column name for the header</td>
+</tr>
+<tr>
+  <td><code>_list_th_tabular.php</code></td>
+  <td>Displays a single column name for the header</td>
+</tr>
+<tr>
+  <td><code>_pagination.php</code></td>
+  <td>Displays the list pagination</td>
+</tr>
+<tr>
+  <td><code>editSuccess.php</code></td>
+  <td>Displays the <code>edit</code> view</td>
+</tr>
+<tr>
+  <td><code>indexSuccess.php</code></td>
+  <td>Displays the <code>list</code> view</td>
+</tr>
+<tr>
+  <td><code>newSuccess.php</code></td>
+  <td>Displays the <code>new</code> view</td>
+</tr>
+</tbody>
+</table>
+
+<h2><a name="chapter_12_final_configuration">Final Configuration</a></h2>
+
+<p>The final configuration for the Jobeet admin is as follows:</p>
+
+<pre># apps/backend/modules/job/config/generator.yml
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           JobeetJob
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          jobeet_job
+    with_propel_route:     true
+&nbsp;
+    config:
+      actions: ~
+      fields:
+        is_activated: { label: Activated?, help: Whether the user has activated the job, or not }
+        is_public:    { label: Public? }
+      list:
+        title:         Job Management
+        layout:        stacked
+        display:       [company, position, location, url, is_activated, email]
+        params:  |
+          %%is_activated%% &lt;small&gt;%%jobeet_category%%&lt;/small&gt; - %%company%%
+           (&lt;em&gt;%%email%%&lt;/em&gt;) is looking for a %%=position%% (%%location%%)
+        max_per_page:  10
+        sort:          [expires_at, desc]
+        batch_actions:
+          _delete:    ~
+          extend:     ~
+        object_actions:
+          extend:     ~
+          _edit:      ~
+          _delete:    ~
+        actions:
+          deleteNeverActivated: { label: Delete never activated jobs }
+        peer_method:  doSelectJoinJobeetCategory
+      filter:
+        display: [category_id, company, position, description, is_activated, is_public, email, expires_at]
+      form:
+        class:     BackendJobeetJobForm
+        display:
+          Content: [category_id, type, company, logo, url, position, location, description, how_to_apply, is_public, email]
+          Admin:   [_generated_token, is_activated, expires_at]
+      edit:
+        title: Editing Job "%%company%% is looking for a %%position%%"
+      new:
+        title: Job Creation
+&nbsp;
+# apps/backend/modules/category/config/generator.yml
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           JobeetCategory
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          jobeet_category
+    with_propel_route:     true
+&nbsp;
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title:   Category Management
+        display: [=name, slug]
+        batch_actions: {}
+        object_actions: {}
+      filter:
+        class: false
+      form:
+        actions:
+          _delete: ~
+          _list:   ~
+          _save:   ~
+      edit:
+        title: Editing Category "%%name%%"
+      new:
+        title: New Category</pre>
+
+<p>With just these two configuration files, we have developed a great backend
+interface for Jobeet in a matter of minutes.</p>
+
+            <div class="admonition-wrapper">
+                <div class="tip"></div>
+                <div class="admonition admonition-tip">
+                    <p class="first admonition-title">tip</p>
+                    <p>
+  You already know that when something is configurable in a YAML file, there is
+  also the possibility to use plain PHP code. For the admin generator, you can
+  edit the <code>apps/backend/modules/job/lib/jobGeneratorConfiguration.class.php</code>
+  file. It gives you the same options as the YAML file but with a PHP
+  interface. To learn the method names, have a look at the generated base class
+  in
+  <code>cache/backend/dev/modules/autoJob/lib/BaseJobGeneratorConfiguration.class.php</code>.</p>
+
+                </div>
+            </div>
+
+<h2><a name="chapter_12_final_thoughts">Final Thoughts</a></h2>
+
+<p>In just one hour, we have built a fully featured backend interface for the
+Jobeet project. And all in all, we have written less than 50 lines of PHP code.
+Not too bad for so many features!</p>
+
+<p>Tomorrow, we will see how to secure the backend application with a username and
+a password. This will also be the occasion to talk about the symfony user class.</p>
+
+            </div>
+
+            <div class="navigation">
+                            <a accesskey="P" title="Day 11: Testing your Forms" href="http://symfony.com/legacy/doc/jobeet/1_4/en/11?orm=Propel">
+                    «&nbsp;Day 11: Testing your Forms
+                </a>
+                        <span class="separator">|</span>                            <a accesskey="N" title="Day 13: The User" href="http://symfony.com/legacy/doc/jobeet/1_4/en/13?orm=Propel">
+                    Day 13: The User&nbsp;»
+                </a>
+                    </div>
+
+            <div class="box_hr"><hr></div>
+
+    
+                                                                            </div>
+                                                            </div>
+                        
+
+                        
+                                                    <div class="box_relative_content">
+    <div class="relative_content_box_columns clear_fix">
+        <div class="column_01">
+            <h2 class="title_05">NEWS FROM THE BLOG</h2>
+
+<ul class="event_list">
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-318-28-january-3-february-2013">
+                    A week of symfony #318 (28 January -&gt;3 February 2013)<br>
+                    <span class="place_date">February 03, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/symfony-live-2013-tour-time-to-start-the-new-season">
+                    Symfony Live 2013 tour: time to start the new season!<br>
+                    <span class="place_date">January 28, 2013</span>
+                </a>
+            </h3>
+        </li>
+            <li>
+            <h3>
+                <a href="http://symfony.com/blog/a-week-of-symfony-317-21-27-january-2013">
+                    A week of symfony #317 (21-&gt;27 January 2013)<br>
+                    <span class="place_date">January 27, 2013</span>
+                </a>
+            </h3>
+        </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://symfony.com/blog/" class="png_fix">Visit Symfony's blog</a>
+</div>
+        </div>
+
+        <div class="column_02">
+                        <h2 class="title_05">IN THE NEWS</h2>
+
+
+<div class="upcoming_event clear_fix">
+    <div>
+        <a href="http://portland2013.live.symfony.com/" target="_blank">
+            <img style="width: 100px" src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/sfl_portland.png" class="png_fix" alt="The Symfony Live Conference Portland 2013">
+        </a>
+    </div>
+
+    <div style="margin-top: 13px">
+        <h3 style="font-size: 13px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif">Announcing the next Symfony Live Conference 2013 in Portland</h3>
+        <div style="margin-top: 5px">
+            <a href="http://portland2013.live.symfony.com/registration/" class="non_extensible_button button_01">    <span class="border_l png_fix">
+        <span class="border_r png_fix">
+            <span class="btn_bg png_fix">
+                REGISTER TODAY
+            </span>
+        </span>
+    </span>
+</a>
+        </div>
+    </div>
+</div>
+
+                    </div>
+
+        <div class="column_03">
+            <h2 class="title_05">UPCOMING TRAINING SESSIONS</h2>
+
+<ul class="event_list">
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">London - 2013-02-06</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/advanced-symfony2">
+            Going Further with Symfony2
+            <br>
+            <span class="place_date">Miami - 2013-02-07</span>
+        </a>
+    </li>
+        <li>
+        <a href="http://trainings.sensiolabs.com/en/training/symfony-certification">
+            Symfony2 Framework Certification
+            <br>
+            <span class="place_date">Miami - 2013-02-08</span>
+        </a>
+    </li>
+    </ul>
+
+<div class="link_01">
+    <a href="http://trainings.sensiolabs.com/" class="png_fix">View all sessions</a>
+</div>
+        </div>
+    </div>
+</div>
+                        
+                    </div>
+                            </div>
+
+            
+<div class="footer">
+    <div class="content">
+        <h2 class="title_02">
+            <img src="Day%2012:%20The%20Admin%20Generator%20%281_4%29%20-%20Symfony_files/logo_sf.png" alt="sf - Symfony" class="illustration_logo_footer png_fix"> is a trademark of Fabien Potencier. All rights reserved.
+        </h2>
+
+        <div class="box_menu_footer clear_fix">
+            <div class="menu_footer first">
+                <h3 class="title_03"><a href="http://symfony.com/what-is-symfony">What is Symfony?</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/symfony-at-a-glance">Symfony at a Glance</a></li>
+<li><a href="http://symfony.com/symfony-in-five-minutes">Symfony in 5 Minutes</a></li>
+<li><a href="http://symfony.com/elevator-pitches">Elevator Pitches</a></li>
+<li><a href="http://symfony.com/blog/category/case-studies">Case Studies</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html">Versioning Policy</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/community/releases.html#long-term-support-releases">Long Term Support</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/code/security.html">Security Policy</a></li>
+<li class="last"><a href="http://symfony.com/doc/current/contributing/code/license.html">License</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/get_started">Get Started</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/download">Download Symfony</a></li>
+<li><a href="http://symfony.com/distributions">Symfony Distributions</a></li>
+<li><a href="http://symfony.com/components">Symfony Components</a></li>
+<li><a href="http://symfony.com/doc/current/quick_tour/the_big_picture.html">Quick Tour</a></li>
+<li class="last"><a href="http://symfony.com/legacy">symfony1 Legacy</a></li>
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/doc/current/index.html">Learn Symfony</a></h3>
+                <ul class="list_menu_footer">
+                    <li class="first"><a href="http://symfony.com/doc/current/book/index.html">The Book</a></li>
+<li><a href="http://symfony.com/doc/current/cookbook/index.html">The Cookbook</a></li>
+<li><a href="http://symfony.com/doc/current/components/index.html">The Components</a></li>
+<li><a href="http://symfony.com/doc/current/reference/index.html">Reference</a></li>
+<li><a href="http://symfony.com/doc/current/glossary.html">Glossary</a></li>
+<li><a href="http://symfony.com/doc/current/genindex.html">Index</a></li>
+<li><a href="http://symfony.com/doc/current/bundles/index.html">Bundles</a></li>
+<li><a href="http://symfony.com/doc/master/cmf/index.html">Symfony CMF</a></li>
+<li><a href="http://symfony.com/doc/master/contributing/code/security.html#security-advisories">Security Advisories</a></li>
+<li><a href="http://symfony.com/legacy/doc">Docs for symfony 1.x</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">Contributing</a></li>
+<li><a href="http://symfony.com/talks">Talks</a></li>
+<li><a href="http://trainings.sensiolabs.com/">Trainings</a></li>
+<li class="last"><a href="http://books.sensiolabs.com/">Books</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/marketplace">Marketplace</a></h3>
+                <ul class="list_menu_footer">
+                </ul>
+
+                <h3 class="title_03"><a href="http://symfony.com/community">Community</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="https://connect.sensiolabs.com/">SensioLabs Connect</a></li>
+<li><a href="http://symfony.com/irc">IRC channel</a></li>
+<li><a href="http://symfony.com/mailing-lists">Mailing lists</a></li>
+
+<li><a href="http://forum.symfony-project.org/">Forum</a></li>
+<li><a href="http://symfony.com/doc/current/contributing/index.html">How to be involved</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/services">Services</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/services/list">Our services</a></li>
+<li><a href="http://symfony.com/services/guide#before">Starting a new project</a></li>
+<li><a href="http://symfony.com/services/guide#during">Struggling with your project</a></li>
+<li><a href="http://sensiolabs.com/en/support/sensiolabs_support.html">Support</a></li>
+<li><a href="http://symfony.com/services/request">Contact us</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/blog/">Blog</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://symfony.com/events/"><em>Community Events</em></a></li>
+
+    <li><a href="http://symfony.com/blog/category/a-week-of-symfony">A week of symfony</a></li>
+    <li><a href="http://symfony.com/blog/category/call-the-expert">Call the expert</a></li>
+    <li><a href="http://symfony.com/blog/category/case-studies">Case studies</a></li>
+    <li><a href="http://symfony.com/blog/category/community">Community</a></li>
+    <li><a href="http://symfony.com/blog/category/documentation">Documentation</a></li>
+    <li><a href="http://symfony.com/blog/category/living-on-the-edge">Living on the edge</a></li>
+    <li><a href="http://symfony.com/blog/category/plugins">Plugins</a></li>
+    <li><a href="http://symfony.com/blog/category/releases">Releases</a></li>
+    <li><a href="http://symfony.com/blog/category/security-advisories">Security Advisories</a></li>
+    <li><a href="http://symfony.com/blog/category/tutorials">Tutorials</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_footer">
+                <h3 class="title_03"><a href="http://symfony.com/about">About</a></h3>
+                <ul class="list_menu_footer">
+                    <li><a href="http://www.sensiolabs.com/">Sensio Labs</a></li>
+<li><a href="http://symfony.com/contributors">Contributors</a></li>
+<li><a href="http://symfony.com/trademark">Trademark &amp; Logo Policy</a></li>
+<li><a href="http://symfony.com/logo">Logo</a></li>
+<li><a href="http://sensiolabs.com/recrutement/rejoignez_nous.html">Jobs</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <script type="text/javascript">
+            (function(w, d, s) {
+                function go() {
+                    var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+                        if (d.getElementById(id)) {return;}
+                        js = d.createElement(s); js.src = url; js.id = id;
+                        fjs.parentNode.insertBefore(js, fjs);
+                    };
+                    load('https://connect.sensiolabs.com/sln.js?customize_url=http://symfony.com/sln_customiser.js', 'sln_bar');
+                }
+                if (w.addEventListener) { w.addEventListener("load", go, false); }
+                else if (w.attachEvent) { w.attachEvent("onload",go); }
+            } (window, document, 'script'));
+        </script>
+                    
+
+<ul style="z-index: 9001; top: 0px; left: 0px; display: none;" aria-activedescendant="ui-active-menuitem" role="listbox" class="ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all"></ul></body></html>

@@ -5,17 +5,27 @@ generator:
     theme:                 admin
     non_verbose_templates: true
     with_show:             false
-    singular:              JobeetCategory
-    plural:                JobeetCategorys
+    singular:              ~
+    plural:                ~
     route_prefix:          jobeet_category
-    with_propel_route:     1
-    actions_base_class:    sfActions
-
+    with_propel_route:     true
+ 
     config:
       actions: ~
       fields:  ~
-      list:    ~
-      filter:  ~
-      form:    ~
-      edit:    ~
-      new:     ~
+      list:
+        title:   Category Management
+        display: [=name, slug]
+        batch_actions: {}
+        object_actions: {}
+      filter:
+        class: false
+      form:
+        actions:
+          _delete: ~
+          _list:   ~
+          _save:   ~
+      edit:
+        title: Editing Category "%%name%%"
+      new:
+        title: New Category
