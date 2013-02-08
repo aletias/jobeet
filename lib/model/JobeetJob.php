@@ -62,25 +62,25 @@ class JobeetJob extends BaseJobeetJob {
      }
      if (is_null($con))
      {
-        $con = Propel::getConnection(JobeetJobPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+       $con = Propel::getConnection(JobeetJobPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
      }
-     
+    
      $con->beginTransaction();
      try
      {
-         $ret = parent::save($con);
-         
-         $this->updateLuceneIndex();
-         
-         $con->commit();
-         
-         return $ret;   
+       $ret = parent::save($con);
+    
+       $this->updateLuceneIndex();
+    
+       $con->commit();
+    
+       return $ret;
      }
-      catch (Exception $e)
-      {
-         $con->rollBack();
-         throw $e;
-      }
+     catch (Exception $e)
+     {
+       $con->rollBack();
+       throw $e;
+     }
    } 
    public function updateLuceneIndex()
    {

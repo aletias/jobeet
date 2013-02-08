@@ -99,4 +99,21 @@ class JobeetJobPeer extends BaseJobeetJobPeer {
    {
      return sfConfig::get('sf_data_dir').'/job.'.sfConfig::get('sf_environment').'.index';
    }
+   
+   static public function getForLuceneQuery($query)
+   {
+        $hits = self::getLuceneIndex()->find($query);
+    
+        $pks = array();
+        foreach ($hits as $hit)
+        {
+          $pks[] = $hit->pk;
+        }
+       
+        $criteria = new Criteria();
+        $criteria->add(self::ID, $pks, Criteria::IN);
+        $criteria->setLimit(20);
+       
+        return self::doSelect(self::addActiveJobsCriteria($criteria));
+         }
 } // JobeetJobPeer
