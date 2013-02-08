@@ -36,7 +36,7 @@ class affiliateActions extends sfActions
     {
       $JobeetAffiliate = $form->save();
 
-      $this->redirect($this->generateUrl('affiliate_wait', $jobeet_affiliate));
+      $this->redirect($this->generateUrl('affiliate_wait', $JobeetAffiliate));
     }
   }
 }
