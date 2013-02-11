@@ -21,7 +21,6 @@ class languageActions extends sfActions
   }
   public function executeChangeLanguage(sfWebRequest $request)
   {
-    //$language = $request->getPreferredCulture(array('en', 'fr'));   
     $form = new sfFormLanguage(
       $this->getUser(),
       array('languages' => array('en', 'fr'))

@@ -3,7 +3,7 @@ include(dirname(__FILE__).'/../../bootstrap/functional.php');
  
 $browser = new JobeetTestFunctional(new sfBrowser());
 $browser->loadData();
-
+ 
 $browser->info('1 - The category page')->
   info('  1.1 - Categories on homepage are clickable')->
   get('/')->
@@ -12,7 +12,8 @@ $browser->info('1 - The category page')->
     isParameter('module', 'category')->
     isParameter('action', 'show')->
     isParameter('slug', 'programming')->
-  end()-> 
+  end()->
+ 
   info(sprintf('  1.2 - Categories with more than %s jobs also have a "more" link', sfConfig::get('app_max_jobs_on_homepage')))->
   get('/')->
   click('27')->
@@ -37,5 +38,4 @@ $browser->info('1 - The category page')->
   end()->
   with('response')->checkElement('.pagination_desc', '#page 2/2#')
 ;
-//$browser->with('response')->debug(); 
 ?>

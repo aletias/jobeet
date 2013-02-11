@@ -71,7 +71,7 @@ $browser->info('3 - Post a Job page')->
   with('request')->begin()->
     isParameter('module', 'job')->
     isParameter('action', 'new')->
-  end()->
+  end() 
   
   click('Preview your job', array('job' => array(
     'company'      => 'Sensio Labs',
@@ -164,6 +164,17 @@ $browser->test()->is(
   date('y/m/d', time() + 86400 * sfConfig::get('app_active_days'))
 );
 $browser->
+  get('/job/new')->
+  click('Preview your job', array('job' => array(
+    'token' => 'fake_token',
+  )))->
+ 
+  with('form')->begin()->
+    hasErrors(7)->
+    hasGlobalError('extra_fields')->
+  end()
+;
+$browser->
   info('4 - User job history')->
  
   loadData()->
@@ -192,31 +203,5 @@ $browser->
   with('response')->begin()->
     checkElement('table tr', 2)->
   end()
-;
-$browser->setHttpHeader('ACCEPT_LANGUAGE', 'fr_FR,fr,en;q=0.7');
-$browser->
-  info('6 - User culture')->
- 
-  restart()->
- 
-  info('  6.1 - For the first request, symfony guesses the best culture')->
-  get('/')->
-  with('response')->isRedirected()->
-  followRedirect()->
-  with('user')->isCulture('fr')->
- 
-  info('  6.2 - Available cultures are en and fr')->
-  get('/it/')->
-  with('response')->isStatusCode(404)
-;
- 
-$browser->setHttpHeader('ACCEPT_LANGUAGE', 'en,fr;q=0.7');
-$browser->
-  info('  6.3 - The culture guessing is only for the first request')->
- 
-  get('/')->
-  with('response')->isRedirected()->
-  followRedirect()->
-  with('user')->isCulture('fr')
 ;
 ?>

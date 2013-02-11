@@ -1,5 +1,3 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
 change_language:
   url:   /change_language
   param: { module: language, action: changeLanguage }
@@ -10,22 +8,24 @@ localized_homepage:
   requirements:
     sf_culture: (?:fr|en)
 
-job_search:
-  url:   /:sf_culture/search.:sf_format
-  param: { module: job, action: search, sf_format: html }
-  requirements:
-    sf_format: (?:html|js)
-    sf_culture: (?:fr|en)
-
 affiliate:
-  class:   sfPropelRouteCollection
+  class: sfPropelRouteCollection
   options:
-    model: JobeetAffiliate
-    actions: [new, create]
+    model:          JobeetAffiliate
+    actions:        [new, create]
     object_actions: { wait: get }
-    prefix_path: /:sf_culture/affiliate
+    prefix_path:    /:sf_culture/affiliate 
   requirements:
-    sf_culture: (?:fr|en)  
+    sf_culture: (?:fr|en)   
+ 
+category:
+  url:     /:sf_culture/category/:slug.:sf_format
+  class:   sfPropelRoute
+  param:   { module: category, action: show, sf_format: html }
+  options: { model: JobeetCategory, type: object }
+  requirements:
+    sf_format: (?:html|atom)
+    sf_culture: (?:fr|en)
 
 api_jobs:
   url:     /api/:token/jobs.:sf_format
@@ -34,40 +34,37 @@ api_jobs:
   options: { model: JobeetJob, type: list, method: getForToken }
   requirements:
     sf_format: (?:xml|json|yaml)
-
-category:
-  url:      /:sf_culture/category/:slug.:sf_format
-  class:    sfPropelRoute
-  param:    { module: category, action: show, sf_format: html }
-  options:  { model: JobeetCategory, type: object }
+ 
+job_search:
+  url:   /:sf_culture/search
+  param: { module: job, action: search }
   requirements:
-     sf_format: (?:html|atom)
-     sf_culture: (?:fr|en)
-  
+    sf_culture: (?:fr|en) 
+ 
 job:
-  class:        sfPropelRouteCollection
-  options:      
+  class: sfPropelRouteCollection
+  options:
     model:          JobeetJob
     column:         token
-    object_actions: { publish: PUT, extend: PUT }
+    object_actions: { publish: put, extend: put }
     prefix_path:    /:sf_culture/job
-  requirements: 
-    token: \w+ 
+  requirements:
+    token: \w+
     sf_culture: (?:fr|en)
-       
+ 
 job_show_user:
   url:     /:sf_culture/job/:company_slug/:location_slug/:id/:position_slug
   class:   sfPropelRoute
-  options: 
+  options:
     model: JobeetJob
     type: object
     method_for_criteria: doSelectActive
   param:   { module: job, action: show }
   requirements:
-    id: \d+
-    sf_method: [get]
+    id:        \d+
+    sf_method: get
     sf_culture: (?:fr|en)
- 
+    
 # default rules
 homepage:
   url:   /
@@ -78,4 +75,4 @@ default_index:
   param: { action: index }
  
 default:
-  url:   /:module/:action/*
+  url:   /:module/:action/*    

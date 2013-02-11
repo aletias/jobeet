@@ -1,12 +1,12 @@
 <?php
 include(dirname(__FILE__).'/../../bootstrap/Propel.php');
  
-$t = new lime_test(6);
+$t = new lime_test(7); 
 
 $t->comment('->getCompanySlug()');
 $job = JobeetJobPeer::doSelectOne(new Criteria());
 $t->is($job->getCompanySlug(), Jobeet::slugify($job->getCompany()), '->getCompanySlug() return the slug for the company');
-
+ 
 $t->comment('->save()');
 $job = create_job();
 $job->save();
@@ -40,7 +40,7 @@ function create_job($defaults = array())
   ), $defaults), BasePeer::TYPE_FIELDNAME);
  
   return $job;
-}
+} 
 $t->comment('->getForLuceneQuery()');
 $job = create_job(array('position' => 'foobar', 'is_activated' => false));
 $job->save();
@@ -55,5 +55,5 @@ $t->is($jobs[0]->getId(), $job->getId(), '::getForLuceneQuery() returns jobs mat
  
 $job->delete();
 $jobs = JobeetJobPeer::getForLuceneQuery('position:foobar');
-$t->is(count($jobs), 0, '::getForLuceneQuery() does not return deleted jobs');
+$t->is(count($jobs), 0, '::getForLuceneQuery() does not return deleted jobs'); 
 ?>

@@ -9,7 +9,7 @@ propel:
     id:           { type: integer, required: true, primaryKey: true, foreignTable: jobeet_category, foreignReference: id }
     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
     name:         { type: varchar(255), required: true }
-    slug:         { type: varchar(255), required: true } 
+    slug:         { type: varchar(255), required: true }  
  
   jobeet_job:
     id:           ~
