@@ -72,7 +72,7 @@ $browser->info('3 - Post a Job page')->
     isParameter('module', 'job')->
     isParameter('action', 'new')->
   end() 
-  
+;  
   click('Preview your job', array('job' => array(
     'company'      => 'Sensio Labs',
     'url'          => 'http://www.sensio.com/',
@@ -204,4 +204,5 @@ $browser->
     checkElement('table tr', 2)->
   end()
 ;
+
 ?>

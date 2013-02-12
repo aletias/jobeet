@@ -9,6 +9,7 @@
  */
 
 // guess current application
+ini_set('memory_limit', '256M');
 if (!isset($app))
 {
   $traces = debug_backtrace();

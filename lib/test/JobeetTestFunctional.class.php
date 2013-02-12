@@ -12,8 +12,9 @@ class JobeetTestFunctional extends sfTestFunctional
   public function loadData()
   {
     $loader = new sfPropelData();
+   //////////////////////////////////////Error hier
     $loader->loadData(sfConfig::get('sf_test_dir').'/fixtures');
- 
+   //////////////////////////////////////Error hier
     return $this;
   }
  

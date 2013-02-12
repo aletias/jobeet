@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
  
-$t = new lime_test(7);                                    
+$t = new lime_test(6);                                    
                                  
 $t->comment('::slugify()');
 $t->is(Jobeet::slugify('Sensio'), 'sensio','::slugify() converts all characters to lower case');
@@ -10,12 +10,5 @@ $t->is(Jobeet::slugify('paris,france'), 'paris-france','::slugify() removes - at
 $t->is(Jobeet::slugify('  sensio'), 'sensio','::slugify() removes - at the end of the string');
 $t->is(Jobeet::slugify('sensio  '), 'sensio','::slugify() replaces non-ASCII characters by a -');
 $t->is(Jobeet::slugify(''), 'n-a', '::slugify() converts the empty string to n-a');
-if (function_exists('iconv'))
-{
-  $t->is(Jobeet::slugify('Développeur Web'), 'developpeur-web', '::slugify() removes accents');
-}
-else
-{
-  $t->skip('::slugify() removes accents - iconv not installed');
-}
+
 ?>

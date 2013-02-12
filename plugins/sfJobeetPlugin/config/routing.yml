@@ -1,0 +1,63 @@
+affiliate:
+  class: sfPropelRouteCollection
+  options:
+    model:          JobeetAffiliate
+    actions:        [new, create]
+    object_actions: { wait: get }
+    prefix_path:    /affiliate 
+    module:         affiliate
+ 
+category:
+  url:     /category/:slug.:sf_format
+  class:   sfPropelRoute
+  param:   { module: category, action: show, sf_format: html }
+  options: { model: category, type: object }
+  requirements:
+    sf_format: (?:html|atom)
+    
+api_jobs:
+  url:     /api/:token/jobs.:sf_format
+  class:   sfPropelRoute
+  param:   { module: sfJobeetApi, action: list }
+  options: { model: job, type: list, method: getForToken }
+  requirements:
+    sf_format: (?:xml|json|yaml)
+     
+job_search:
+  url:   /search
+  param: { module: job, action: search }
+ 
+job:
+  class: sfPropelRouteCollection
+  options:
+    model:          JobeetJob
+    column:         token
+    object_actions: { publish: put, extend: put }
+    prefix_path:    /job
+    module:         job
+  requirements:
+    token: \w+
+ 
+job_show_user:
+  url:     /job/:company_slug/:location_slug/:id/:position_slug
+  class:   sfPropelRoute
+  options:
+    model: JobeetJob
+    type: object
+    method_for_criteria: doSelectActive
+  param:   { module: job, action: show }
+  requirements:
+    id:        \d+
+    sf_method: get
+
+# default rules
+homepage:
+  url:   /
+  param: { module: job, action: index }
+ 
+default_index:
+  url:   /:module
+  param: { action: index }
+ 
+default:
+  url:   /:module/:action/*    
